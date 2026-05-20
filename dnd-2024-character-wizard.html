@@ -2690,29 +2690,7 @@ function openClassDetail(classId) {
         html += '<div class="trait-popup-body">' + subOpt.desc + '</div>';
         html += '</div>';
         globalTooltip.innerHTML = html;
-        var rect = pill.getBoundingClientRect();
-        var w = globalTooltip.offsetWidth;
-        var h = globalTooltip.offsetHeight;
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        if (vw - rect.right - 12 >= w + 8) {
-          globalTooltip.style.left = (rect.right + 12) + 'px';
-          globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-          globalTooltip.style.transform = 'translate(0, -50%)';
-        } else if (rect.left - 12 >= w + 8) {
-          globalTooltip.style.left = (rect.left - 12) + 'px';
-          globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-          globalTooltip.style.transform = 'translate(-100%, -50%)';
-        } else if (vh - rect.bottom - 8 >= h + 8) {
-          globalTooltip.style.top = (rect.bottom + 8) + 'px';
-          globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-          globalTooltip.style.transform = 'translate(-50%, 0)';
-        } else {
-          globalTooltip.style.top = (rect.top - 8) + 'px';
-          globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-          globalTooltip.style.transform = 'translate(-50%, -100%)';
-        }
-        globalTooltip.classList.add('show');
+        positionTooltip(pill);
       });
       pill.addEventListener('mouseleave', function() {
         hideSkillPopup();
@@ -4179,33 +4157,7 @@ function showSkillInfo(skillName, anchorEl) {
   html += '<div class="trait-popup-body">' + s.desc + '</div>';
   html += '</div>';
   globalTooltip.innerHTML = html;
-  var rect = anchorEl.getBoundingClientRect();
-  var w = globalTooltip.offsetWidth;
-  var h = globalTooltip.offsetHeight;
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var spaceRight = vw - rect.right - 12;
-  var spaceLeft = rect.left - 12;
-  var spaceBelow = vh - rect.bottom - 8;
-  var spaceAbove = rect.top - 8;
-  if (spaceRight >= w + 8) {
-    globalTooltip.style.left = (rect.right + 12) + 'px';
-    globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-    globalTooltip.style.transform = 'translate(0, -50%)';
-  } else if (spaceLeft >= w + 8) {
-    globalTooltip.style.left = (rect.left - 12) + 'px';
-    globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-100%, -50%)';
-  } else if (spaceBelow >= h + 8) {
-    globalTooltip.style.top = (rect.bottom + 8) + 'px';
-    globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-50%, 0)';
-  } else {
-    globalTooltip.style.top = (rect.top - 8) + 'px';
-    globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-50%, -100%)';
-  }
-  globalTooltip.classList.add('show');
+  positionTooltip(anchorEl);
 }
 function wrapSkillNames(text) {
   var result = text;
@@ -4237,33 +4189,7 @@ function showItemPopup(itemName, anchorEl) {
   html += '<div class="trait-popup-body">' + item.desc + '</div>';
   html += '</div>';
   globalTooltip.innerHTML = html;
-  var rect = anchorEl.getBoundingClientRect();
-  var w = globalTooltip.offsetWidth;
-  var h = globalTooltip.offsetHeight;
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var spaceRight = vw - rect.right - 12;
-  var spaceLeft = rect.left - 12;
-  var spaceBelow = vh - rect.bottom - 8;
-  var spaceAbove = rect.top - 8;
-  if (spaceRight >= w + 8) {
-    globalTooltip.style.left = (rect.right + 12) + 'px';
-    globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-    globalTooltip.style.transform = 'translate(0, -50%)';
-  } else if (spaceLeft >= w + 8) {
-    globalTooltip.style.left = (rect.left - 12) + 'px';
-    globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-100%, -50%)';
-  } else if (spaceBelow >= h + 8) {
-    globalTooltip.style.top = (rect.bottom + 8) + 'px';
-    globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-50%, 0)';
-  } else {
-    globalTooltip.style.top = (rect.top - 8) + 'px';
-    globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
-    globalTooltip.style.transform = 'translate(-50%, -100%)';
-  }
-  globalTooltip.classList.add('show');
+  positionTooltip(anchorEl);
 }
 function wireItemHovers(container) {
   if (!container) return;
@@ -4347,21 +4273,24 @@ function showSkillPopup(trait, anchorEl) {
 
   globalTooltip.innerHTML = html;
 
+  positionTooltip(anchorEl);
+}
+
+function positionTooltip(anchorEl) {
   var rect = anchorEl.getBoundingClientRect();
   var w = globalTooltip.offsetWidth;
   var h = globalTooltip.offsetHeight;
   var vw = window.innerWidth;
   var vh = window.innerHeight;
-  var spaceRight = vw - rect.right - 12;
-  var spaceLeft = rect.left - 12;
+  var spaceRight = vw - rect.right - 8;
+  var spaceLeft = rect.left - 8;
   var spaceBelow = vh - rect.bottom - 8;
-  var spaceAbove = rect.top - 8;
   if (spaceRight >= w + 8) {
-    globalTooltip.style.left = (rect.right + 12) + 'px';
+    globalTooltip.style.left = (rect.right + 8) + 'px';
     globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
     globalTooltip.style.transform = 'translate(0, -50%)';
   } else if (spaceLeft >= w + 8) {
-    globalTooltip.style.left = (rect.left - 12) + 'px';
+    globalTooltip.style.left = (rect.left - 8) + 'px';
     globalTooltip.style.top = (rect.top + rect.height / 2) + 'px';
     globalTooltip.style.transform = 'translate(-100%, -50%)';
   } else if (spaceBelow >= h + 8) {
@@ -4373,6 +4302,11 @@ function showSkillPopup(trait, anchorEl) {
     globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
     globalTooltip.style.transform = 'translate(-50%, -100%)';
   }
+  var tr = globalTooltip.getBoundingClientRect();
+  if (tr.right > vw - 4) { globalTooltip.style.left = (parseFloat(globalTooltip.style.left) - (tr.right - vw + 4)) + 'px'; tr = globalTooltip.getBoundingClientRect(); }
+  if (tr.left < 4) { globalTooltip.style.left = (parseFloat(globalTooltip.style.left) + (4 - tr.left)) + 'px'; tr = globalTooltip.getBoundingClientRect(); }
+  if (tr.bottom > vh - 4) { globalTooltip.style.top = (parseFloat(globalTooltip.style.top) - (tr.bottom - vh + 4)) + 'px'; }
+  if (tr.top < 4) { globalTooltip.style.top = (parseFloat(globalTooltip.style.top) + (4 - tr.top)) + 'px'; }
   globalTooltip.classList.add('show');
 }
 
