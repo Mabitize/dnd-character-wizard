@@ -367,6 +367,12 @@ body {
   to   { opacity: 1; transform: scale(1); }
 }
 
+/* 右列：内容 + 底部按钮 */
+.race-detail-col {
+  flex: 1; display: flex; flex-direction: column;
+  overflow: hidden; min-width: 0;
+}
+
 /* 左 1/3：立绘 */
 .race-detail-portrait {
   width: 44%;
@@ -451,12 +457,13 @@ body {
 .race-branch-pill {
   cursor: pointer;
   font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
-  font-size: 13px; color: var(--text-dim);
-  border: 1px solid rgba(210,173,104,0.2);
+  font-size: 15px; color: var(--text-dim);
+  border: 1px solid rgba(210,173,104,0.25);
   border-radius: 4px;
-  padding: 7px 16px;
-  background: rgba(0,0,0,0.2);
+  padding: 10px 24px;
+  background: rgba(0,0,0,0.25);
   transition: all 300ms ease;
+  letter-spacing: 0.04em;
 }
 .race-branch-pill:hover {
   border-color: var(--gold-dark);
@@ -473,12 +480,30 @@ body {
 .race-detail-branches.display-only { flex-direction: column; gap: 10px; }
 .race-detail-branches-label {
   font-family: "Cinzel", Georgia, serif; font-size: 12px; color: var(--gold-dark);
-  letter-spacing: 0.08em; margin-bottom: 2px;
+  letter-spacing: 0.08em; margin-bottom: 4px; margin-top: 10px;
 }
+.race-detail-branches-label:first-child { margin-top: 0; }
 /* displayOnly 块状网格 */
 .display-only-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px;
 }
+/* 分支弹窗画像占位 */
+.branch-popup-img-wrap {
+  width: 100%; padding: 0 16px; margin-bottom: 2px;
+}
+.branch-popup-img-placeholder {
+  width: 100%; aspect-ratio: 16/10;
+  border: 1px dashed rgba(210,173,104,0.25);
+  border-radius: 4px;
+  background: rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.branch-popup-img-wrap img + .branch-popup-img-placeholder {
+  display: none;
+}
+
 .display-only-block {
   display: grid; grid-template-columns: 1fr auto;
   align-items: center; gap: 1px 8px;
@@ -734,17 +759,33 @@ body {
 }
 
 /* 确认按钮 */
+.race-detail-footer {
+  display: flex; gap: 10px; justify-content: space-between; align-items: center;
+  padding: 12px 0 2px;
+  border-top: 1px solid rgba(210,173,104,0.12);
+  flex-shrink: 0;
+}
+.race-detail-footer .race-detail-back {
+  font-family: "Noto Serif SC", serif; font-size: 13px;
+  color: var(--text-dim); letter-spacing: 1px;
+  border: 1px solid rgba(210,173,104,0.25);
+  border-radius: 3px; padding: 6px 16px;
+  background: rgba(0,0,0,0.25);
+  cursor: pointer; transition: all 300ms ease;
+}
+.race-detail-footer .race-detail-back:hover {
+  border-color: var(--gold-dark); color: var(--parchment);
+}
+
 .race-detail-confirm {
-  margin-top: auto;
   cursor: pointer;
   font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; font-weight: 600;
-  font-size: 16px; color: var(--gold);
-  letter-spacing: 0.1em;
+  font-size: 14px; color: var(--gold);
+  letter-spacing: 0.06em;
   border: 1px solid var(--gold-dark);
-  border-radius: 4px;
-  padding: 10px 30px;
+  border-radius: 3px;
+  padding: 6px 20px;
   background: rgba(201,162,75,0.08);
-  align-self: flex-end;
   transition: all 300ms ease;
 }
 .race-detail-confirm:hover {
@@ -835,7 +876,7 @@ body {
   border-color: var(--gold-dark);
 }
 
-.race-detail-back {
+.race-detail-content > .race-detail-back {
   display: flex; align-items: center; gap: 6px; width: 100%;
   cursor: pointer;
   font-family: "Noto Serif SC", serif;
@@ -849,7 +890,7 @@ body {
   position: sticky; top: 0; z-index: 10;
   backdrop-filter: blur(6px);
 }
-.race-detail-back:hover {
+.race-detail-content > .race-detail-back:hover {
   color: var(--gold-light);
   border-color: var(--gold);
   background: rgba(201,162,75,0.08);
@@ -1837,7 +1878,7 @@ body {
 
   /* 分支 pills */
   .race-detail-branches { gap: 6px; }
-  .race-branch-pill { font-size: 11px; padding: 5px 10px; }
+  .race-branch-pill { font-size: 13px; padding: 8px 14px; }
   /* displayOnly 块 */
   .display-only-block { padding: 6px 8px; }
   .dob-name { font-size: 12px; }
@@ -2293,10 +2334,10 @@ body {
 .pt-cost { font-size: 11px; color: var(--text-dim); margin-left: 4px; width: 24px; text-align: left; flex-shrink: 0; }
 
 .ability-col-final {
-  font-family: "Cinzel", Georgia, serif; font-size: 24px; font-weight: 600;
-  color: var(--parchment-muted);
+  font-family: "Cinzel", Georgia, serif; font-size: 28px; font-weight: 700;
+  color: var(--parchment);
 }
-.ability-col-final.boosted { color: var(--gold-light); text-shadow: 0 0 12px var(--gold-glow); }
+.ability-col-final.boosted { font-size: 32px; color: var(--gold-light); text-shadow: 0 0 14px var(--gold-glow); }
 
 /* 固定值行内值按钮 */
 .ability-val-pills {
@@ -2653,7 +2694,28 @@ body {
   grid-column: 1 / -1;
   font-family: "Cinzel", Georgia, serif; font-size: 13px; color: var(--gold-dark);
   letter-spacing: 0.06em; padding: 6px 0 2px; margin-top: 4px;
+  display: flex; align-items: center; gap: 10px;
 }
+.refund-all-btn {
+  font-family: "Noto Serif SC", serif; font-size: 11px; color: #c97a4b;
+  cursor: pointer; transition: color 200ms ease;
+}
+.refund-all-btn:hover { color: #e8a87b; text-decoration: underline; }
+
+/* 购入物品 — 可退还 */
+.purchased-item-wrap {
+  position: relative;
+}
+.refund-chip {
+  position: absolute; top: -4px; right: -4px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(180,80,40,0.85); color: #ffccaa;
+  font-size: 12px; line-height: 20px; text-align: center;
+  cursor: pointer; opacity: 0; transition: opacity 200ms ease;
+  z-index: 2;
+}
+.purchased-item-wrap:hover .refund-chip { opacity: 1; }
+.refund-chip:hover { background: rgba(210,100,50,0.95); }
 .step6-equip-block {
   display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto;
   gap: 2px 8px; align-items: center;
@@ -2818,6 +2880,7 @@ body {
   background: #0d0704;
   box-shadow: 0 0 60px rgba(0,0,0,0.8), 0 0 40px var(--gold-glow);
   padding: 20px 24px; margin: 6px 8px 16px;
+  width: 100%; max-width: 1120px;
 }
 
 /* 左右双栏布局 — 仿 race-detail */
@@ -2896,7 +2959,14 @@ body {
   font-family: "Cinzel", Georgia, serif; font-size: 14px; color: var(--gold-light);
   font-weight: 700; letter-spacing: 0.04em;
   border: 1px solid var(--gold); border-radius: 3px;
+  padding: 1px 8px; margin-right: 6px;
+}
+.step6-pb-badge {
+  font-family: "Cinzel", Georgia, serif; font-size: 14px; color: #c47b4b;
+  font-weight: 700; letter-spacing: 0.04em;
+  border: 1px solid rgba(196,123,75,0.4); border-radius: 3px;
   padding: 1px 8px;
+  background: rgba(196,123,75,0.06);
 }
 .step6-summary-cards .step6-card-zh {
   font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; font-weight: 600;
@@ -2909,6 +2979,10 @@ body {
 .step6-summary-cards .step6-card-detail {
   font-size: 10px; color: var(--parchment-muted); margin-top: 2px; line-height: 1.4;
 }
+.step6-currency-card .step6-card-zh {
+  display: flex; align-items: center;
+}
+.step6-currency-card .curr-counter { zoom: 0.85; }
 .step6-summary-cards .step6-name-row {
   margin-bottom: 0; padding: 8px 10px; border: 1px solid rgba(210,173,104,0.12);
   border-radius: 3px; background: rgba(0,0,0,0.2);
@@ -2922,14 +2996,57 @@ body {
 
 /* 左侧顶部名字行 */
 .step6-panel-name-row {
-  padding: 10px 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(210,173,104,0.18);
+  border-radius: 4px;
+  background: rgba(0,0,0,0.2);
+  position: relative;
+}
+.step6-panel-name-row::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 5px;
+  pointer-events: none;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--name-glow-angle, 0deg),
+    transparent, rgba(201,162,75,0.3), transparent, rgba(210,173,104,0.5), transparent
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  opacity: 0; transition: opacity 600ms ease;
+}
+.step6-panel-name-row.glow-active::before { opacity: 1; animation: nameGlowSpin 4s linear infinite; }
+@property --name-glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes nameGlowSpin {
+  to { --name-glow-angle: 360deg; }
+}
+.step6-panel-name-row .step6-name-label {
+  display: block; text-align: center;
+  font-family: "Cinzel", Georgia, serif; font-size: 11px; color: var(--gold-dark);
+  letter-spacing: 0.12em; margin-bottom: 4px;
 }
 .step6-panel-name-row .step6-name-input {
-  width: 100%; font-family: "Noto Serif SC", serif; font-size: 18px;
-  background: transparent; border: none; border-bottom: 1px solid rgba(210,173,104,0.3);
-  color: var(--parchment); outline: none; padding: 4px 0; text-align: center;
+  width: 100%; font-family: "Noto Serif SC", serif; font-size: 22px;
+  background: transparent; border: none; border-bottom: 2px solid rgba(210,173,104,0.3);
+  color: var(--parchment); outline: none; padding: 6px 4px; text-align: center;
+  transition: border-color 300ms ease, text-shadow 300ms ease;
+  text-shadow: 0 0 8px rgba(201,162,75,0.15);
 }
-.step6-panel-name-row .step6-name-input:focus { border-bottom-color: var(--gold); }
+.step6-panel-name-row .step6-name-input:focus {
+  border-bottom-color: var(--gold);
+  text-shadow: 0 0 18px rgba(224,200,120,0.35), 0 0 4px rgba(201,162,75,0.25);
+}
+/* 未填名时的提醒动画 */
+.step6-panel-name-row .step6-name-input:placeholder-shown {
+  animation: namePulseHint 2.4s ease-in-out infinite;
+}
+@keyframes namePulseHint {
+  0%, 100% { border-bottom-color: rgba(210,173,104,0.2); }
+  50% { border-bottom-color: rgba(224,200,120,0.55); }
+}
 
 /* 右侧详情顶部标签行 */
 .step6-info-tags {
@@ -2945,42 +3062,101 @@ body {
 
 /* 形象选择弹窗 */
 .portrait-gallery-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-  z-index: 1001; align-items: center; justify-content: center;
+  display: none; position: fixed; inset: 0; overflow-y: auto;
+  z-index: 1001;
+  background: rgba(0,0,0,0.85);
 }
-.portrait-gallery-overlay.visible { display: flex; }
+.portrait-gallery-overlay.visible { display: flex; align-items: flex-start; justify-content: center; }
+
 .portrait-gallery-panel {
-  width: min(960px, 96vw); max-height: 92vh; overflow-y: auto;
+  width: min(960px, 96vw);
   background: var(--bg-panel); border: 1px solid rgba(210,173,104,0.2);
   border-radius: 6px; padding: 24px 28px;
+  position: relative;
 }
+
 .portrait-gallery-close {
-  position: absolute; top: 12px; right: 16px;
+  position: absolute; top: 12px; right: 16px; z-index: 2;
   font-size: 22px; color: var(--text-dim); background: none; border: none;
   cursor: pointer; transition: color 150ms ease;
 }
 .portrait-gallery-close:hover { color: var(--gold-light); }
+
 .portrait-gallery-tabs {
   display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 14px;
 }
+.step6-portrait-tab {
+  cursor: pointer;
+  font-family: "Noto Serif SC", serif; font-size: 13px;
+  color: var(--text-dim);
+  border: 1px solid rgba(210,173,104,0.2);
+  border-radius: 4px; padding: 7px 16px;
+  background: rgba(0,0,0,0.2);
+  transition: all 300ms ease;
+}
+.step6-portrait-tab:hover { border-color: var(--gold-dark); color: var(--parchment); }
+.step6-portrait-tab.active {
+  border-color: var(--gold); color: var(--gold);
+  box-shadow: 0 0 14px var(--gold-glow);
+  background: rgba(201,162,75,0.08);
+}
+
+.portrait-gallery-body {
+  display: flex; gap: 16px; align-items: flex-start;
+}
+
 .portrait-gallery-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  flex: 1; min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
 }
+
 .portrait-gallery-card {
-  aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;
+  overflow: hidden; border-radius: 4px;
   border: 2px solid rgba(210,173,104,0.1); cursor: pointer;
   transition: border-color 200ms ease; background: rgba(0,0,0,0.3);
-  position: relative;
+}
+.portrait-gallery-card img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4; object-fit: cover;
 }
 .portrait-gallery-card:hover { border-color: var(--gold-dark); }
 .portrait-gallery-card.selected { border-color: var(--gold); box-shadow: 0 0 10px rgba(201,162,75,0.35); }
-.portrait-gallery-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.portrait-gallery-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  font-size: 8px; color: var(--parchment); text-align: center;
-  padding: 2px 4px; background: rgba(0,0,0,0.7);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+
+.portrait-gallery-side {
+  width: 200px; flex-shrink: 0;
+  position: sticky; top: 24px;
+  display: flex; flex-direction: column; gap: 14px; padding-top: 4px;
+}
+
+.portrait-gallery-preview {
+  width: 100%; aspect-ratio: 3/4;
+  border: 1px solid rgba(210,173,104,0.2);
+  border-radius: 4px;
+  background: rgba(0,0,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.portrait-gallery-preview img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.portrait-gallery-preview-placeholder {
+  font-size: 13px; color: var(--text-dim); letter-spacing: 2px;
+}
+
+.portrait-gallery-confirm {
+  display: block; width: 100%;
+  font-family: "Noto Serif SC", serif; font-size: 15px;
+  color: var(--gold); letter-spacing: 4px;
+  border: 1px solid var(--gold);
+  border-radius: 4px; padding: 10px 0;
+  background: rgba(201,162,75,0.08);
+  cursor: pointer; transition: all 300ms ease;
+}
+.portrait-gallery-confirm:hover {
+  background: rgba(201,162,75,0.18);
+  box-shadow: 0 0 20px var(--gold-glow);
 }
 
 /* 响应式 */
@@ -2995,7 +3171,348 @@ body {
   .step6-ability-card .ab-mod { font-size: 17px; padding: 1px 10px; }
   .step6-equip-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
   .step6-mastery-grid { grid-template-columns: 1fr; }
-  .portrait-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+  /* 形象选择 — 768 */
+  .portrait-gallery-panel { width: 100vw; border-radius: 0; padding: 14px 10px; }
+  .portrait-gallery-close { top: 8px; right: 8px; font-size: 20px; }
+  .portrait-gallery-tabs { gap: 4px; margin: 6px 0 10px; }
+  .step6-portrait-tab { font-size: 11px; padding: 5px 10px; }
+  .portrait-gallery-body { flex-direction: column; }
+  .portrait-gallery-side {
+    position: static; width: 100%;
+    order: -1;
+    flex-direction: row; align-items: center; gap: 10px;
+    padding: 0 0 10px; margin-bottom: 10px;
+    border-bottom: 1px solid rgba(210,173,104,0.15);
+  }
+  .portrait-gallery-preview { width: 64px; flex-shrink: 0; }
+  .portrait-gallery-confirm { flex: 1; padding: 10px 0; font-size: 13px; letter-spacing: 2px; }
+  .portrait-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+}
+@media (max-width: 480px) {
+  .portrait-gallery-panel { padding: 10px 6px; }
+  .portrait-gallery-side { gap: 8px; padding-bottom: 8px; margin-bottom: 8px; }
+  .portrait-gallery-preview { width: 52px; }
+  .portrait-gallery-confirm { font-size: 12px; padding: 8px 0; letter-spacing: 1px; }
+  .portrait-gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .portrait-gallery-card { border-width: 1px; }
+}
+
+/* ============================================
+   商店 Overlay
+   ============================================ */
+.shop-overlay {
+  display: none; position: fixed; inset: 0; z-index: 80;
+  background: rgba(8, 4, 0, 0.92);
+  backdrop-filter: blur(6px);
+  align-items: flex-start; justify-content: center;
+  padding: 40px 20px; overflow-y: auto;
+}
+.shop-overlay.visible { display: flex; }
+
+.shop-panel {
+  width: 100%; max-width: 1100px;
+  background: #0d0704;
+  border: 1px solid rgba(210,173,104,0.2);
+  border-radius: 6px;
+  padding: 24px 28px;
+  position: relative;
+}
+
+.shop-close {
+  position: absolute; top: 12px; right: 16px;
+  font-size: 22px; color: var(--text-dim); background: none; border: none;
+  cursor: pointer; transition: color 150ms ease;
+}
+.shop-close:hover { color: var(--gold-light); }
+
+.shop-header {
+  margin-bottom: 6px;
+}
+.shop-title {
+  font-family: "Cinzel", "Noto Serif SC", serif;
+  font-size: 26px; color: var(--gold-light);
+  letter-spacing: 6px;
+}
+.shop-title-sub {
+  font-size: 12px; color: var(--gold-mid);
+  letter-spacing: 3px; margin-left: 8px;
+}
+
+/* 钱包 —— 商店货币展示 */
+.shop-wallet {
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  padding: 14px 20px; margin-bottom: 10px;
+  border: 1px solid rgba(210,173,104,0.2);
+  border-radius: 6px;
+  background: rgba(0,0,0,0.25);
+  box-shadow: inset 0 0 40px rgba(201,162,75,0.03);
+}
+.curr-counter { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.curr-coin {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 15px; font-weight: 700;
+  padding: 4px 10px; border-radius: 4px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(210,173,104,0.15);
+}
+.curr-coin i {
+  font-style: normal; font-size: 10px; font-weight: 400;
+  opacity: 0.7; letter-spacing: 0.04em;
+}
+/* 商店内货币放大 */
+.shop-wallet .curr-coin {
+  font-size: 22px; padding: 8px 18px;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(210,173,104,0.25);
+}
+.shop-wallet .curr-coin i {
+  font-size: 13px; margin-left: 2px;
+}
+.curr-pp { color: #e0e0e0; }
+.curr-gp { color: var(--gold-light); }
+.curr-sp { color: #b0b0b0; }
+.curr-cp { color: #c47b4b; }
+
+/* 分类标签 */
+.shop-tabs {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 6px;
+}
+.shop-tab {
+  cursor: pointer;
+  font-family: "Noto Serif SC", serif; font-size: 13px;
+  color: var(--text-dim);
+  border: 1px solid rgba(210,173,104,0.2);
+  border-radius: 4px; padding: 7px 16px;
+  background: rgba(0,0,0,0.2);
+  transition: all 300ms ease;
+}
+.shop-tab:hover { border-color: var(--gold-dark); color: var(--parchment); }
+.shop-tab.active {
+  border-color: var(--gold); color: var(--gold);
+  box-shadow: 0 0 14px var(--gold-glow);
+  background: rgba(201,162,75,0.08);
+}
+
+/* 排序栏 */
+.shop-sort-bar {
+  display: flex; align-items: center; gap: 6px;
+  margin: 0 0 12px; flex-wrap: wrap;
+}
+.shop-sort-label {
+  font-size: 12px; color: var(--gold-dark); letter-spacing: 0.06em;
+  margin-right: 4px;
+}
+.shop-sort-pill {
+  cursor: pointer;
+  font-family: "Noto Serif SC", serif; font-size: 11px;
+  color: var(--text-dim);
+  border: 1px solid rgba(210,173,104,0.15);
+  border-radius: 3px; padding: 4px 10px;
+  background: rgba(0,0,0,0.2);
+  transition: all 300ms ease;
+}
+.shop-sort-pill:hover { border-color: var(--gold-dark); color: var(--parchment); }
+.shop-sort-pill.active {
+  border-color: var(--gold); color: var(--gold-light);
+  box-shadow: 0 0 8px var(--gold-glow);
+  background: rgba(201,162,75,0.1);
+}
+
+/* 主体 */
+.shop-body {
+  display: flex; gap: 16px; align-items: flex-start;
+}
+
+/* 商品网格 */
+.shop-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  align-content: start;
+}
+
+/* 商店商品卡片 — 复用 step6-equip-block，仅增加底部数量行 */
+.shop-item.step6-equip-block {
+  grid-template-rows: auto auto auto;
+}
+.shop-qty-row {
+  grid-column: 1 / -1; grid-row: 3;
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 2px; padding-top: 5px;
+  border-top: 1px solid rgba(210,173,104,0.12);
+}
+.shop-qty-btn {
+  width: 22px; height: 22px; border-radius: 3px; border: 1px solid rgba(210,173,104,0.2);
+  background: rgba(0,0,0,0.25); color: var(--parchment);
+  cursor: pointer; font-size: 15px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 200ms ease;
+}
+.shop-qty-btn:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(201,162,75,0.1); }
+.shop-qty-btn.disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+.shop-qty-num {
+  font-size: 14px; color: var(--gold-light); font-weight: 600;
+  min-width: 16px; text-align: center;
+}
+
+/* 购物车侧栏 */
+.shop-cart {
+  width: 280px; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 8px;
+  border-left: 1px solid rgba(210,173,104,0.2);
+  padding-left: 16px;
+  min-height: 200px;
+}
+.shop-cart-title {
+  font-family: "Cinzel", "Noto Serif SC", serif;
+  font-size: 17px; color: var(--gold-light);
+  letter-spacing: 0.08em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(210,173,104,0.15);
+}
+.shop-cart-items {
+  flex: 1; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 4px;
+  min-height: 60px;
+}
+.shop-cart-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 8px;
+  border: 1px solid rgba(210,173,104,0.12);
+  border-radius: 3px;
+  background: rgba(0,0,0,0.15);
+}
+.shop-cart-item-name {
+  font-family: "Noto Serif SC", serif; font-size: 14px; color: var(--parchment);
+}
+.shop-cart-item-name i {
+  font-style: normal; font-size: 11px; color: var(--gold-mid); margin-left: 4px;
+}
+.shop-cart-item-price {
+  font-size: 13px; color: var(--gold-light); font-weight: 600;
+  font-family: "Cinzel", Georgia, serif;
+}
+.shop-cart-empty {
+  text-align: center; color: var(--text-dim); font-size: 13px;
+  padding: 20px 0;
+}
+.shop-cart-total {
+  font-size: 15px; color: var(--parchment);
+  text-align: right; padding-top: 6px;
+  border-top: 1px solid rgba(210,173,104,0.15);
+}
+.shop-cart-total b {
+  color: var(--gold-light); font-family: "Cinzel", Georgia, serif;
+  margin-left: 6px;
+}
+.shop-cart-buy-btn {
+  cursor: pointer;
+  font-family: "Noto Serif SC", serif; font-weight: 600;
+  font-size: 16px; color: var(--gold);
+  letter-spacing: 0.1em;
+  border: 1px solid var(--gold-dark);
+  border-radius: 4px; padding: 10px 30px;
+  background: rgba(201,162,75,0.08);
+  transition: all 300ms ease;
+  width: 100%; text-align: center;
+}
+.shop-cart-buy-btn:hover {
+  background: rgba(201,162,75,0.18);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+.shop-cart-buy-btn.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+/* 商店手机适配 */
+@media (max-width: 768px) {
+  .shop-body { flex-direction: column; }
+  .shop-cart {
+    width: 100%; border-left: none; border-top: 1px solid rgba(210,173,104,0.2);
+    padding-left: 0; padding-top: 12px;
+  }
+  .shop-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .shop-panel { padding: 16px 14px; }
+  .shop-title { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+  .shop-grid { grid-template-columns: 1fr; }
+  .shop-item.step6-equip-block { padding: 8px 10px; }
+  .shop-item.step6-equip-block .eq-block-zh { font-size: 14px; }
+  .shop-item.step6-equip-block .eq-block-qty { font-size: 12px; }
+  .shop-tab { font-size: 11px; padding: 5px 10px; }
+}
+
+/* ===== UI 特效 ===== */
+
+/* --- 背景氛围光斑（纯 CSS，3 个光斑独立漂移动画）--- */
+.fx-ambient-spot {
+  position: fixed; pointer-events: none; z-index: 0;
+  border-radius: 50%; filter: blur(0px);
+  will-change: transform;
+}
+.fx-ambient-spot--1 {
+  width: 900px; height: 700px;
+  top: 5%; left: -5%;
+  background: radial-gradient(ellipse at center, rgba(201,162,75,0.055) 0%, transparent 68%);
+  animation: fxSpotDrift1 28s ease-in-out infinite;
+}
+.fx-ambient-spot--2 {
+  width: 750px; height: 550px;
+  top: 35%; right: -2%;
+  background: radial-gradient(ellipse at center, rgba(180,130,60,0.045) 0%, transparent 68%);
+  animation: fxSpotDrift2 35s ease-in-out infinite;
+}
+.fx-ambient-spot--3 {
+  width: 650px; height: 500px;
+  bottom: 0%; left: 35%;
+  background: radial-gradient(ellipse at center, rgba(224,200,120,0.035) 0%, transparent 68%);
+  animation: fxSpotDrift3 32s ease-in-out infinite;
+}
+
+@keyframes fxSpotDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(5%, -4%) scale(1.06); }
+  50%  { transform: translate(-3%, 3%) scale(0.96); }
+  75%  { transform: translate(-4%, -2%) scale(1.03); }
+}
+@keyframes fxSpotDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-4%, 3%) scale(1.05); }
+  66%  { transform: translate(3%, -4%) scale(0.95); }
+}
+@keyframes fxSpotDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20%  { transform: translate(-5%, -2%) scale(1.04); }
+  50%  { transform: translate(4%, 4%) scale(0.97); }
+  75%  { transform: translate(1%, -5%) scale(1.06); }
+}
+
+/* --- Canvas 粒子层（魔法尘）--- */
+.fx-particles {
+  position: fixed; inset: 0; pointer-events: none; z-index: 56;
+}
+
+/* 鼠标特效层 — 最顶层，高于所有弹窗 */
+.fx-mouse-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+}
+
+/* --- prefers-reduced-motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .fx-ambient-spot,
+  .fx-mouse-layer { display: none; }
+  .fx-particles { display: none; }
+}
+
+/* --- 手机端粒子降级 --- */
+@media (max-width: 768px) {
+  .fx-particles { display: none; }
+  .fx-ambient-spot--1 { width: 0; height: 0; }
+  .fx-ambient-spot--2 { width: 0; height: 0; }
+  .fx-ambient-spot--3 { width: 0; height: 0; }
 }
 
 </style>
@@ -3003,6 +3520,14 @@ body {
 <body>
 
 <div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- UI 特效层 -->
+<div class="fx-ambient-spot fx-ambient-spot--1" aria-hidden="true"></div>
+<div class="fx-ambient-spot fx-ambient-spot--2" aria-hidden="true"></div>
+<div class="fx-ambient-spot fx-ambient-spot--3" aria-hidden="true"></div>
+<canvas class="fx-particles" id="fxParticles" aria-hidden="true"></canvas>
+<canvas class="fx-mouse-layer" id="fxMouseLayer" aria-hidden="true"></canvas>
+
 <div class="bg-dim" id="bgDim"></div>
 <div class="global-tooltip" id="globalTooltip"></div>
 
@@ -3150,7 +3675,10 @@ body {
       <svg class="portrait-svg" id="raceDetailSvg" viewBox="0 0 400 560" xmlns="http://www.w3.org/2000/svg"></svg>
       <span class="portrait-placeholder">✦ 图片加载中 ✦</span>
     </div>
-    <div class="race-detail-content" id="raceDetailContent">
+    <div class="race-detail-col">
+      <div class="race-detail-content" id="raceDetailContent">
+      </div>
+      <div class="race-detail-footer" id="raceDetailFooter"></div>
     </div>
   </div>
   <button class="detail-side-arrow detail-side-next" id="detailSideNext">▸</button>
@@ -3184,7 +3712,49 @@ body {
       <span class="step6-portrait-tab" data-tab="职业">职业</span>
       <span class="step6-portrait-tab" data-tab="立绘">立绘</span>
     </div>
-    <div class="portrait-gallery-grid" id="portraitGalleryGrid"></div>
+    <div class="portrait-gallery-body">
+      <div class="portrait-gallery-grid" id="portraitGalleryGrid"></div>
+      <div class="portrait-gallery-side">
+        <div class="portrait-gallery-preview" id="portraitGalleryPreview">
+          <div class="portrait-gallery-preview-placeholder">未选择</div>
+        </div>
+        <button class="portrait-gallery-confirm" id="portraitGalleryConfirm">确认形象</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 商店 Overlay -->
+<div class="shop-overlay" id="shopOverlay">
+  <div class="shop-panel">
+    <button class="shop-close" id="shopClose" onclick="closeShop()">&#x2715;</button>
+    <div class="shop-header">
+      <div class="shop-title">冒险者商店 <span class="shop-title-sub">SHOP</span></div>
+    </div>
+    <div class="shop-wallet" id="shopGpDisplay"></div>
+    <div class="shop-tabs" id="shopTabs">
+      <span class="shop-tab active" data-tab="全部" onclick="switchShopTab('全部')">全部</span>
+      <span class="shop-tab" data-tab="武器" onclick="switchShopTab('武器')">武器</span>
+      <span class="shop-tab" data-tab="护甲" onclick="switchShopTab('护甲')">护甲</span>
+      <span class="shop-tab" data-tab="工具 & 乐器" onclick="switchShopTab('工具 & 乐器')">工具 & 乐器</span>
+      <span class="shop-tab" data-tab="冒险装备" onclick="switchShopTab('冒险装备')">冒险装备</span>
+    </div>
+    <div class="shop-sort-bar">
+      <span class="shop-sort-label">排序</span>
+      <span class="shop-sort-pill active" data-sort="默认" onclick="switchShopSort('默认')">默认</span>
+      <span class="shop-sort-pill" data-sort="价格↑" onclick="switchShopSort('价格↑')">价格 ↑</span>
+      <span class="shop-sort-pill" data-sort="价格↓" onclick="switchShopSort('价格↓')">价格 ↓</span>
+      <span class="shop-sort-pill" data-sort="名称 A-Z" onclick="switchShopSort('名称 A-Z')">名称 A-Z</span>
+    </div>
+    <div class="shop-body">
+      <div class="shop-grid" id="shopGrid"></div>
+      <div class="shop-cart">
+        <div class="shop-cart-title">购物车</div>
+        <div class="shop-cart-items" id="shopCartItems"></div>
+        <div class="shop-cart-total" id="shopCartTotal">合计 <b>0 GP</b></div>
+        <button class="shop-cart-buy-btn disabled" id="shopCartBuyBtn" onclick="shopBuy()">确认购买</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3346,7 +3916,10 @@ document.addEventListener('keydown', function(e) {
   // 5. 关闭画像选择器
   var pSel = document.getElementById('portraitSelector');
   if (pSel && pSel.style.display === 'flex') { pSel.style.display = 'none'; return; }
-  // 5b. 关闭画廊 / 灯箱
+  // 5b. 关闭商店
+  var shopOv = document.getElementById('shopOverlay');
+  if (shopOv && shopOv.classList.contains('visible')) { closeShop(); return; }
+  // 5c. 关闭画廊 / 灯箱
   var lb = document.getElementById('galleryLightbox');
   var go = document.getElementById('galleryOverlay');
   if (lb && lb.classList.contains('visible')) { if (typeof closeLightbox === 'function') closeLightbox(); return; }
@@ -3395,7 +3968,8 @@ function updateNavButtons() {
   const cs = wizardState.currentStep;
   // 上一步
   if (cs === 1) {
-    btnWizPrev.style.visibility = 'hidden';
+    btnWizPrev.style.visibility = '';
+    btnWizPrev.querySelector('.zh').innerHTML = '&#x2190; 主界面';
   } else {
     btnWizPrev.style.visibility = '';
     btnWizPrev.querySelector('.zh').textContent = '上一步';
@@ -3421,7 +3995,7 @@ const stepRegistry = {
   2: { render: renderStep2, validate: function() { return wizardState.steps[2].backgroundId !== null; } },
   3: { render: renderStep3, validate: function() { return wizardState.steps[3].classId !== null; } },
   4: { render: renderStep4, validate: function() { return wizardState.steps[4].method !== null; } },
-  5: { render: renderStep5, validate: function() { var s = wizardState.steps[5]; return s.equipmentOption !== null && s.skills.length >= (classData[wizardState.steps[3].classId] ? classData[wizardState.steps[3].classId].skillCount : 0); } },
+  5: { render: renderStep5, validate: function() { var s = wizardState.steps[5]; var cls = classData[wizardState.steps[3].classId]; if (!cls) return false; var sc = cls.skillCount || 0; var bgId = wizardState.steps[2].backgroundId; var bgSkills = (bgId && backgroundData[bgId] && backgroundData[bgId].skills) ? backgroundData[bgId].skills.split('、').map(function(x) { return x.trim(); }).filter(function(x) { return x; }) : []; var classPicked = (s.skills || []).filter(function(x) { return bgSkills.indexOf(x) === -1; }); return s.equipmentOption !== null && classPicked.length >= sc; } },
   6: { render: renderStep6, validate: function() { var s = wizardState.steps[6]; return s.locked === true; } }
 };
 
@@ -3469,6 +4043,15 @@ function navigateToStep(targetStep) {
 }
 
 btnWizPrev.addEventListener('click', function() {
+  if (wizardState.currentStep === 1) {
+    wizardScreen.classList.remove('visible');
+    bgDim.classList.remove('visible');
+    bgSwitcher.style.top = '';
+    bgSwitcher.style.bottom = '';
+    entriesMain.style.display = '';
+    subOptions.classList.remove('visible');
+    return;
+  }
   if (wizardState.currentStep > 1) {
     playSfx(sfx.back);
     navigateToStep(wizardState.currentStep - 1);
@@ -3731,9 +4314,9 @@ npcDetailOverlay.addEventListener('click', function(e) {
 
 // ========== step 3: 职业选择 ==========
 var classIconMap = {
-  barbarian: '野蛮人.png', bard: 'bard.png', cleric: '牧师.png', druid: '德鲁伊.png',
-  fighter: '战士.png', monk: '武僧.png', paladin: '圣武士.png', ranger: 'ranger.png',
-  rogue: '游荡.png', sorcerer: '术士.png', warlock: 'warlock.png', wizard: '法师.png'
+  barbarian: 'barbarian.png', bard: 'bard.png', cleric: 'cleric.png', druid: 'druid.png',
+  fighter: 'fighter.png', monk: 'monk.png', paladin: 'paladin.png', ranger: 'ranger.png',
+  rogue: 'rogue.png', sorcerer: 'sorcerer.png', warlock: 'warlock.png', wizard: 'wizard.png'
 };
 
 var classOrder = ['barbarian','fighter','monk','rogue','paladin','ranger','cleric','druid','bard','sorcerer','warlock','wizard'];
@@ -3788,7 +4371,7 @@ function openClassDetail(classId) {
   detailMode = 'class';
   detailOpenRace = classId;
 
-  // 立绘 — 先试中文名，再试英文 id
+  // 立绘
   detailSvg.style.display = 'none';
   if (placeholderEl) placeholderEl.style.display = '';
   var tryPortrait = function(srcs, idx) {
@@ -3809,8 +4392,8 @@ function openClassDetail(classId) {
     img.src = srcs[idx];
   };
   var iconFile = classIconMap[classId];
-  var srcs = ['img/class/' + data.zh + '.jpg', 'img/class/' + data.zh + '.png', 'img/class/' + classId + '.jpg', 'img/class/' + classId + '.png'];
-  if (iconFile) { var iconBase = iconFile.replace(/\.png$/, ''); srcs.push('img/class/' + iconBase + '.jpg'); srcs.push('img/class/' + iconFile); }
+  var srcs = ['img/class/' + classId + '.png'];
+  if (iconFile) srcs.push('img/class/' + iconFile);
   tryPortrait(srcs, 0);
 
   // 构建内容
@@ -3886,9 +4469,6 @@ function openClassDetail(classId) {
   html += data.subclass.options[0].desc;
   html += '</div>';
 
-  // 确认按钮
-  html += '<button class="race-detail-confirm" id="classDetailConfirm">确认选择</button>';
-
   detailContent.innerHTML = html;
 
   // 绑定装备物品 hover 提示
@@ -3959,22 +4539,8 @@ function openClassDetail(classId) {
     });
   }
 
-  // 确认按钮
-  var confirmBtn = document.getElementById('classDetailConfirm');
-  if (confirmBtn) {
-    confirmBtn.addEventListener('click', function() {
-      var subclassPill = document.getElementById('classSubclassPills').querySelector('.race-branch-pill.selected');
-      var subclass = subclassPill ? subclassPill.dataset.subclass : null;
-      wizardState.steps[3] = { classId: classId, subclass: subclass };
-      document.querySelectorAll('.class-card').forEach(function(c) { c.classList.remove('selected'); });
-      var cards = document.querySelectorAll('.class-card[data-class="' + classId + '"]');
-      cards.forEach(function(c) { c.classList.add('selected'); });
-      playSfx(sfx.select);
-      closeRaceDetail();
-      updateNavButtons();
-      updateStepIndicator();
-    });
-  }
+  // 底部按钮
+  wireClassDetailFooter(data, classOverviewHTML);
 
     // 激活职业主题
   var detail = detailOverlay.querySelector('.race-detail');
@@ -3993,14 +4559,10 @@ function openClassDetail(classId) {
 function showSubclassDetail(subOpt, classData, overviewHTML) {
   var html = '';
 
-  // 返回按钮
-  html += '<button class="race-detail-back" id="subclassBackBtn">&#x2190; 返回职业总览</button>';
-
   // 立绘
   var scPortrait = subOpt.portrait || subOpt.zh + '.png';
-  var scBase = scPortrait.replace(/\.png$/, '');
   html += '<div style="text-align:center;margin:8px 0 16px;">';
-  html += '<img src="img/class/' + scBase + '.jpg" style="width:100%;max-width:400px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:4px;border:1px solid rgba(210,173,104,0.2);" onerror="if(this.src.includes(\'.jpg\'))this.src=this.src.replace(\'.jpg\',\'.png\');else this.style.display=\'none\'">';
+  html += '<img src="img/class/' + scPortrait + '" style="width:100%;max-width:400px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:4px;border:1px solid rgba(210,173,104,0.2);" onerror="this.style.display=\'none\'">';
   html += '</div>';
 
   // 名称
@@ -4034,6 +4596,10 @@ function showSubclassDetail(subOpt, classData, overviewHTML) {
 
   detailContent.innerHTML = html;
 
+  // footer 显示子职业返回按钮
+  var footer = document.getElementById('raceDetailFooter');
+  footer.innerHTML = '<button class="race-detail-back" id="subclassBackBtn">← 返回职业总览</button>';
+
   // 返回按钮事件
   var backBtn = document.getElementById('subclassBackBtn');
   if (backBtn) {
@@ -4042,6 +4608,8 @@ function showSubclassDetail(subOpt, classData, overviewHTML) {
       // 恢复 class theme
       if (detail) detail.classList.add('theme-active');
       detailContent.innerHTML = overviewHTML;
+      // 恢复 footer 为职业总览状态
+      wireClassDetailFooter(classData, overviewHTML);
       // 恢复选中状态与描述
       var pills = document.getElementById('classSubclassPills');
       var descEl = document.getElementById('classSubclassDesc');
@@ -4057,6 +4625,33 @@ function showSubclassDetail(subOpt, classData, overviewHTML) {
       wireClassOverviewEvents(classData);
     });
     backBtn.addEventListener('mouseenter', function() { playSfx(sfx.hover); });
+  }
+}
+
+function wireClassDetailFooter(data, overviewHTML) {
+  var footer = document.getElementById('raceDetailFooter');
+  footer.innerHTML = '<button class="race-detail-back" id="classDetailBack">← 返回</button>' +
+    '<button class="race-detail-confirm" id="classDetailConfirm">确认选择</button>';
+
+  var backBtn = document.getElementById('classDetailBack');
+  if (backBtn) {
+    backBtn.addEventListener('click', function() { playSfx(sfx.back); closeRaceDetail(); });
+  }
+  var confirmBtn = document.getElementById('classDetailConfirm');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', function() {
+      var subclassPill = document.getElementById('classSubclassPills').querySelector('.race-branch-pill.selected');
+      var subclass = subclassPill ? subclassPill.dataset.subclass : null;
+      var classId = detailOpenRace;
+      wizardState.steps[3] = { classId: classId, subclass: subclass };
+      document.querySelectorAll('.class-card').forEach(function(c) { c.classList.remove('selected'); });
+      var cards = document.querySelectorAll('.class-card[data-class="' + classId + '"]');
+      cards.forEach(function(c) { c.classList.add('selected'); });
+      playSfx(sfx.select);
+      closeRaceDetail();
+      updateNavButtons();
+      updateStepIndicator();
+    });
   }
 }
 
@@ -4121,23 +4716,8 @@ function wireClassOverviewEvents(data) {
     });
   }
 
-  // 重绑确认按钮
-  var confirmBtn = document.getElementById('classDetailConfirm');
-  if (confirmBtn) {
-    confirmBtn.addEventListener('click', function() {
-      var subclassPill = document.getElementById('classSubclassPills').querySelector('.race-branch-pill.selected');
-      var subclass = subclassPill ? subclassPill.dataset.subclass : null;
-      var classId = detailOpenRace;
-      wizardState.steps[3] = { classId: classId, subclass: subclass };
-      document.querySelectorAll('.class-card').forEach(function(c) { c.classList.remove('selected'); });
-      var cards = document.querySelectorAll('.class-card[data-class="' + classId + '"]');
-      cards.forEach(function(c) { c.classList.add('selected'); });
-      playSfx(sfx.select);
-      closeRaceDetail();
-      updateNavButtons();
-      updateStepIndicator();
-    });
-  }
+  // 重绑返回 + 确认按钮
+  wireClassDetailFooter(data, overviewHTML);
 }
 
 var placeholderTitles = { 3: '选择职业', 4: '分配属性', 5: '熟练与装备', 6: '确认与锁定' };
@@ -4611,7 +5191,12 @@ function renderStep5() {
 
   var selectedSkills = wizardState.steps[5].skills || [];
   var skillCount = cls.skillCount || 0;
-  var classSkills = cls.skillOptions ? cls.skillOptions.split('、').map(function(s) { return s.trim(); }).filter(function(s) { return s; }) : [];
+  var classSkills;
+  if (cls.skillOptions && cls.skillOptions.indexOf('所有技能') === 0) {
+    classSkills = skillsList.slice();
+  } else {
+    classSkills = cls.skillOptions ? cls.skillOptions.split('、').map(function(s) { return s.trim(); }).filter(function(s) { return s; }) : [];
+  }
   var bgSkills = bg ? bg.skills.split('、').map(function(s) { return s.trim(); }).filter(function(s) { return s; }) : [];
   var eqOption = wizardState.steps[5].equipmentOption || null;
 
@@ -4960,7 +5545,6 @@ function buildPortraitList() {
   // 职业主图 + 子职立绘（来自 classData）
   Object.keys(classData).forEach(function(clsKey) {
     var cls = classData[clsKey];
-    add('img/class', cls.zh + '.png', 'class');
     add('img/class', clsKey + '.png', 'class');
     if (cls.subclass && cls.subclass.options) {
       cls.subclass.options.forEach(function(sub) {
@@ -4971,19 +5555,37 @@ function buildPortraitList() {
 
   // 额外职业图（class 文件夹中未在数据中引用的）
   var extras = [
-    '可选2.png','可选3.png','可选4.png','可选5.png','可选6.png','可选8.png','可选9.png',
-    '圣武士可选.png','武器大师.png','心灵武士.png','暗行者.png','兽王.png','冠军.png','天街.png','大精类.png',
-    '旧日.png','邪魔.png','诡术领域.png'
+    '1.png','2.png','3.png','4.png','5.png','6.png','7.png'
   ];
   extras.forEach(function(e) { add('img/class', e, 'class'); });
 
   // ChatGPT 生成立绘
-  var cg1 = ['45','46','46','49','49','51','51','53','54','55'];
-  var cg2 = ['31','31','32','32','32','33','33','34','34','35'];
-  for (var i = 1; i <= 10; i++) {
-    add('img/class', 'ChatGPT Image 2026年5月21日 20_13_' + cg1[i-1] + ' (' + i + ').png', 'portrait');
-    add('img/class', 'ChatGPT Image 2026年5月21日 20_27_' + cg2[i-1] + ' (' + i + ').png', 'portrait');
-  }
+  var cgFiles1 = [
+    'ChatGPT Image 2026年5月22日 17_06_45 (1).png',
+    'ChatGPT Image 2026年5月22日 17_06_46 (2).png',
+    'ChatGPT Image 2026年5月22日 17_06_46 (3).png',
+    'ChatGPT Image 2026年5月22日 17_06_47 (4).png',
+    'ChatGPT Image 2026年5月22日 17_06_49 (5).png',
+    'ChatGPT Image 2026年5月22日 17_06_50 (6).png',
+    'ChatGPT Image 2026年5月22日 17_06_50 (7).png',
+    'ChatGPT Image 2026年5月22日 17_06_51 (8).png',
+    'ChatGPT Image 2026年5月22日 17_06_51 (9).png',
+    'ChatGPT Image 2026年5月22日 17_06_52 (10).png'
+  ];
+  var cgFiles2 = [
+    'ChatGPT Image 2026年5月22日 17_07_12 (1).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (2).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (3).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (4).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (5).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (6).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (7).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (8).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (9).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (10).png'
+  ];
+  cgFiles1.forEach(function(f) { add('img/class', f, 'portrait'); });
+  cgFiles2.forEach(function(f) { add('img/class', f, 'portrait'); });
 
   return list;
 }
@@ -5008,14 +5610,17 @@ function openPortraitGallery() {
     });
     grid.innerHTML = html;
 
+    var sidePreview = document.getElementById('portraitGalleryPreview');
     grid.querySelectorAll('.portrait-gallery-card').forEach(function(card) {
       card.addEventListener('click', function() {
         var src = card.dataset.src;
         var dir = card.dataset.dir;
         if (wizardState.steps[6].portrait && wizardState.steps[6].portrait.src === src) {
           wizardState.steps[6].portrait = null;
+          sidePreview.innerHTML = '<div class="portrait-gallery-preview-placeholder">未选择</div>';
         } else {
           wizardState.steps[6].portrait = { dir: dir, src: src };
+          sidePreview.innerHTML = '<img src="' + dir + '/' + src + '" onerror="this.parentElement.innerHTML=\'<div class=portrait-gallery-preview-placeholder>加载失败</div>\'">';
         }
         grid.querySelectorAll('.portrait-gallery-card').forEach(function(c) { c.classList.remove('selected'); });
         if (wizardState.steps[6].portrait && wizardState.steps[6].portrait.src === src) {
@@ -5023,6 +5628,20 @@ function openPortraitGallery() {
         }
         playSfx(sfx.click);
         renderStep6();
+      });
+      card.addEventListener('mouseenter', function() {
+        var img = card.querySelector('img');
+        if (img && img.src) {
+          sidePreview.innerHTML = '<img src="' + img.src + '" onerror="this.parentElement.innerHTML=\'<div class=portrait-gallery-preview-placeholder>加载失败</div>\'">';
+        }
+      });
+      card.addEventListener('mouseleave', function() {
+        var p = wizardState.steps[6].portrait;
+        if (p && p.src) {
+          sidePreview.innerHTML = '<img src="' + p.dir + '/' + p.src + '" onerror="this.parentElement.innerHTML=\'<div class=portrait-gallery-preview-placeholder>加载失败</div>\'">';
+        } else {
+          sidePreview.innerHTML = '<div class="portrait-gallery-preview-placeholder">未选择</div>';
+        }
       });
     });
   }
@@ -5111,7 +5730,7 @@ function renderStep6() {
   }
   if (cls) {
     html += '<div class="step6-card">';
-    html += '<div class="step6-card-title">CLASS<span class="step6-lv-badge">Lv' + (s[3].startingLevel || 1) + '</span></div>';
+    html += '<div class="step6-card-title">CLASS<span class="step6-lv-badge">Lv' + (s[3].startingLevel || 1) + '</span><span class="step6-pb-badge" id="step6PbBadge">熟练+2</span></div>';
     html += '<div class="step6-card-zh">' + cls.zh + '</div>';
     html += '<div class="step6-card-en">' + cls.en + '</div>';
     html += '</div>';
@@ -5123,6 +5742,11 @@ function renderStep6() {
     html += '<div class="step6-card-en">' + bg.en + '</div>';
     html += '</div>';
   }
+  // 货币（汇总所有来源 GP）
+  html += '<div class="step6-card step6-currency-card">';
+  html += '<div class="step6-card-title">CURRENCY</div>';
+  html += '<div class="step6-card-zh" style="font-size:20px;">' + renderCurrencyCounter(s[6].remainingGP || 0) + '</div>';
+  html += '</div>';
   html += '</div>'; // close step6-summary-cards
   html += '</div>'; // close step6-summary-panel
   // ═══ 右侧详细内容列 ═══
@@ -5252,24 +5876,43 @@ function renderStep6() {
     });
   }
 
+  // 汇总所有来源 GP（起始装备 + 背景装备），过滤 GP 条目不进装备网格
+  function extractGP(itemsStr) {
+    var total = 0;
+    if (!itemsStr) return total;
+    itemsStr.split(/[，,、]/).forEach(function(x) {
+      var m = x.trim().match(/^(\d+)\s*GP$/i);
+      if (m) total += parseInt(m[1]);
+    });
+    return total;
+  }
+  function filterGPItems(itemsStr) {
+    if (!itemsStr) return '';
+    return itemsStr.split(/[，,、]/).filter(function(x) { return !/^\d+\s*GP$/i.test(x.trim()); }).join('、');
+  }
+
+  var totalGP = 0;
+
   // 装备
   html += '<div class="step6-section-title">EQUIPMENT</div>';
   html += '<div class="step6-equip-grid">';
 
   // 职业装备
   if (cls && cls.startingEquipment) {
-    html += '<div class="step6-equip-section-label">职业起始装备</div>';
     var eqOpt = s[5].equipmentOption;
     var eqRegex = /\(A\)\s*([\s\S]*?)\s*或\s*\(B\)\s*([\s\S]*)/;
     var eqMatch = cls.startingEquipment.match(eqRegex);
+    var classEquipStr = '';
     if (eqMatch) {
-      var chosen = eqOpt === 'B' ? eqMatch[2].trim() : eqMatch[1].trim();
-      var eqItems = chosen.split(/[，、]/).filter(function(x) { return x.trim(); });
-      eqItems.forEach(function(it) {
-        html += renderEquipBlock(it.trim());
-      });
+      classEquipStr = (eqOpt === 'B' ? eqMatch[2] : eqMatch[1]).trim();
     } else {
-      cls.startingEquipment.split(/[，、]/).filter(function(x) { return x.trim(); }).forEach(function(it) {
+      classEquipStr = cls.startingEquipment;
+    }
+    totalGP += extractGP(classEquipStr);
+    classEquipStr = filterGPItems(classEquipStr);
+    if (classEquipStr) {
+      html += '<div class="step6-equip-section-label">职业起始装备</div>';
+      classEquipStr.split(/[，、]/).filter(function(x) { return x.trim(); }).forEach(function(it) {
         html += renderEquipBlock(it.trim());
       });
     }
@@ -5277,13 +5920,41 @@ function renderStep6() {
 
   // 背景装备
   if (bg && bg.equipment) {
-    html += '<div class="step6-equip-section-label">背景装备</div>';
-    var bgItems = bg.equipment.split(/[，,、]/).filter(function(x) { return x.trim(); });
-    bgItems.forEach(function(it) {
-      html += renderEquipBlock(it.trim());
+    totalGP += extractGP(bg.equipment);
+    var bgEquipStr = filterGPItems(bg.equipment);
+    if (bgEquipStr) {
+      html += '<div class="step6-equip-section-label">背景装备</div>';
+      bgEquipStr.split(/[，、]/).filter(function(x) { return x.trim(); }).forEach(function(it) {
+        html += renderEquipBlock(it.trim());
+      });
+    }
+  }
+
+  // 初始化 remainingGP（首次进入或重置后）
+  if (!s[6].remainingGP) s[6].remainingGP = totalGP;
+
+  // 购入物品
+  var purchased = s[6].purchasedItems || [];
+  if (purchased.length > 0) {
+    html += '<div class="step6-equip-section-label">购入物品';
+    html += '<span class="refund-all-btn" id="refundAllBtn" title="退还全部购入物品"> 退还全部</span>';
+    html += '</div>';
+    purchased.forEach(function(item, idx) {
+      html += '<div class="purchased-item-wrap" data-idx="' + idx + '" data-item="' + item.name + '">';
+      var displayName = (item.qty && item.qty > 1) ? item.qty + ' ' + item.name : item.name;
+      html += renderEquipBlock(displayName);
+      html += '<span class="refund-chip" title="退还 ' + item.name + '">↩</span>';
+      html += '</div>';
     });
   }
   html += '</div>';
+
+  // 商店入口（装备选了B方案）
+  if (s[5].equipmentOption === 'B' && cls) {
+    html += '<div class="step6-shop-row">';
+    html += '<button class="ability-auto-btn" id="step6ShopBtn" style="font-size:15px;">进入商店 · 剩余 ' + renderCurrencyCounter(s[6].remainingGP || 0) + '</button>';
+    html += '</div>';
+  }
 
   // 待处理选择
   if (pending.length > 0) {
@@ -5355,16 +6026,6 @@ function renderStep6() {
         html += '</div>';
       }
     });
-    html += '</div>';
-  }
-
-  // 商店入口（装备选了B方案）
-  if (s[5].equipmentOption === 'B' && cls) {
-    var gpMatch = cls.startingEquipment.match(/\(B\)\s*([\d]+)GP/);
-    var gp = gpMatch ? parseInt(gpMatch[1]) : 0;
-    if (!s[6].remainingGP) s[6].remainingGP = gp;
-    html += '<div class="step6-shop-row">';
-    html += '<button class="ability-auto-btn" id="step6ShopBtn" style="font-size:15px;">🛒 进入商店 · 剩余 ' + s[6].remainingGP + ' GP</button>';
     html += '</div>';
   }
 
@@ -5520,6 +6181,7 @@ function renderStep6() {
   // Wire up: 精通属性标签 hover
   panel.querySelectorAll('.mastery-tag').forEach(function(tag) {
     tag.addEventListener('mouseenter', function() {
+      cancelHidePopup();
       var mKey = tag.dataset.mastery;
       var mData = weaponMasteryData[mKey];
       if (!mData) return;
@@ -5533,6 +6195,7 @@ function renderStep6() {
   // Wire up: 熟练项 trait-entry hover
   panel.querySelectorAll('.step6-prof-entry').forEach(function(el) {
     el.addEventListener('mouseenter', function(e) {
+      cancelHidePopup();
       var prof = el.dataset.prof;
       if (!prof) return;
       var parts = prof.split(':');
@@ -5557,10 +6220,55 @@ function renderStep6() {
     portraitBtn.addEventListener('click', function() { playSfx(sfx.click); openPortraitGallery(); });
   }
 
+  // Wire up: 熟练加值徽章 hover
+  var pbBadge = document.getElementById('step6PbBadge');
+  if (pbBadge) {
+    pbBadge.addEventListener('mouseenter', function() {
+      cancelHidePopup();
+      var tip = document.getElementById('globalTooltip');
+      tip.innerHTML = '<div class="trait-popup"><div class="trait-popup-header"><div class="popup-name">熟练加值<span class="popup-type-tag tag-passive">Proficiency Bonus</span></div><div class="popup-en">Proficiency Bonus</div></div><div class="trait-popup-divider"></div><div class="trait-popup-body">所有你擅长的攻击检定、属性豁免和技能检定都会加上此加值。你的熟练加值由总角色等级决定。</div><div class="scaling-section"><div class="popup-scaling-label">等级成长</div><div class="scaling-row"><span class="scaling-tier"><em>Lv1–4</em>+2</span><span class="scaling-tier"><em>Lv5–8</em>+3</span><span class="scaling-tier"><em>Lv9–12</em>+4</span><span class="scaling-tier"><em>Lv13–16</em>+5</span><span class="scaling-tier"><em>Lv17–20</em>+6</span></div></div></div>';
+      positionTooltip(pbBadge);
+    });
+    pbBadge.addEventListener('mouseleave', hideSkillPopup);
+  }
+
   // Wire up: 商店按钮
   var shopBtn = document.getElementById('step6ShopBtn');
   if (shopBtn) {
     shopBtn.addEventListener('click', function() { playSfx(sfx.click); openShop(); });
+  }
+
+  // Wire up: 退还购入物品
+  function doRefund(idx) {
+    var item = s[6].purchasedItems[idx];
+    if (!item) return;
+    var lookup = itemLookup(item.name);
+    var it = lookup ? lookup.it : null;
+    var price = it && it.price !== undefined ? it.price : 0;
+    s[6].remainingGP = (s[6].remainingGP || 0) + price;
+    s[6].purchasedItems.splice(idx, 1);
+    renderStep6();
+  }
+  document.querySelectorAll('.refund-chip').forEach(function(chip) {
+    chip.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var idx = parseInt(this.parentElement.dataset.idx);
+      doRefund(idx);
+    });
+  });
+  var refundAllBtn = document.getElementById('refundAllBtn');
+  if (refundAllBtn) {
+    refundAllBtn.addEventListener('click', function() {
+      var items = s[6].purchasedItems.slice();
+      items.forEach(function(item) {
+        var lookup = itemLookup(item.name);
+        var it = lookup ? lookup.it : null;
+        var price = it && it.price !== undefined ? it.price : 0;
+        s[6].remainingGP = (s[6].remainingGP || 0) + price;
+      });
+      s[6].purchasedItems = [];
+      renderStep6();
+    });
   }
 
   // Wire up: 锁定按钮
@@ -7450,23 +8158,25 @@ const raceData = {
       label: '龙族传承',
       options: [
         {
-          id: 'chromatic', label: '彩色龙 · 线形吐息',
+          id: 'chromatic', label: '彩色龙',
+          flavor: '彩色龙是龙族中最古老也最危险的支系——由恶龙之神提亚马特所创造。彩色龙裔继承了这些恶龙的吐息形态：一股毁灭性的线形能量束，笔直贯穿战场，将路径上的一切焚毁、腐蚀或冻结。他们的鳞片折射出深邃的邪恶光泽——黑龙的酸绿、蓝龙的靛青、绿龙的翠碧、红龙的猩红、白龙的霜银，每种颜色都代表一位远古恶龙的血脉。彩色龙裔天生具有强烈的领地意识与支配欲，在战斗中倾向于正面碾压而非迂回。',
           colors: [
-            { id: 'black',  label: '黑龙',   damage: '酸蚀', enDamage: 'Acid' },
-            { id: 'blue',   label: '蓝龙',   damage: '闪电', enDamage: 'Lightning' },
-            { id: 'green',  label: '绿龙',   damage: '毒素', enDamage: 'Poison' },
-            { id: 'red',    label: '红龙',   damage: '火焰', enDamage: 'Fire' },
-            { id: 'white',  label: '白龙',   damage: '寒冷', enDamage: 'Cold' },
+            { id: 'black',  label: '黑龙',   damage: '酸蚀', enDamage: 'Acid', img: 'dragon-black', flavor: '黑龙是彩色龙中最残忍而耐心的猎手，栖息于腐臭沼泽与幽暗水域。颅骨般的面容凹陷眼眶中只余两点幽绿的冷光——它们将酸液蓄在喉囊中，喷出时能融化骑士的板甲与城堡的铁闸。黑龙裔继承了这份阴鸷：他们在暗处观察、在最佳时机出手，从不浪费任何一滴毒液。' },
+            { id: 'blue',   label: '蓝龙',   damage: '闪电', enDamage: 'Lightning', img: 'dragon-blue', flavor: '蓝龙伏于沙漠深处，鳞片如暴风雨前的天穹般泛着靛青电芒。它们是龙族中最自负的战术家，能在沙暴中精准击中百尺之外的目标——一道闪电束劈下，砂岩瞬间熔成玻璃。蓝龙裔天生拥有这份荣耀感与掌控欲，战场于他们而言不过是一局早已算尽的棋局。' },
+            { id: 'green',  label: '绿龙',   damage: '毒素', enDamage: 'Poison', img: 'dragon-green', flavor: '绿龙盘踞在古木参天的原始森林中，翡翠鳞片与树冠融为一体。它们不说废话，只用谎言编织陷阱——呼出的一团毒雾弥漫林间，吸入者会在数秒内失去知觉。绿龙裔是操纵与欺骗的大师，言辞如毒雾，微笑背后永远藏着第二层算计。' },
+            { id: 'red',    label: '红龙',   damage: '火焰', enDamage: 'Fire', img: 'dragon-red', flavor: '红龙是彩色龙中最强大也最贪婪的存在，筑巢于火山口与熔岩裂隙之上。它们对财富的欲望永无止境，火息能熔化精金——龙裔喷吐的烈焰就是这份贪欲的延伸，席卷一切阻挡在面前的敌人。红龙裔走路时下巴微扬，血液里流淌着与生俱来的傲慢与征服本能。' },
+            { id: 'white',  label: '白龙',   damage: '寒冷', enDamage: 'Cold', img: 'dragon-white', flavor: '白龙盘踞在极地冰川与永冻雪原，是彩色龙中体型最小却最接近野兽的存在。它们不讲究策略，只凭本能扑杀——一口寒霜吐息能将猎物与盔甲冻成冰雕，随后一爪拍碎。白龙裔继承了这份原始的凶暴：简单直接，用寒冷碾压而非用计谋取胜。' },
           ]
         },
         {
-          id: 'metallic', label: '金属龙 · 锥形吐息',
+          id: 'metallic', label: '金属龙',
+          flavor: '金属龙是善龙之神巴哈姆特的子嗣——这些龙族守护着凡间与天界的平衡。金属龙裔的吐息呈锥形散射，如风暴般席卷前方扇形区域，彰显善龙的宽宏与威仪。他们的鳞片闪耀着贵金属的光泽——黄铜的暖焰、青铜的雷芒、赤铜的蚀光、黄金的圣火、白银的寒霜，站在阳光下的金属龙裔犹如一尊行走的活体圣像。与彩色龙裔不同，金属龙裔更倾向于用力量守护而非征服，他们的魔法传承中暗含秩序与正义的回响。',
           colors: [
-            { id: 'brass',   label: '黄铜龙', damage: '火焰', enDamage: 'Fire' },
-            { id: 'bronze',  label: '青铜龙', damage: '闪电', enDamage: 'Lightning' },
-            { id: 'copper',  label: '赤铜龙', damage: '酸蚀', enDamage: 'Acid' },
-            { id: 'gold',    label: '金龙',   damage: '火焰', enDamage: 'Fire' },
-            { id: 'silver',  label: '银龙',   damage: '寒冷', enDamage: 'Cold' },
+            { id: 'brass',   label: '黄铜龙', damage: '火焰', enDamage: 'Fire', img: 'dragon-brass', flavor: '黄铜龙是沙漠中的话痨——它们对一切旅人充满好奇心，能用十种语言同时开三个话题。吐息是一股灼热的烈焰锥形，但黄铜龙更爱用聊天解决问题而非直接开打。黄铜龙裔继承了口才与暖阳般的气质，战场上他们的火焰像沙漠正午的热浪，让人睁不开眼。' },
+            { id: 'bronze',  label: '青铜龙', damage: '闪电', enDamage: 'Lightning', img: 'dragon-bronze', flavor: '青铜龙栖于海岸峭壁与暴风雨湾，是海洋正义的化身。它们憎恶暴政与水手的贪婪，常化身凡人混入港口观察众生——雷霆吐息劈下时，海面泛起电弧如千条银蛇狂舞。青铜龙裔生来肩扛正义，血管里奔涌着风暴的轰鸣，只为保护弱者而战。' },
+            { id: 'copper',  label: '赤铜龙', damage: '酸蚀', enDamage: 'Acid', img: 'dragon-copper', flavor: '赤铜龙是龙族中的谐星——它们热爱谜语、笑话与恶作剧，在岩丘洞穴中囤积的不只是金币，还有妙语连珠。酸液吐息带着金属的腥甜味，能将石壁蚀出蜂巢般的窟窿。赤铜龙裔笑意常在，但别被他们的幽默骗了——玩笑背后是龙族中最敏捷的头脑。' },
+            { id: 'gold',    label: '金龙',   damage: '火焰', enDamage: 'Fire', img: 'dragon-gold', flavor: '金龙是金属龙中最尊贵的存在——它们的鳞片如熔化的太阳，吐出的烈焰锥形足以焚尽一切邪恶。金龙常化身为年迈贤者或流浪骑士，在凡人国度暗中引导正义。金龙裔背负着与生俱来的崇高使命，他们的火焰不仅是武器，更是净化黑暗的圣光。' },
+            { id: 'silver',  label: '银龙',   damage: '寒冷', enDamage: 'Cold', img: 'dragon-silver', flavor: '银龙是龙族中最亲近凡人的存在——它们以人类形态走入城镇，分享食物、讲述故事，甚至与凡人结为终生伴侣。寒霜吐息在空中凝结成钻石星尘，美丽而致命。银龙裔拥有温柔与坚定并存的灵魂，他们的寒冷不是为了毁灭，而是为了让狂暴的世间冷静片刻。' },
           ]
         },
       ]
@@ -7515,9 +8225,12 @@ const raceData = {
       id: 'elf-lineage',
       label: '精灵分支',
       options: [
-        { id: 'high', label: '高等精灵', desc: '施法属性 INT，习得魔法伎俩 + 侦测魔法' },
-        { id: 'wood', label: '木精灵', desc: '施法属性 WIS，习得德鲁伊伎俩 + 大步奔行，移动35尺' },
-        { id: 'drow', label: '暗精灵', desc: '施法属性 CHA，习得舞光术，黑暗视觉120尺' },
+        { id: 'high', label: '高等精灵', desc: '施法属性 INT，习得魔法伎俩 + 侦测魔法',
+          flavor: '高等精灵是精灵族中最具学者气质的一支。他们肌肤白皙如月光，发色从银白到深金不等，眼眸仿佛含着星辰。高等精灵居住在水晶与大理石筑成的璀璨城邦之中，尖塔直插云霄，图书馆藏有万年的奥术典籍。他们以智慧与优雅著称，精研法术、兼修剑艺——每一位高等精灵从幼年起便接受魔法与武技的双重训练。与其他精灵分支相比，高等精灵最为亲近文明与秩序，他们的社会等级分明、礼仪繁复，对美与知识有着近乎执拗的追求。', img: 'high-elf' },
+        { id: 'wood', label: '木精灵', desc: '施法属性 WIS，习得德鲁伊伎俩 + 大步奔行，移动35尺',
+          flavor: '木精灵是古老森林的守护者，肌肤呈温暖的古铜色，发色深绿或深褐如林间苔藓，双眼似秋日琥珀。他们聚居在密林深处的树冠村落中，木桥与藤梯将巨树连成一片空中王国。木精灵是天生的猎手与追踪者，步伐比任何精灵都更轻快（35尺），能在密林间无声穿梭。他们对自然的理解近乎本能，粗犷而虔诚——不似高等精灵那般追求奥术，木精灵的力量源自草木本身。他们对入侵森林者绝不姑息，箭术冠绝精灵三支。', img: 'wood-elf' },
+        { id: 'drow', label: '暗精灵', desc: '施法属性 CHA，习得舞光术，黑暗视觉120尺',
+          flavor: '暗精灵是幽暗地域的子民，肌肤如黑曜石般深沉，发丝银白似月光瀑布，眼眸在黑暗中泛着淡紫或猩红的光芒。他们在不见天日的地下城建起恢弘的蛛后神殿，以母系氏族为核心架构了整个文明。暗精灵拥有无与伦比的夜视能力（120尺黑暗视觉），对光亮既依赖又警惕——阳光会灼伤他们的灵魂。他们的魔法诡谲而致命，从阴影中召唤刀刃与蛛网。与地表精灵最大的不同在于，暗精灵生存在永恒的权力暗战中，背叛与阴谋是他们呼吸的空气。', img: 'drow' },
       ]
     },
     commonTraits: [
@@ -7557,8 +8270,10 @@ const raceData = {
       id: 'gnome-lineage',
       label: '侏儒分支',
       options: [
-        { id: 'forest', label: '森林侏儒', desc: '习得次级幻术 + 与动物交谈' },
-        { id: 'rock', label: '岩石侏儒', desc: '习得修复术 + 魔法伎俩，装置造物能力' },
+        { id: 'forest', label: '森林侏儒', desc: '习得次级幻术 + 与动物交谈',
+          flavor: '森林侏儒是林地深处最隐秘的居民。他们的肤色偏向树皮般的棕褐或苔绿，圆润的面颊上嵌着一双异常明亮的大眼睛——有人说那眼睛能看穿幻象。森林侏儒将村落藏在空心巨树的根系之间或蘑菇环之下，从不主动暴露给外人。他们天生是幻术大师，能用响指变出飞鸟、用口哨唤来走兽；林地的小动物是他们的朋友与信使。与岩石侏儒的工匠热忱不同，森林侏儒更享受与自然的私语——他们的魔法不是为了征服，而是为了隐藏。', img: 'forest-gnome' },
+        { id: 'rock', label: '岩石侏儒', desc: '习得修复术 + 魔法伎俩，装置造物能力',
+          flavor: '岩石侏儒是地底工坊中的发明狂人。他们的肤色更浅，身材比森林表亲略为结实，指尖永远沾着齿轮润滑油或宝石碎屑。岩石侏儒在山丘与洞穴中建起精巧的工坊聚落，锤击声与齿轮咬合声从不停歇。他们是天生的工匠与机关师——一个发条小鸟、一把自动打火器、一只能走路的茶杯，都是他们随手捣鼓出来的作品。相较于森林侏儒的隐逸，岩石侏儒更乐于与外界交易他们的奇巧造物，但骨子里那份侏儒式的好奇与幽默丝毫不少。', img: 'rock-gnome' },
       ]
     },
     commonTraits: [
@@ -7587,12 +8302,18 @@ const raceData = {
       id: 'goliath-ancestry',
       label: '巨人先祖',
       options: [
-        { id: 'cloud', label: '云巨人', desc: '传送30尺，PB次/长休' },
-        { id: 'fire', label: '火巨人', desc: '近战额外火焰伤害1d10，PB次/长休' },
-        { id: 'frost', label: '霜巨人', desc: '近战额外寒冷伤害1d6，PB次/长休' },
-        { id: 'hill', label: '山丘巨人', desc: '命中后击倒目标（大型及以下），PB次/长休' },
-        { id: 'stone', label: '石巨人', desc: '反应减伤1d12+CON，PB次/长休' },
-        { id: 'storm', label: '风暴巨人', desc: '受伤时反应1d8雷鸣伤害，PB次/长休' },
+        { id: 'cloud', label: '云巨人', desc: '传送30尺，PB次/长休',
+          flavor: '云巨人的血脉赋予你操控空间的权能。云巨人是巨人族中位居最高、最接近神域的一支——他们居住在云层之上的浮空城堡中，俯瞰凡尘如棋盘。继承他们血脉的歌利亚身形修长，肤色苍白如积雨云，发丝银灰似雷电前的天空。你的附赠动作能撕裂短距离空间，瞬间出现在三十尺之外——这是云巨人行走云端的秘术。在六大巨人先祖中，云巨人最为孤傲，他们不屑与低等种族为伍，却唯独认可歌利亚体内那份永不言弃的攀登之志。', img: 'goliath-cloud' },
+        { id: 'fire', label: '火巨人', desc: '近战额外火焰伤害1d10，PB次/长休',
+          flavor: '火巨人的血脉在你血管中如岩浆般奔涌。火巨人是巨人族的铁匠与铸造大师，他们的锻炉坐落于火山心脏地带，永恒不熄的烈火淬炼出足以弑神的兵刃。继承他们血脉的歌利亚肌肤呈暗红或铁灰，双眼如烧红的炭火般灼亮。每次近战命中时你可以注入一股纯粹的热能，造成额外1d10火焰伤害——仿佛你的拳头本身就是一把烧红的战锤。火巨人是六大先祖中最具破坏力的，他们用火焰说话。', img: 'goliath-fire' },
+        { id: 'frost', label: '霜巨人', desc: '近战额外寒冷伤害1d6，PB次/长休',
+          flavor: '霜巨人的血脉带来永冬之地的寒冰之触。霜巨人是北境冻原的霸主，他们驾驭暴风雪如同牧人驱使羊群，长船在冰海间劈波斩浪。继承他们血脉的歌利亚皮肤呈霜白或浅蓝，体毛浓密如北极兽，呼出的气息可在盛夏凝成白雾。近战命中时额外造成1d6寒冷伤害并减缓目标的速度——就像极北的寒潮，你每一次触碰都带走对手的一份热量。霜巨人在六大先祖中最具耐力，他们教会后代在绝境中永不冻结。', img: 'goliath-frost' },
+        { id: 'hill', label: '山丘巨人', desc: '命中后击倒目标（大型及以下），PB次/长休',
+          flavor: '山丘巨人的血脉给予你最质朴的蛮力。山丘巨人是最常见也最接地气的巨人支系——他们住在起伏的丘陵与山谷间，以放牧巨羊和吞噬整头野猪为日常。继承他们血脉的歌利亚肤色呈土褐或灰棕，体格比其他歌利亚更加敦实厚重。近战命中大型及以下目标时可尝试将其击倒——这并非花哨的技巧，而是纯粹的质量碾压。山丘巨人在六大先祖中最朴实无华，但他们的力量无需修饰：砸下去，对方就趴下。', img: 'goliath-hill' },
+        { id: 'stone', label: '石巨人', desc: '反应减伤1d12+CON，PB次/长休',
+          flavor: '石巨人的血脉将大地的韧性刻入你的骨骼。石巨人是地下洞穴最深处的隐士，他们的皮肤与花岗岩无异，寿命跨越千年，将艺术刻满整座山峰。继承他们血脉的歌利亚肤色斑驳如大理石，身体密度惊人，刀剑砍上去犹如劈在城墙上。受到伤害时以反应减伤1d12+体质调整——这并非魔法护盾，而是你的血肉本身就如磐石般坚硬。石巨人在六大先祖中最沉静深邃，他们把时间的厚重凝固在了后代的体魄之中。', img: 'goliath-stone' },
+        { id: 'storm', label: '风暴巨人', desc: '受伤时反应1d8雷鸣伤害，PB次/长休',
+          flavor: '风暴巨人的血脉将雷霆的咆哮囚禁在你体内。风暴巨人是巨人族的至高贵族，居于深海或云巅的宫殿中，掌控天空与海洋的原始力量。继承他们血脉的歌利亚肤色呈深海般的靛青或灰绿，发间时有静电噼啪作响。被60尺内生物造成伤害时，以反应释放一道雷鸣冲击造成1d8伤害——如天空的报复，不可预测、不可躲避。风暴巨人在六大先祖中地位最为尊崇，他们赋予了后代一种睥睨天下的威严。', img: 'goliath-storm' },
       ]
     },
     commonTraits: [
@@ -7686,9 +8407,12 @@ const raceData = {
       id: 'tiefling-legacy',
       label: '地狱传承',
       options: [
-        { id: 'infernal', label: '炼狱', desc: '火焰抗性 + 火焰箭 / Lv3地狱斥责 / Lv5黑暗术' },
-        { id: 'abyssal', label: '深渊', desc: '毒素抗性 + 毒气喷涌 / Lv3疾病射线 / Lv5人类定身术' },
-        { id: 'chthonic', label: '冥界', desc: '暗蚀抗性 + 颤栗之触 / Lv3虚假生命 / Lv5衰弱射线' },
+        { id: 'infernal', label: '炼狱', desc: '火焰抗性 + 火焰箭 / Lv3地狱斥责 / Lv5黑暗术',
+          flavor: '炼狱提夫林的血脉可追溯至九层地狱——魔鬼的律法与秩序在他们的血液中刻下烙印。他们的肌肤呈深红至暗紫色，头顶生有公羊般的螺旋弯角，瞳孔如熔金般灼灼发光。炼狱后裔继承了魔鬼式的精明与威仪，言谈间自带令人信服的压迫感。火焰在他们指尖舞动犹如服从军令：一发火焰箭、一声地狱斥责、一片吞噬光明的黑暗术。与其他提夫林分支相比，炼狱一脉最具野心与纪律，他们视契约为铁则，信奉权力来自精密的谋划而非蛮力。', img: 'tiefling-infernal' },
+        { id: 'abyssal', label: '深渊', desc: '毒素抗性 + 毒气喷涌 / Lv3疾病射线 / Lv5人类定身术',
+          flavor: '深渊提夫林的血脉源自无底深渊——恶魔的混沌本质赋予了他们狂野而不可预测的力量。他们的肤色偏暗绿或灰紫，角形扭曲不规则，眼球不止一对的概率远高于其他分支，身上常带有随机出现的鳞片或骨刺。深渊后裔的魔力如同恶魔之怒：张口喷出腐臭的毒雾、指尖射出令人呕吐的疫病射线、一瞥之下将敌人的肌肉锁死在瘫痪之中。与炼狱提夫林的秩序不同，深渊一脉更随本能行事——他们的力量不需要理由，爆发就是最好的解释。', img: 'tiefling-abyssal' },
+        { id: 'chthonic', label: '冥界', desc: '暗蚀抗性 + 颤栗之触 / Lv3虚假生命 / Lv5衰弱射线',
+          flavor: '冥界提夫林的血脉连通影界与亡者之域——他们的灵魂半只脚踩在坟墓里。肤色苍白如骨，眼眸深陷如两口枯井，角形细长如墓碑尖顶。冥界后裔散发着一种令活人本能退避的冰冷气息，暗蚀能量在他们周身如雾气般缓缓流转。他们的魔法从生命的边界汲取力量：一只幽灵枯手扼住活物的咽喉、一层虚假生命力包裹自身、一道令敌人肌肉萎靡的黯光。如果说炼狱提夫林是阴谋家、深渊提夫林是破坏神，那冥界提夫林就是沉默的收割者——他们不制造混乱，他们只是看着一切归于虚无。', img: 'tiefling-chthonic' },
       ]
     },
     commonTraits: [
@@ -7744,9 +8468,9 @@ const classData = {
       label: '原初道途', enLabel: 'Primal Path',
       level: 'Lv3',
       options: [
-        { id: 'berserker', zh: '狂战士道途', en: 'Path of the Berserker', portrait: '狂战士.png', desc: '纯粹的狂怒化身，以无条件的暴力碾碎一切阻碍。你在狂暴中越是失控，越是不可阻挡。', highlights: ['<b>Lv3 狂怒</b> — 狂暴时以附赠动作发动一次额外近战武器攻击，使用力量且不附加属性调整值', '<b>Lv6 心志坚定</b> — 狂暴中免疫魅惑与恐慌状态；进入狂暴时若已处于此类状态则立即终止', '<b>Lv10 威慑</b> — 以一个动作迫使 30 尺内指定生物进行感知豁免（DC 8+PB+力量调整值），失败则恐慌 1 分钟', '<b>Lv14 报偿</b> — 5 尺内有可见敌人命中你时，以反应对该敌人发动一次近战武器攻击，命中自动重击'] },
-        { id: 'wild-heart', zh: '兽心道途', en: 'Path of the Wild Heart', portrait: '兽心.png', desc: '与兽灵链接，从多元宇宙的野兽精魄中汲取力量。选择熊、鹰、狼或野猪之灵以获得不同恩赐。', highlights: ['<b>Lv3 兽灵链接</b> — 选择一种兽灵：<b>熊</b>（狂暴中生命值减半时陷入失能改为 HP 降至 0）、<b>鹰</b>（狂暴中附赠动作疾走且借机攻击劣势）、<b>狼</b>（狂暴中用附赠动作让 30 尺内盟友下次攻击获得优势）、<b>野猪</b>（狂暴中可撞开目标 15 尺）', '<b>Lv6 兽灵之力</b> — 获得所选兽灵的移动或感知增益：熊（负重×2且力量豁免优势）、鹰（黑暗视觉 120 尺）、狼（追踪隐匿优势）、野猪（倒地后可消耗 5 尺移动起身）', '<b>Lv10 自然之语</b> — 可施展<i>与动植物交谈</i>，无需法术位'] },
-        { id: 'world-tree', zh: '世界树道途', en: 'Path of the World Tree', portrait: '树心.png', desc: '链接世界树伊格德拉西尔的根系，获得治疗与防护的太古之力，以生命之根束缚敌人、庇护盟友。', highlights: ['<b>Lv3 世界树活力</b> — 狂暴时自身获得等于野蛮人等级的临时生命值（每次狂暴刷新）', '<b>Lv6 生命根系</b> — 以附赠动作激活 10 尺灵光，持续 1 分钟。区域内盟友每回合开始时恢复等于你狂暴伤害加值（+2→+4）的 HP', '<b>Lv10 世界树传送</b> — 以一个动作触碰 30 尺内可见生物，进行力量豁免（DC 8+PB+力量），失败则传送至你 5 尺内并受 4d6 力场伤害，成功受半伤', '<b>Lv14 世界树之根</b> — 狂暴中灵光扩展至 30 尺，区域内盟友在你的回合结束时获得 2d6+野蛮人等级一半的临时 HP'] },
+        { id: 'berserker', zh: '狂战士道途', en: 'Path of the Berserker', portrait: 'berserker.png', desc: '纯粹的狂怒化身，以无条件的暴力碾碎一切阻碍。你在狂暴中越是失控，越是不可阻挡。', highlights: ['<b>Lv3 狂怒</b> — 狂暴时以附赠动作发动一次额外近战武器攻击，使用力量且不附加属性调整值', '<b>Lv6 心志坚定</b> — 狂暴中免疫魅惑与恐慌状态；进入狂暴时若已处于此类状态则立即终止', '<b>Lv10 威慑</b> — 以一个动作迫使 30 尺内指定生物进行感知豁免（DC 8+PB+力量调整值），失败则恐慌 1 分钟', '<b>Lv14 报偿</b> — 5 尺内有可见敌人命中你时，以反应对该敌人发动一次近战武器攻击，命中自动重击'] },
+        { id: 'wild-heart', zh: '兽心道途', en: 'Path of the Wild Heart', portrait: 'wild-heart.png', desc: '与兽灵链接，从多元宇宙的野兽精魄中汲取力量。选择熊、鹰、狼或野猪之灵以获得不同恩赐。', highlights: ['<b>Lv3 兽灵链接</b> — 选择一种兽灵：<b>熊</b>（狂暴中生命值减半时陷入失能改为 HP 降至 0）、<b>鹰</b>（狂暴中附赠动作疾走且借机攻击劣势）、<b>狼</b>（狂暴中用附赠动作让 30 尺内盟友下次攻击获得优势）、<b>野猪</b>（狂暴中可撞开目标 15 尺）', '<b>Lv6 兽灵之力</b> — 获得所选兽灵的移动或感知增益：熊（负重×2且力量豁免优势）、鹰（黑暗视觉 120 尺）、狼（追踪隐匿优势）、野猪（倒地后可消耗 5 尺移动起身）', '<b>Lv10 自然之语</b> — 可施展<i>与动植物交谈</i>，无需法术位'] },
+        { id: 'world-tree', zh: '世界树道途', en: 'Path of the World Tree', portrait: 'world-tree.png', desc: '链接世界树伊格德拉西尔的根系，获得治疗与防护的太古之力，以生命之根束缚敌人、庇护盟友。', highlights: ['<b>Lv3 世界树活力</b> — 狂暴时自身获得等于野蛮人等级的临时生命值（每次狂暴刷新）', '<b>Lv6 生命根系</b> — 以附赠动作激活 10 尺灵光，持续 1 分钟。区域内盟友每回合开始时恢复等于你狂暴伤害加值（+2→+4）的 HP', '<b>Lv10 世界树传送</b> — 以一个动作触碰 30 尺内可见生物，进行力量豁免（DC 8+PB+力量），失败则传送至你 5 尺内并受 4d6 力场伤害，成功受半伤', '<b>Lv14 世界树之根</b> — 狂暴中灵光扩展至 30 尺，区域内盟友在你的回合结束时获得 2d6+野蛮人等级一半的临时 HP'] },
         { id: 'zealot', zh: '狂热者道途', en: 'Path of the Zealot', portrait: 'zealot.png', desc: '神祇的愤怒战士，以神圣狂热驱动战斗。即使身死，复活也无需材料——因为信仰不会消亡。', highlights: ['<b>Lv3 神圣狂怒</b> — 狂暴中每回合首次命中额外造成 1d6 + 野蛮人等级一半的黯蚀或光耀伤害（每次长休可选择伤害类型）', '<b>Lv3 神之战士</b> — 任何对你施展的复活法术无需材料成分，且你被复活后恢复所有已消耗的法术位与长休资源', '<b>Lv6 狂热灵光</b> — 狂暴中自身及 10 尺内盟友的豁免检定获得等于你感知调整值的加值（至少 +1）', '<b>Lv10 狂热聚焦</b> — 附赠动作让一次 1 分钟内的攻击检定获得优势，每次狂暴限用一次', '<b>Lv14 不死之怒</b> — HP 降至 0 时仍可继续行动，豁免成功不会倒地，每次狂暴限触发一次'] },
       ]
     }
@@ -7773,10 +8497,10 @@ const classData = {
       label: '奥术学派', enLabel: 'Arcane Tradition',
       level: 'Lv3',
       options: [
-        { id: 'evoker', zh: '塑能师', en: 'Evoker', portrait: '塑能师.png', desc: '专注塑能魔法，精通元素之力。塑能法术伤害最大化，安全施法保护盟友。', highlights: ['<b>Lv3 塑能学者</b> — 将塑能系法术抄入法术书的时间与金钱减半', '<b>Lv3 塑能塑形</b> — 施展塑能法术时可保护 1+法术环阶个可见生物，使其自动通过豁免且不受伤害（原本豁免成功也受半伤的法术则改为受半伤）', '<b>Lv6 强力戏法</b> — 对目标施放造成伤害的戏法且目标豁免成功时，仍造成戏法伤害的<b>一半</b>（无视免疫）', '<b>Lv10 强化塑能</b> — 施展法师塑能法术时，将其一环伤害骰附加 <b>+智力调整值</b>', '<b>Lv14 极效塑能</b> — 每次长休可用一次：施展 1-5 环法师塑能法术时，将其所有伤害骰取最大值'] },
-        { id: 'illusionist', zh: '幻术师', en: 'Illusionist', portrait: '幻术师.png', desc: '幻术学派的大师，创造足以欺骗感官的幻象。改良幻术、位移自保、让幻象成为现实。', highlights: ['<b>Lv3 幻术学者</b> — 将幻术系法术抄入法术书的时间与金钱减半', '<b>Lv3 精通幻术</b> — 习得<i>次级幻象</i>戏法（若已有则换一道法师戏法），且施展幻术系法术时其声音或视觉成分之一可被省略', '<b>Lv6 幻术位移</b> — 受到攻击时以反应在自身位置制造一个幻象分身，传送到 30 尺内可见位置。每短休或长休可用 PB 次', '<b>Lv10 幻象成真</b> — 施放幻术法术时可改写幻象的一部分为真实（如幻术桥可承重、幻术墙可阻挡），持续 1 分钟', '<b>Lv14 幻术主宰</b> — 以一个附赠动作改变幻术法术的生效范围或目标，每回合一次。幻术持续时间可延长至解除为止'] },
-        { id: 'abjurer', zh: '防护师', en: 'Abjurer', portrait: '防护师.png', desc: '防护魔法的专家，编织奥术屏障抵御外敌。获得奥术护盾，精通反制与解除魔法。', highlights: ['<b>Lv3 防护学者</b> — 将防护系法术抄入法术书的时间与金钱减半', '<b>Lv3 奥术护盾</b> — 施展防护系法术时获得等于 <b>2×法术环阶+智力调整值</b> 的临时 HP（每次施法刷新）。护盾可吸收伤害直至耗尽', '<b>Lv6 精通防护</b> — 可用附赠动作消耗一个法术位为自己或 30 尺内盟友提供等于 <b>5×法术位环阶</b> 的临时 HP，持续 1 小时', '<b>Lv10 精通解除</b> — 进行属性检定以反制或解除法术时，可使用熟练加值（即使不熟练）', '<b>Lv14 法术抗性</b> — 对法术的豁免获得优势，且对法术伤害获得抗性'] },
-        { id: 'diviner', zh: '预言师', en: 'Diviner', portrait: '预言师.png', desc: '凝视时间之流，预知未来的洞察者。以预知骰改写命运，洞悉不可见之物。', highlights: ['<b>Lv3 预言学者</b> — 将预言系法术抄入法术书的时间与金钱减半', '<b>Lv3 预知骰</b> — 每次长休后掷 <b>2d20</b> 并记录结果。可在任何 d20 掷骰发生时用你的预知骰替换（必须在结果宣布前），每回合限一次', '<b>Lv6 预知专家</b> — 施展预言系法术时可恢复一个比其低环阶的已消耗法术位，恢复环阶最高 5 环。每次长休可用一次', '<b>Lv10 天眼</b> — 获得 60 尺黑暗视觉，可看穿变形与幻术，且可消耗一个法术位以获得等同 <i>识破隐形</i> 的效果', '<b>Lv14 预知大师</b> — 预知骰升级为 <b>3d20</b>（每次长休掷 3 颗保留）'] },
+        { id: 'evoker', zh: '塑能师', en: 'Evoker', portrait: 'evoker.png', desc: '专注塑能魔法，精通元素之力。塑能法术伤害最大化，安全施法保护盟友。', highlights: ['<b>Lv3 塑能学者</b> — 将塑能系法术抄入法术书的时间与金钱减半', '<b>Lv3 塑能塑形</b> — 施展塑能法术时可保护 1+法术环阶个可见生物，使其自动通过豁免且不受伤害（原本豁免成功也受半伤的法术则改为受半伤）', '<b>Lv6 强力戏法</b> — 对目标施放造成伤害的戏法且目标豁免成功时，仍造成戏法伤害的<b>一半</b>（无视免疫）', '<b>Lv10 强化塑能</b> — 施展法师塑能法术时，将其一环伤害骰附加 <b>+智力调整值</b>', '<b>Lv14 极效塑能</b> — 每次长休可用一次：施展 1-5 环法师塑能法术时，将其所有伤害骰取最大值'] },
+        { id: 'illusionist', zh: '幻术师', en: 'Illusionist', portrait: 'illusionist.png', desc: '幻术学派的大师，创造足以欺骗感官的幻象。改良幻术、位移自保、让幻象成为现实。', highlights: ['<b>Lv3 幻术学者</b> — 将幻术系法术抄入法术书的时间与金钱减半', '<b>Lv3 精通幻术</b> — 习得<i>次级幻象</i>戏法（若已有则换一道法师戏法），且施展幻术系法术时其声音或视觉成分之一可被省略', '<b>Lv6 幻术位移</b> — 受到攻击时以反应在自身位置制造一个幻象分身，传送到 30 尺内可见位置。每短休或长休可用 PB 次', '<b>Lv10 幻象成真</b> — 施放幻术法术时可改写幻象的一部分为真实（如幻术桥可承重、幻术墙可阻挡），持续 1 分钟', '<b>Lv14 幻术主宰</b> — 以一个附赠动作改变幻术法术的生效范围或目标，每回合一次。幻术持续时间可延长至解除为止'] },
+        { id: 'abjurer', zh: '防护师', en: 'Abjurer', portrait: 'abjurer.png', desc: '防护魔法的专家，编织奥术屏障抵御外敌。获得奥术护盾，精通反制与解除魔法。', highlights: ['<b>Lv3 防护学者</b> — 将防护系法术抄入法术书的时间与金钱减半', '<b>Lv3 奥术护盾</b> — 施展防护系法术时获得等于 <b>2×法术环阶+智力调整值</b> 的临时 HP（每次施法刷新）。护盾可吸收伤害直至耗尽', '<b>Lv6 精通防护</b> — 可用附赠动作消耗一个法术位为自己或 30 尺内盟友提供等于 <b>5×法术位环阶</b> 的临时 HP，持续 1 小时', '<b>Lv10 精通解除</b> — 进行属性检定以反制或解除法术时，可使用熟练加值（即使不熟练）', '<b>Lv14 法术抗性</b> — 对法术的豁免获得优势，且对法术伤害获得抗性'] },
+        { id: 'diviner', zh: '预言师', en: 'Diviner', portrait: 'diviner.png', desc: '凝视时间之流，预知未来的洞察者。以预知骰改写命运，洞悉不可见之物。', highlights: ['<b>Lv3 预言学者</b> — 将预言系法术抄入法术书的时间与金钱减半', '<b>Lv3 预知骰</b> — 每次长休后掷 <b>2d20</b> 并记录结果。可在任何 d20 掷骰发生时用你的预知骰替换（必须在结果宣布前），每回合限一次', '<b>Lv6 预知专家</b> — 施展预言系法术时可恢复一个比其低环阶的已消耗法术位，恢复环阶最高 5 环。每次长休可用一次', '<b>Lv10 天眼</b> — 获得 60 尺黑暗视觉，可看穿变形与幻术，且可消耗一个法术位以获得等同 <i>识破隐形</i> 的效果', '<b>Lv14 预知大师</b> — 预知骰升级为 <b>3d20</b>（每次长休掷 3 颗保留）'] },
       ]
     }
   },
@@ -7801,10 +8525,10 @@ const classData = {
       label: '神圣领域', enLabel: 'Divine Domain',
       level: 'Lv3',
       options: [
-        { id: 'light', zh: '光明领域', en: 'Light Domain', portrait: '光明.png', desc: '驾驭净化之火与光芒，驱逐黑暗、灼烧亡灵。以引导神力放出黎明曙光，用闪耀之光迫使敌人攻击劣势。', highlights: ['<b>Lv3 光明领域法术</b> — 始终准备燃烧之手、妖火、灼热射线、识破隐形。Lv5+昼明术、火球术', '<b>Lv3 黎明曙光</b> — 消耗引导神力，30尺光环解除魔法黑暗，区域内敌人受 <b>2d10+牧师等级</b> 光耀伤害（体质豁免减半）', '<b>Lv3 守御之光</b> — 以反应使30尺内可见生物的攻击检定具有<b>劣势</b>，使用次数=感知调整值（长休恢复）', '<b>Lv6 精通守御之光</b> — 短休也可恢复守御之光次数，且可给予被攻击目标 <b>2d6+感知调整值</b> 临时HP', '<b>Lv17 光冕</b> — 散发60尺明亮+30尺微光灵光，范围内敌人对抗火焰或光耀伤害的豁免具有<b>劣势</b>'] },
-        { id: 'war', zh: '战争领域', en: 'War Domain', portrait: '战争.png', desc: '身披重甲冲锋陷阵的战斗祭司。以引导神力修正失手攻击，战神祝福施放无需法术位的灵体武器。', highlights: ['<b>Lv3 战争领域法术</b> — 始终准备光导箭、虔诚护盾、魔化武器、灵体武器。Lv5+十字军披风、灵体卫士', '<b>Lv3 导引打击</b> — 消耗引导神力，使30尺内一次失手攻击获得 <b>+10 加值</b>（可能扭转失手为命中），给他人加值时需用反应', '<b>Lv3 战争祭司</b> — 附赠动作发动一次武器攻击或徒手打击，使用次数=感知调整值（<b>短休或长休恢复</b>）', '<b>Lv6 战神祝福</b> — 消耗引导神力施展<b>虔诚护盾</b>或<b>灵体武器</b>无需法术位，无需专注，持续1分钟', '<b>Lv17 战争化身</b> — 获得对<b>钝击、穿刺、挥砍</b>伤害的抗性'] },
-        { id: 'life', zh: '生命领域', en: 'Life Domain', portrait: '生命.png', desc: '最纯粹的治疗者，每一次恢复法术都灌注神恩。引导神力群疗浴血盟友，治愈他人同时自愈。', highlights: ['<b>Lv3 生命门徒</b> — 消耗法术位施展的治疗法术额外恢复 <b>2+法术位环阶</b> 生命值', '<b>Lv3 生命领域法术</b> — 始终准备祝福术、疗伤术、次等复原术。Lv5+群体治愈真言、回生术', '<b>Lv3 维持生命</b> — 消耗引导神力恢复等于<b>牧师等级×5</b>的生命值，分配给30尺内浴血生物，至多恢复至HP上限一半', '<b>Lv6 神祝医者</b> — 用法术为他人恢复生命值时，自身也恢复 <b>2+法术位环阶</b> HP', '<b>Lv17 极效治疗</b> — 治疗掷骰<b>无需掷骰直接取满</b>，例如2d6直接取12'] },
-        { id: 'trickery', zh: '诡术领域', en: 'Trickery Domain', portrait: '诡术领域.png', desc: '狡诈之神的仆从，以幻象、隐形和分身迷惑敌人。召唤完美分身干扰敌人，后期可与分身传送换位。', highlights: ['<b>Lv3 诡术祝福</b> — 以魔法动作赋予自身或30尺内自愿生物敏捷（隐匿）检定<b>优势</b>，持续至下次长休', '<b>Lv3 召现分身</b> — 消耗引导神力以附赠动作创造完美幻象（1分钟），可从分身位置施法、分身5尺内干扰目标使攻击具优势', '<b>Lv3 诡术领域法术</b> — 始终准备魅惑类人、易容术、隐形术、行动无踪。Lv5+催眠图纹、回避侦测', '<b>Lv6 诡诈换位</b> — 用附赠动作创造或移动分身时，可通过<b>传送</b>与分身交换位置', '<b>Lv17 精通分身</b> — 盟友对分身5尺内敌人攻击也具优势，分身消失时恢复等于<b>牧师等级</b>的HP'] },
+        { id: 'light', zh: '光明领域', en: 'Light Domain', portrait: 'light-domain.png', desc: '驾驭净化之火与光芒，驱逐黑暗、灼烧亡灵。以引导神力放出黎明曙光，用闪耀之光迫使敌人攻击劣势。', highlights: ['<b>Lv3 光明领域法术</b> — 始终准备燃烧之手、妖火、灼热射线、识破隐形。Lv5+昼明术、火球术', '<b>Lv3 黎明曙光</b> — 消耗引导神力，30尺光环解除魔法黑暗，区域内敌人受 <b>2d10+牧师等级</b> 光耀伤害（体质豁免减半）', '<b>Lv3 守御之光</b> — 以反应使30尺内可见生物的攻击检定具有<b>劣势</b>，使用次数=感知调整值（长休恢复）', '<b>Lv6 精通守御之光</b> — 短休也可恢复守御之光次数，且可给予被攻击目标 <b>2d6+感知调整值</b> 临时HP', '<b>Lv17 光冕</b> — 散发60尺明亮+30尺微光灵光，范围内敌人对抗火焰或光耀伤害的豁免具有<b>劣势</b>'] },
+        { id: 'war', zh: '战争领域', en: 'War Domain', portrait: 'war-domain.png', desc: '身披重甲冲锋陷阵的战斗祭司。以引导神力修正失手攻击，战神祝福施放无需法术位的灵体武器。', highlights: ['<b>Lv3 战争领域法术</b> — 始终准备光导箭、虔诚护盾、魔化武器、灵体武器。Lv5+十字军披风、灵体卫士', '<b>Lv3 导引打击</b> — 消耗引导神力，使30尺内一次失手攻击获得 <b>+10 加值</b>（可能扭转失手为命中），给他人加值时需用反应', '<b>Lv3 战争祭司</b> — 附赠动作发动一次武器攻击或徒手打击，使用次数=感知调整值（<b>短休或长休恢复</b>）', '<b>Lv6 战神祝福</b> — 消耗引导神力施展<b>虔诚护盾</b>或<b>灵体武器</b>无需法术位，无需专注，持续1分钟', '<b>Lv17 战争化身</b> — 获得对<b>钝击、穿刺、挥砍</b>伤害的抗性'] },
+        { id: 'life', zh: '生命领域', en: 'Life Domain', portrait: 'life-domain.png', desc: '最纯粹的治疗者，每一次恢复法术都灌注神恩。引导神力群疗浴血盟友，治愈他人同时自愈。', highlights: ['<b>Lv3 生命门徒</b> — 消耗法术位施展的治疗法术额外恢复 <b>2+法术位环阶</b> 生命值', '<b>Lv3 生命领域法术</b> — 始终准备祝福术、疗伤术、次等复原术。Lv5+群体治愈真言、回生术', '<b>Lv3 维持生命</b> — 消耗引导神力恢复等于<b>牧师等级×5</b>的生命值，分配给30尺内浴血生物，至多恢复至HP上限一半', '<b>Lv6 神祝医者</b> — 用法术为他人恢复生命值时，自身也恢复 <b>2+法术位环阶</b> HP', '<b>Lv17 极效治疗</b> — 治疗掷骰<b>无需掷骰直接取满</b>，例如2d6直接取12'] },
+        { id: 'trickery', zh: '诡术领域', en: 'Trickery Domain', portrait: 'trickery-domain.png', desc: '狡诈之神的仆从，以幻象、隐形和分身迷惑敌人。召唤完美分身干扰敌人，后期可与分身传送换位。', highlights: ['<b>Lv3 诡术祝福</b> — 以魔法动作赋予自身或30尺内自愿生物敏捷（隐匿）检定<b>优势</b>，持续至下次长休', '<b>Lv3 召现分身</b> — 消耗引导神力以附赠动作创造完美幻象（1分钟），可从分身位置施法、分身5尺内干扰目标使攻击具优势', '<b>Lv3 诡术领域法术</b> — 始终准备魅惑类人、易容术、隐形术、行动无踪。Lv5+催眠图纹、回避侦测', '<b>Lv6 诡诈换位</b> — 用附赠动作创造或移动分身时，可通过<b>传送</b>与分身交换位置', '<b>Lv17 精通分身</b> — 盟友对分身5尺内敌人攻击也具优势，分身消失时恢复等于<b>牧师等级</b>的HP'] },
       ]
     }
   },
@@ -7829,10 +8553,10 @@ const classData = {
       label: '诗人学院', enLabel: 'Bard College',
       level: 'Lv3',
       options: [
-        { id: 'lore', zh: '逸闻学院', en: 'College of Lore', portrait: '逸闻.png', desc: '博学的学者与故事收集者，获得额外魔法奥秘与技能熟练。以割裂之言削弱敌人的攻击和属性检定。', highlights: ['<b>Lv3 附赠熟练</b> — 获得<b>三项</b>自选技能的熟练', '<b>Lv3 语出惊人</b> — 以反应消耗诗人激励骰，从60尺内可见生物的<b>伤害掷骰、属性检定或攻击检定</b>结果中减去激励骰值，可能将成功变为失败', '<b>Lv6 魔法探秘</b> — 从<b>牧师、德鲁伊或法师</b>法术列表中自选学习两道法术（戏法或拥有对应法术位环阶），始终准备且每级可替换', '<b>Lv14 超凡技艺</b> — 属性检定或攻击检定失败时消耗激励骰将结果加至d20，<b>失败不消耗次数</b>'] },
-        { id: 'valor', zh: '勇气学院', en: 'College of Valor', portrait: '勇气.png', desc: '战场上的英雄诗人，擅长中甲、军用武器与盾牌。以战斗激励让盟友将激励骰用于AC防御或额外伤害。', highlights: ['<b>Lv3 战斗激励</b> — 盟友可使用诗人激励骰选择：<b>防御</b>（被命中时用反应将骰值加入AC）或<b>进攻</b>（命中后附加骰值伤害）', '<b>Lv3 战争训练</b> — 获得<b>军用武器熟练</b>与<b>中甲和盾牌受训</b>，可用简易或军用武器作为施法法器', '<b>Lv6 额外攻击</b> — 攻击动作可发动两次攻击，其中<b>一次可替换为施展戏法</b>（施法时间一动作）', '<b>Lv14 战斗魔法</b> — 施展施法时间为一动作的法术后，可用<b>附赠动作</b>发动一次武器攻击'] },
-        { id: 'glamour', zh: '魅心学院', en: 'College of Glamour', portrait: '迷惑.png', desc: '妖精魔法的掌握者，以超凡魅力迷惑和命令他人。短时间内化身超凡魅力的威严形态，攻击者需通过魅力豁免否则畏缩失手。', highlights: ['<b>Lv3 惑心魔法</b> — 始终准备魅惑类人与镜影术。消耗法术位施展惑控/幻术法术后，可使60尺内生物陷入<b>魅惑或恐慌</b>1分钟', '<b>Lv3 灵感织衣</b> — 附赠动作消耗激励骰，最多魅力调整值个盟友获得<b>2倍骰值临时HP</b>，且每人可用反应移动速度（不引发借机攻击）', '<b>Lv6 威仪作锦</b> — 始终准备命令术。附赠动作免费施展命令术并进入威严形态（1分钟），期间每回合附赠动作免费命令术，且<b>被魅惑者自动豁免失败</b>', '<b>Lv14 不破威仪</b> — 附赠动作呈现庄严姿态（1分钟），每个回合首次命中你的攻击者须通过<b>魅力豁免</b>否则攻击畏缩失手。短休或长休恢复'] },
-        { id: 'dance', zh: '舞蹈学院', en: 'College of Dance', portrait: '舞蹈.png', desc: '以舞蹈作为魔法媒介，将战斗变为优雅的表演。无甲AC=10+敏+魅，以舞步带动盟友移动，以敏捷代替力量发动徒手打击。', highlights: ['<b>Lv3 炫目舞步</b> — 无甲AC=<b>10+敏+魅</b>。消耗激励骰时可作为该动作/附赠/反应的一部分发动一次徒手打击，伤害=<b>激励骰+敏调</b>钝击', '<b>Lv6 鼓舞之移</b> — 敌人5尺内结束回合时，以反应消耗激励骰带动自身与30尺内一盟友各移动<b>一半速度</b>（不引发借机攻击）', '<b>Lv6 协同舞步</b> — 投先攻时消耗激励骰，自身与30尺内可听/见盟友的先攻检定获得<b>+骰值</b>加值', '<b>Lv14 引导闪避</b> — 敏捷豁免减半效应中<b>成功不受伤害、失败只受一半</b>，且可令5尺内盟友同样受益'] },
+        { id: 'lore', zh: '逸闻学院', en: 'College of Lore', portrait: 'lore.png', desc: '博学的学者与故事收集者，获得额外魔法奥秘与技能熟练。以割裂之言削弱敌人的攻击和属性检定。', highlights: ['<b>Lv3 附赠熟练</b> — 获得<b>三项</b>自选技能的熟练', '<b>Lv3 语出惊人</b> — 以反应消耗诗人激励骰，从60尺内可见生物的<b>伤害掷骰、属性检定或攻击检定</b>结果中减去激励骰值，可能将成功变为失败', '<b>Lv6 魔法探秘</b> — 从<b>牧师、德鲁伊或法师</b>法术列表中自选学习两道法术（戏法或拥有对应法术位环阶），始终准备且每级可替换', '<b>Lv14 超凡技艺</b> — 属性检定或攻击检定失败时消耗激励骰将结果加至d20，<b>失败不消耗次数</b>'] },
+        { id: 'valor', zh: '勇气学院', en: 'College of Valor', portrait: 'valor.png', desc: '战场上的英雄诗人，擅长中甲、军用武器与盾牌。以战斗激励让盟友将激励骰用于AC防御或额外伤害。', highlights: ['<b>Lv3 战斗激励</b> — 盟友可使用诗人激励骰选择：<b>防御</b>（被命中时用反应将骰值加入AC）或<b>进攻</b>（命中后附加骰值伤害）', '<b>Lv3 战争训练</b> — 获得<b>军用武器熟练</b>与<b>中甲和盾牌受训</b>，可用简易或军用武器作为施法法器', '<b>Lv6 额外攻击</b> — 攻击动作可发动两次攻击，其中<b>一次可替换为施展戏法</b>（施法时间一动作）', '<b>Lv14 战斗魔法</b> — 施展施法时间为一动作的法术后，可用<b>附赠动作</b>发动一次武器攻击'] },
+        { id: 'glamour', zh: '魅心学院', en: 'College of Glamour', portrait: 'glamour.png', desc: '妖精魔法的掌握者，以超凡魅力迷惑和命令他人。短时间内化身超凡魅力的威严形态，攻击者需通过魅力豁免否则畏缩失手。', highlights: ['<b>Lv3 惑心魔法</b> — 始终准备魅惑类人与镜影术。消耗法术位施展惑控/幻术法术后，可使60尺内生物陷入<b>魅惑或恐慌</b>1分钟', '<b>Lv3 灵感织衣</b> — 附赠动作消耗激励骰，最多魅力调整值个盟友获得<b>2倍骰值临时HP</b>，且每人可用反应移动速度（不引发借机攻击）', '<b>Lv6 威仪作锦</b> — 始终准备命令术。附赠动作免费施展命令术并进入威严形态（1分钟），期间每回合附赠动作免费命令术，且<b>被魅惑者自动豁免失败</b>', '<b>Lv14 不破威仪</b> — 附赠动作呈现庄严姿态（1分钟），每个回合首次命中你的攻击者须通过<b>魅力豁免</b>否则攻击畏缩失手。短休或长休恢复'] },
+        { id: 'dance', zh: '舞蹈学院', en: 'College of Dance', portrait: 'dance.png', desc: '以舞蹈作为魔法媒介，将战斗变为优雅的表演。无甲AC=10+敏+魅，以舞步带动盟友移动，以敏捷代替力量发动徒手打击。', highlights: ['<b>Lv3 炫目舞步</b> — 无甲AC=<b>10+敏+魅</b>。消耗激励骰时可作为该动作/附赠/反应的一部分发动一次徒手打击，伤害=<b>激励骰+敏调</b>钝击', '<b>Lv6 鼓舞之移</b> — 敌人5尺内结束回合时，以反应消耗激励骰带动自身与30尺内一盟友各移动<b>一半速度</b>（不引发借机攻击）', '<b>Lv6 协同舞步</b> — 投先攻时消耗激励骰，自身与30尺内可听/见盟友的先攻检定获得<b>+骰值</b>加值', '<b>Lv14 引导闪避</b> — 敏捷豁免减半效应中<b>成功不受伤害、失败只受一半</b>，且可令5尺内盟友同样受益'] },
       ]
     }
   },
@@ -7858,10 +8582,10 @@ const classData = {
       label: '德鲁伊结社', enLabel: 'Druid Circle',
       level: 'Lv3',
       options: [
-        { id: 'land', zh: '大地结社', en: 'Circle of the Land', portrait: '大地.png', desc: '与特定地形建立链接——极地、海岸、沙漠、森林、草原、山地或沼泽。获得对应地形的法术和环境适应能力。', highlights: ['<b>Lv3 大地之环法术</b> — 选择一种地形（极地/海岸/沙漠/森林/草原/山地/沼泽），始终准备该地形对应法术表。Lv5+第2套法术', '<b>Lv3 荒野复苏</b> — 消耗荒野变形次数，在10尺内创造一片<b>30尺半径魔法区域</b>持续1分钟。区域内为盟友提供半身掩护，且每短休一次可在区域内将法术位恢复量翻倍', '<b>Lv6 自然结界</b> — 获得对<b>毒素伤害的抗性</b>，对抗中毒状态的豁免具有<b>优势</b>', '<b>Lv10 自然守护</b> — 你创造的荒野复苏区域内，盟友<b>免疫中毒</b>，且对所有元素伤害（酸、冷、火、电、雷鸣）具有抗性', '<b>Lv14 自然之赐</b> — 在荒野复苏区域内施法时，可使用<b>荒野变形次数</b>代替任何法术位（每天限一次）'] },
-        { id: 'moon', zh: '月亮结社', en: 'Circle of the Moon', portrait: '月亮.png', desc: '精通荒野形态的变形大师，可化为更强大的野兽并以附赠动作变形，以战斗形态释放元素之力。', highlights: ['<b>Lv3 战斗荒野形态</b> — 可用<b>附赠动作</b>变身（而非动作），最高CR=德鲁伊等级÷3（向下取整），可使用荒野形态次数施展<b>月华之光</b>（每环消耗1次=1环）', '<b>Lv3 月华之光</b> — 消耗荒野形态次数模拟法术位施放疗伤术、月华之光等法术', '<b>Lv6 元素打击</b> — 荒野形态下的攻击视为<b>魔法攻击</b>以克服抗性，且每次攻击的伤害掷骰额外+<b>1d6元素伤害</b>', '<b>Lv10 精通战斗荒野形态</b> — 荒野形态下AC=<b>13+感知调整值</b>（若更高），CR上限提升至<b>德鲁伊等级÷2</b>', '<b>Lv14 月华之怒</b> — 荒野形态下每回合一次，攻击命中后可额外造成<b>2d10力场伤害</b>，且可尝试推撞目标（力量豁免）'] },
-        { id: 'stars', zh: '星辰结社', en: 'Circle of the Stars', portrait: '星辰.png', desc: '从星辰的排列中汲取力量，召唤星辰图纹发放星辉光芒、圣杯治愈或巨龙低语。', highlights: ['<b>Lv3 星图</b> — 获得<b>星图法器</b>，始终准备星辉光芒和向导术，免费施放向导术无需法术位', '<b>Lv3 星辰形态</b> — 消耗荒野变形次数进入形态（10分钟）：<b>圣杯</b>（治疗额外恢复1d8+感知调整值）、<b>射手</b>（附赠动作发射星光箭1d8+感知调整值光耀伤害）、<b>巨龙</b>（智力/感知豁免不低于10，专注检定不低于10）', '<b>Lv6 宇宙预兆</b> — 长休后掷一枚d6：<b>奇数=衰运</b>（敌人豁免-1d6）、<b>偶数=吉运</b>（盟友检定+1d6），以反应消耗预兆', '<b>Lv10 闪烁星辰</b> — 星辰形态下可用附赠动作切换星座，且<b>飞行速度30尺、可悬浮</b>', '<b>Lv14 辉耀抗力</b> — 星辰形态下获得<b>钝击、穿刺、挥砍伤害的抗性</b>'] },
-        { id: 'sea', zh: '海洋结社', en: 'Circle of the Sea', portrait: '海洋.png', desc: '与海洋的狂怒共鸣，以海浪般的冲击击退敌人，获得游泳速度和水中呼吸能力。', highlights: ['<b>Lv3 海洋法术</b> — 始终准备造水术、云雾术、雷鸣波。Lv5+风墙术、水墙术等海洋主题法术', '<b>Lv3 怒涛之灵</b> — 消耗荒野变形次数召唤<b>水元素灵光</b>（10分钟），附赠动作发动15尺锥形海浪，造成<b>2d6+感知调整值</b>冷冻伤害并推离10尺', '<b>Lv3 水之赠礼</b> — 获得<b>游泳速度=步行速度</b>，且可在水下呼吸', '<b>Lv6 水境卫士</b> — 获得对<b>冷冻伤害的抗性</b>，怒涛之灵的伤害提升至<b>3d6+感知调整值</b>', '<b>Lv10 精通海洋法术</b> — 怒涛之灵状态下每回合一次，施放一环以上法术可将目标<b>推离或拉近15尺</b>', '<b>Lv14 潮汐之握</b> — 怒涛之灵伤害提升至<b>4d6+感知调整值</b>，海浪范围扩大至<b>30尺锥形</b>'] },
+        { id: 'land', zh: '大地结社', en: 'Circle of the Land', portrait: 'land.png', desc: '与特定地形建立链接——极地、海岸、沙漠、森林、草原、山地或沼泽。获得对应地形的法术和环境适应能力。', highlights: ['<b>Lv3 大地之环法术</b> — 选择一种地形（极地/海岸/沙漠/森林/草原/山地/沼泽），始终准备该地形对应法术表。Lv5+第2套法术', '<b>Lv3 荒野复苏</b> — 消耗荒野变形次数，在10尺内创造一片<b>30尺半径魔法区域</b>持续1分钟。区域内为盟友提供半身掩护，且每短休一次可在区域内将法术位恢复量翻倍', '<b>Lv6 自然结界</b> — 获得对<b>毒素伤害的抗性</b>，对抗中毒状态的豁免具有<b>优势</b>', '<b>Lv10 自然守护</b> — 你创造的荒野复苏区域内，盟友<b>免疫中毒</b>，且对所有元素伤害（酸、冷、火、电、雷鸣）具有抗性', '<b>Lv14 自然之赐</b> — 在荒野复苏区域内施法时，可使用<b>荒野变形次数</b>代替任何法术位（每天限一次）'] },
+        { id: 'moon', zh: '月亮结社', en: 'Circle of the Moon', portrait: 'moon.png', desc: '精通荒野形态的变形大师，可化为更强大的野兽并以附赠动作变形，以战斗形态释放元素之力。', highlights: ['<b>Lv3 战斗荒野形态</b> — 可用<b>附赠动作</b>变身（而非动作），最高CR=德鲁伊等级÷3（向下取整），可使用荒野形态次数施展<b>月华之光</b>（每环消耗1次=1环）', '<b>Lv3 月华之光</b> — 消耗荒野形态次数模拟法术位施放疗伤术、月华之光等法术', '<b>Lv6 元素打击</b> — 荒野形态下的攻击视为<b>魔法攻击</b>以克服抗性，且每次攻击的伤害掷骰额外+<b>1d6元素伤害</b>', '<b>Lv10 精通战斗荒野形态</b> — 荒野形态下AC=<b>13+感知调整值</b>（若更高），CR上限提升至<b>德鲁伊等级÷2</b>', '<b>Lv14 月华之怒</b> — 荒野形态下每回合一次，攻击命中后可额外造成<b>2d10力场伤害</b>，且可尝试推撞目标（力量豁免）'] },
+        { id: 'stars', zh: '星辰结社', en: 'Circle of the Stars', portrait: 'stars.png', desc: '从星辰的排列中汲取力量，召唤星辰图纹发放星辉光芒、圣杯治愈或巨龙低语。', highlights: ['<b>Lv3 星图</b> — 获得<b>星图法器</b>，始终准备星辉光芒和向导术，免费施放向导术无需法术位', '<b>Lv3 星辰形态</b> — 消耗荒野变形次数进入形态（10分钟）：<b>圣杯</b>（治疗额外恢复1d8+感知调整值）、<b>射手</b>（附赠动作发射星光箭1d8+感知调整值光耀伤害）、<b>巨龙</b>（智力/感知豁免不低于10，专注检定不低于10）', '<b>Lv6 宇宙预兆</b> — 长休后掷一枚d6：<b>奇数=衰运</b>（敌人豁免-1d6）、<b>偶数=吉运</b>（盟友检定+1d6），以反应消耗预兆', '<b>Lv10 闪烁星辰</b> — 星辰形态下可用附赠动作切换星座，且<b>飞行速度30尺、可悬浮</b>', '<b>Lv14 辉耀抗力</b> — 星辰形态下获得<b>钝击、穿刺、挥砍伤害的抗性</b>'] },
+        { id: 'sea', zh: '海洋结社', en: 'Circle of the Sea', portrait: 'sea.png', desc: '与海洋的狂怒共鸣，以海浪般的冲击击退敌人，获得游泳速度和水中呼吸能力。', highlights: ['<b>Lv3 海洋法术</b> — 始终准备造水术、云雾术、雷鸣波。Lv5+风墙术、水墙术等海洋主题法术', '<b>Lv3 怒涛之灵</b> — 消耗荒野变形次数召唤<b>水元素灵光</b>（10分钟），附赠动作发动15尺锥形海浪，造成<b>2d6+感知调整值</b>冷冻伤害并推离10尺', '<b>Lv3 水之赠礼</b> — 获得<b>游泳速度=步行速度</b>，且可在水下呼吸', '<b>Lv6 水境卫士</b> — 获得对<b>冷冻伤害的抗性</b>，怒涛之灵的伤害提升至<b>3d6+感知调整值</b>', '<b>Lv10 精通海洋法术</b> — 怒涛之灵状态下每回合一次，施放一环以上法术可将目标<b>推离或拉近15尺</b>', '<b>Lv14 潮汐之握</b> — 怒涛之灵伤害提升至<b>4d6+感知调整值</b>，海浪范围扩大至<b>30尺锥形</b>'] },
       ]
     }
   },
@@ -7887,10 +8611,10 @@ const classData = {
       label: '武术范型', enLabel: 'Martial Archetype',
       level: 'Lv3',
       options: [
-        { id: 'champion', zh: '勇士', en: 'Champion', portrait: '勇士.png', desc: '纯粹的力量型战士，精通重击——攻击掷骰掷出19即可造成重击，后期更是可达18-20。', highlights: ['<b>Lv3 精通重击</b> — 武器攻击掷出 <b>19-20</b> 即造成重击，大幅提升伤害期望', '<b>Lv3 非凡运动能力</b> — 所有力量、敏捷、体质属性检定获得等于熟练加值<b>一半</b>（向上取整）的加值，且助跑跳远距离 + 力量调整值尺', '<b>Lv7 额外战斗风格</b> — 从战士战斗风格列表中再选一项，不可重复已选风格', '<b>Lv10 英雄姿态</b> — 每回合一次，命中目标后可选择自身获得优势或目标对下个攻击劣势', '<b>Lv15 超级重击</b> — 重击范围扩展至 <b>18-20</b>，且重击时可附加一个卓越骰 d10 的额外伤害', '<b>Lv18 生存大师</b> — HP 低于一半时每回合开始自动恢复 5+体质调整值 HP'] },
-        { id: 'battle-master', zh: '战斗大师', en: 'Battle Master', portrait: '战斗大师.png', desc: '战场上的战术家，以卓越骰驱动各种战斗技艺：绊摔、缴械、推撞、精准打击等。', highlights: ['<b>Lv3 战斗卓越</b> — 获得 4 颗 <b>d8 卓越骰</b>，短休或长休恢复。习得 3 种战技：精准打击、缴械攻击、绊摔攻击、推撞攻击等', '<b>Lv3 战术评估</b> — 花费 1 分钟观察生物，获知其相对于你的物理属性值、总职业等级、战士等级等情报', '<b>Lv7 知晓敌意</b> — 以一个附赠动作获知 30 尺内一个可见生物的一项属性值、伤害抗性/免疫/弱点、当前 HP 或总职业等级', '<b>Lv10 精通战斗卓越</b> — 卓越骰升级为 <b>d10</b>，每短休恢复量 +1（共 5 颗）', '<b>Lv15 坚定</b> — 先攻掷骰时若无卓越骰，恢复 1 颗', '<b>Lv18 终极战斗卓越</b> — 卓越骰升级为 <b>d12</b>'] },
-        { id: 'eldritch-knight', zh: '奥法骑士', en: 'Eldritch Knight', portrait: '奥法骑士.png', desc: '结合剑与魔法的战士，习得防护系和塑能系法师法术。后期可以剑施法，边打边放法术。', highlights: ['<b>Lv3 施法</b> — 使用智力施法，起始习得 2 道法师戏法 + 3 道一环法师法术（必须来自<b>防护</b>或<b>塑能</b>学派），拥有 2 个一环法术位', '<b>Lv3 武器绑定</b> — 以 1 小时仪式绑定最多 2 把武器。绑定武器无法被缴械，且可用附赠动作将其传送至手中（同一位面内）', '<b>Lv7 战斗施法</b> — 以攻击动作施放戏法时，可用附赠动作发动一次武器攻击', '<b>Lv10 秘法打击</b> — 以武器命中目标后，目标对下次你施展的法术的豁免有劣势，持续至你下回合结束', '<b>Lv15 奥术冲锋</b> — 使用动作施放法术或以攻击动作施放戏法后，可传送至 30 尺内可见空闲位置（每回合限一次）', '<b>Lv18 精通战斗施法</b> — 以攻击动作施放 1 环或 2 环法术代替一次攻击（每回合限一次），但仍保留额外攻击'] },
-        { id: 'psi-warrior', zh: '灵能武士', en: 'Psi Warrior', portrait: '灵能武士.png', desc: '以灵力增强战斗的心灵战士，以心灵能量发动护盾、突袭、乃至移动敌人或盟友。', highlights: ['<b>Lv3 灵力骰</b> — 获得等于熟练加值 <b>×2</b> 颗 <b>d6 灵力骰</b>（长休恢复），用于驱动三项灵力：防护力场、心灵突袭、灵力移动', '<b>Lv3 防护力场</b> — 以反应为 30 尺内可见生物（含自身）减伤 <b>1d6+智力调整值</b>', '<b>Lv3 心灵突袭</b> — 攻击命中后消耗灵力骰附加 <b>1d6+智力调整值</b> 力场伤害，且可推撞目标 10 尺（力量豁免）', '<b>Lv3 灵力移动</b> — 以附赠动作移动 30 尺内可见的中型或更小生物 15 尺（力量豁免），或移动自愿盟友 30 尺', '<b>Lv7 灵力跳跃</b> — 附赠动作获得飞行速度（等同步行速度），持续至当前回合结束。每长休可用 PB 次', '<b>Lv10 灵力壁垒</b> — 消耗灵力骰为 30 尺内最多 PB 个生物提供对心灵伤害的半 cover（+2 AC/豁免）'] },
+        { id: 'champion', zh: '勇士', en: 'Champion', portrait: 'champion.png', desc: '纯粹的力量型战士，精通重击——攻击掷骰掷出19即可造成重击，后期更是可达18-20。', highlights: ['<b>Lv3 精通重击</b> — 武器攻击掷出 <b>19-20</b> 即造成重击，大幅提升伤害期望', '<b>Lv3 非凡运动能力</b> — 所有力量、敏捷、体质属性检定获得等于熟练加值<b>一半</b>（向上取整）的加值，且助跑跳远距离 + 力量调整值尺', '<b>Lv7 额外战斗风格</b> — 从战士战斗风格列表中再选一项，不可重复已选风格', '<b>Lv10 英雄姿态</b> — 每回合一次，命中目标后可选择自身获得优势或目标对下个攻击劣势', '<b>Lv15 超级重击</b> — 重击范围扩展至 <b>18-20</b>，且重击时可附加一个卓越骰 d10 的额外伤害', '<b>Lv18 生存大师</b> — HP 低于一半时每回合开始自动恢复 5+体质调整值 HP'] },
+        { id: 'battle-master', zh: '战斗大师', en: 'Battle Master', portrait: 'battle-master.png', desc: '战场上的战术家，以卓越骰驱动各种战斗技艺：绊摔、缴械、推撞、精准打击等。', highlights: ['<b>Lv3 战斗卓越</b> — 获得 4 颗 <b>d8 卓越骰</b>，短休或长休恢复。习得 3 种战技：精准打击、缴械攻击、绊摔攻击、推撞攻击等', '<b>Lv3 战术评估</b> — 花费 1 分钟观察生物，获知其相对于你的物理属性值、总职业等级、战士等级等情报', '<b>Lv7 知晓敌意</b> — 以一个附赠动作获知 30 尺内一个可见生物的一项属性值、伤害抗性/免疫/弱点、当前 HP 或总职业等级', '<b>Lv10 精通战斗卓越</b> — 卓越骰升级为 <b>d10</b>，每短休恢复量 +1（共 5 颗）', '<b>Lv15 坚定</b> — 先攻掷骰时若无卓越骰，恢复 1 颗', '<b>Lv18 终极战斗卓越</b> — 卓越骰升级为 <b>d12</b>'] },
+        { id: 'eldritch-knight', zh: '奥法骑士', en: 'Eldritch Knight', portrait: 'eldritch-knight.png', desc: '结合剑与魔法的战士，习得防护系和塑能系法师法术。后期可以剑施法，边打边放法术。', highlights: ['<b>Lv3 施法</b> — 使用智力施法，起始习得 2 道法师戏法 + 3 道一环法师法术（必须来自<b>防护</b>或<b>塑能</b>学派），拥有 2 个一环法术位', '<b>Lv3 武器绑定</b> — 以 1 小时仪式绑定最多 2 把武器。绑定武器无法被缴械，且可用附赠动作将其传送至手中（同一位面内）', '<b>Lv7 战斗施法</b> — 以攻击动作施放戏法时，可用附赠动作发动一次武器攻击', '<b>Lv10 秘法打击</b> — 以武器命中目标后，目标对下次你施展的法术的豁免有劣势，持续至你下回合结束', '<b>Lv15 奥术冲锋</b> — 使用动作施放法术或以攻击动作施放戏法后，可传送至 30 尺内可见空闲位置（每回合限一次）', '<b>Lv18 精通战斗施法</b> — 以攻击动作施放 1 环或 2 环法术代替一次攻击（每回合限一次），但仍保留额外攻击'] },
+        { id: 'psi-warrior', zh: '灵能武士', en: 'Psi Warrior', portrait: 'psi-warrior.png', desc: '以灵力增强战斗的心灵战士，以心灵能量发动护盾、突袭、乃至移动敌人或盟友。', highlights: ['<b>Lv3 灵力骰</b> — 获得等于熟练加值 <b>×2</b> 颗 <b>d6 灵力骰</b>（长休恢复），用于驱动三项灵力：防护力场、心灵突袭、灵力移动', '<b>Lv3 防护力场</b> — 以反应为 30 尺内可见生物（含自身）减伤 <b>1d6+智力调整值</b>', '<b>Lv3 心灵突袭</b> — 攻击命中后消耗灵力骰附加 <b>1d6+智力调整值</b> 力场伤害，且可推撞目标 10 尺（力量豁免）', '<b>Lv3 灵力移动</b> — 以附赠动作移动 30 尺内可见的中型或更小生物 15 尺（力量豁免），或移动自愿盟友 30 尺', '<b>Lv7 灵力跳跃</b> — 附赠动作获得飞行速度（等同步行速度），持续至当前回合结束。每长休可用 PB 次', '<b>Lv10 灵力壁垒</b> — 消耗灵力骰为 30 尺内最多 PB 个生物提供对心灵伤害的半 cover（+2 AC/豁免）'] },
       ]
     }
   },
@@ -7916,10 +8640,10 @@ const classData = {
       label: '武僧宗派', enLabel: 'Monastic Tradition',
       level: 'Lv3',
       options: [
-        { id: 'open-hand', zh: '散打武者', en: 'Warrior of the Open Hand', portrait: '散打.png', desc: '最纯粹的徒手格斗者。疾风连击可将敌人击倒、推开或阻止反应。后期获得自愈和致命震颤掌。', highlights: ['<b>Lv3 散打技巧</b> — 疾风连击命中时可附加三选一效应：<b>慌神</b>（目标下回合不能用借机攻击）、<b>推离</b>（力量豁免否则推离15尺）、<b>失衡</b>（敏捷豁免否则倒地）', '<b>Lv6 混元体</b> — 附赠动作掷武艺骰恢复 <b>武艺骰+感知调整值</b> HP，使用次数=感知调整值（长休恢复）', '<b>Lv11 流星步</b> — 使用疾风连击以外的附赠动作时，可<b>立即</b>在该附赠动作后免费使用疾风连击', '<b>Lv17 渗透劲</b> — 徒手打击命中后消耗<b>4点气</b>打入暗劲（持续武僧等级天数），以动作结束暗劲造成<b>10d12力场伤害</b>（体质豁免减半）'] },
-        { id: 'shadow', zh: '暗影武者', en: 'Warrior of Shadow', portrait: '暗影.png', desc: '暗影中的潜行者，以气施展黑暗术、黑暗视觉。可在阴影间传送并发动突袭，Lv17以幽影斗篷隐形。', highlights: ['<b>Lv3 暗影技艺</b> — 消耗<b>1点气</b>施展黑暗术（可看穿自己施放的）、获得<b>60尺黑暗视觉</b>、习得戏法次级幻象', '<b>Lv6 暗影步</b> — 在微光/黑暗中可用<b>附赠动作</b>传送至60尺内另一微光/黑暗空间，下个近战攻击获得<b>优势</b>', '<b>Lv11 无影步</b> — 消耗1点气移除暗影步的微光/黑暗要求，且传送后可立即<b>发动一次徒手打击</b>', '<b>Lv17 幽影斗篷</b> — 在微光/黑暗中消耗<b>3点气</b>环绕幽影（1分钟），获得<b>隐形状态</b>、可穿过占据空间、且疾风连击<b>无需消耗气</b>'] },
-        { id: 'elements', zh: '四象武者', en: 'Warrior of the Elements', portrait: '四象.png', desc: '以气引导元素之力，徒手打击触及+10尺并可选元素伤害类型。获得游泳速度、飞行速度和元素爆发的远程攻击手段。', highlights: ['<b>Lv3 元素同调</b> — 消耗1点气（10分钟），徒手打击<b>触及+10尺</b>，可造成强酸/寒冷/火焰/闪电/雷鸣伤害并推拉目标10尺（力量豁免）', '<b>Lv3 掌控元素</b> — 习得戏法<b>四象法门</b>（感知施法），操控水、火、土、气等元素戏法', '<b>Lv6 元素爆破拳</b> — 消耗<b>2点气</b>，120尺内20尺半径球状区域爆发<b>3颗武艺骰</b>的元素伤害（敏捷豁免减半）', '<b>Lv11 四象遁术</b> — 元素同调激活期间获得等于步行速度的<b>飞行速度和游泳速度</b>', '<b>Lv17 四象神通</b> — 元素同调期间选择一个元素伤害<b>抗性</b>（每回合可换），疾风连击速度+20尺，接触敌人时造成武艺骰伤害'] },
-        { id: 'mercy', zh: '命流武者', en: 'Warrior of Mercy', portrait: '命流.png', desc: '以气引导生命能量，可以徒手进行治疗或散布瘟疫。戴上医生面具或死者面具代表双重角色。', highlights: ['<b>Lv3 夺命之手</b> — 每回合一次，徒手打击命中后消耗1点气额外造成<b>武艺骰+感知调整值</b>暗蚀伤害', '<b>Lv3 予命之手</b> — 以魔法动作消耗1点气触碰生物恢复<b>武艺骰+感知调整值</b>HP，疾风连击中可替换一次徒手打击且<b>不消耗气</b>', '<b>Lv3 操命本事</b> — 获得<b>洞悉、医药和草药工具</b>的熟练', '<b>Lv6 生死之触</b> — 夺命之手附加<b>中毒状态</b>至下回合。予命之手可同时结束<b>目盲/耳聋/麻痹/中毒/震慑</b>之一', '<b>Lv11 生杀予夺</b> — 疾风连击的每次攻击都可替换为予命之手（不耗气），或附加夺命之手（不耗气），使用次数=感知调整值', '<b>Lv17 命极之手</b> — 消耗<b>5点气</b>触碰死亡24小时内的生物<b>起死回生</b>（恢复4d10+感知调整值HP），长休恢复'] },
+        { id: 'open-hand', zh: '散打武者', en: 'Warrior of the Open Hand', portrait: 'open-hand.png', desc: '最纯粹的徒手格斗者。疾风连击可将敌人击倒、推开或阻止反应。后期获得自愈和致命震颤掌。', highlights: ['<b>Lv3 散打技巧</b> — 疾风连击命中时可附加三选一效应：<b>慌神</b>（目标下回合不能用借机攻击）、<b>推离</b>（力量豁免否则推离15尺）、<b>失衡</b>（敏捷豁免否则倒地）', '<b>Lv6 混元体</b> — 附赠动作掷武艺骰恢复 <b>武艺骰+感知调整值</b> HP，使用次数=感知调整值（长休恢复）', '<b>Lv11 流星步</b> — 使用疾风连击以外的附赠动作时，可<b>立即</b>在该附赠动作后免费使用疾风连击', '<b>Lv17 渗透劲</b> — 徒手打击命中后消耗<b>4点气</b>打入暗劲（持续武僧等级天数），以动作结束暗劲造成<b>10d12力场伤害</b>（体质豁免减半）'] },
+        { id: 'shadow', zh: '暗影武者', en: 'Warrior of Shadow', portrait: 'shadow.png', desc: '暗影中的潜行者，以气施展黑暗术、黑暗视觉。可在阴影间传送并发动突袭，Lv17以幽影斗篷隐形。', highlights: ['<b>Lv3 暗影技艺</b> — 消耗<b>1点气</b>施展黑暗术（可看穿自己施放的）、获得<b>60尺黑暗视觉</b>、习得戏法次级幻象', '<b>Lv6 暗影步</b> — 在微光/黑暗中可用<b>附赠动作</b>传送至60尺内另一微光/黑暗空间，下个近战攻击获得<b>优势</b>', '<b>Lv11 无影步</b> — 消耗1点气移除暗影步的微光/黑暗要求，且传送后可立即<b>发动一次徒手打击</b>', '<b>Lv17 幽影斗篷</b> — 在微光/黑暗中消耗<b>3点气</b>环绕幽影（1分钟），获得<b>隐形状态</b>、可穿过占据空间、且疾风连击<b>无需消耗气</b>'] },
+        { id: 'elements', zh: '四象武者', en: 'Warrior of the Elements', portrait: 'four-elements.png', desc: '以气引导元素之力，徒手打击触及+10尺并可选元素伤害类型。获得游泳速度、飞行速度和元素爆发的远程攻击手段。', highlights: ['<b>Lv3 元素同调</b> — 消耗1点气（10分钟），徒手打击<b>触及+10尺</b>，可造成强酸/寒冷/火焰/闪电/雷鸣伤害并推拉目标10尺（力量豁免）', '<b>Lv3 掌控元素</b> — 习得戏法<b>四象法门</b>（感知施法），操控水、火、土、气等元素戏法', '<b>Lv6 元素爆破拳</b> — 消耗<b>2点气</b>，120尺内20尺半径球状区域爆发<b>3颗武艺骰</b>的元素伤害（敏捷豁免减半）', '<b>Lv11 四象遁术</b> — 元素同调激活期间获得等于步行速度的<b>飞行速度和游泳速度</b>', '<b>Lv17 四象神通</b> — 元素同调期间选择一个元素伤害<b>抗性</b>（每回合可换），疾风连击速度+20尺，接触敌人时造成武艺骰伤害'] },
+        { id: 'mercy', zh: '命流武者', en: 'Warrior of Mercy', portrait: 'mercy.png', desc: '以气引导生命能量，可以徒手进行治疗或散布瘟疫。戴上医生面具或死者面具代表双重角色。', highlights: ['<b>Lv3 夺命之手</b> — 每回合一次，徒手打击命中后消耗1点气额外造成<b>武艺骰+感知调整值</b>暗蚀伤害', '<b>Lv3 予命之手</b> — 以魔法动作消耗1点气触碰生物恢复<b>武艺骰+感知调整值</b>HP，疾风连击中可替换一次徒手打击且<b>不消耗气</b>', '<b>Lv3 操命本事</b> — 获得<b>洞悉、医药和草药工具</b>的熟练', '<b>Lv6 生死之触</b> — 夺命之手附加<b>中毒状态</b>至下回合。予命之手可同时结束<b>目盲/耳聋/麻痹/中毒/震慑</b>之一', '<b>Lv11 生杀予夺</b> — 疾风连击的每次攻击都可替换为予命之手（不耗气），或附加夺命之手（不耗气），使用次数=感知调整值', '<b>Lv17 命极之手</b> — 消耗<b>5点气</b>触碰死亡24小时内的生物<b>起死回生</b>（恢复4d10+感知调整值HP），长休恢复'] },
       ]
     }
   },
@@ -7945,10 +8669,10 @@ const classData = {
       label: '神圣誓言', enLabel: 'Sacred Oath',
       level: 'Lv3',
       options: [
-        { id: 'devotion', zh: '奉献之誓', en: 'Oath of Devotion', portrait: '奉献.png', desc: '最经典的圣骑士——诚实、勇气、怜悯、荣誉。引导神力以神圣武器发光，使用魅力调整值进行攻击和伤害掷骰。', highlights: ['<b>Lv3 圣洁武器</b> — 消耗引导神力，一把近战武器10分钟内攻击检定<b>+魅力调整值</b>，伤害可选择变为光耀，提供20尺明亮+20尺微光光照', '<b>Lv3 奉献之誓法术</b> — 始终准备防护善恶、虔诚护盾。Lv5+援助术、诚实之域', '<b>Lv7 奉献灵光</b> — 你与灵光内的盟友<b>免疫魅惑</b>，进入灵光的已魅惑者暂时无效', '<b>Lv15 卫护斩</b> — 施展至圣斩后至下回合开始，灵光内盟友获得<b>半身掩护</b>（AC和敏捷豁免+2）', '<b>Lv20 至圣光轮</b> — 附赠动作激活（10分钟），灵光内敌人回合开始时受到<b>魅调+熟练加值</b>光耀伤害，灵光视为阳光'] },
-        { id: 'ancients', zh: '古贤之誓', en: 'Oath of the Ancients', portrait: '古贤.png', desc: '守护自然之光与美善的骑士。引导神力召唤灵体藤蔓束缚敌人，获得对暗蚀、心灵和光耀伤害的抗性光环。', highlights: ['<b>Lv3 自然之怒</b> — 消耗引导神力，15尺内任意数量生物<b>力量豁免</b>否则束缚1分钟，目标每回合结束时重复豁免', '<b>Lv3 古贤之誓法术</b> — 始终准备捕获打击、动物交谈。Lv5+迷踪步、月华之光', '<b>Lv7 守御灵光</b> — 你与灵光内的盟友获得对<b>暗蚀、心灵和光耀</b>伤害的抗性', '<b>Lv15 不灭哨卫</b> — HP降至0时可选择降至<b>1</b>并恢复<b>圣武士等级×3</b>HP（长休恢复），且<b>不会因魔法衰老</b>', '<b>Lv20 上古斗士</b> — 附赠动作激活（1分钟），灵光内敌人对抗你法术/引导神力豁免具<b>劣势</b>，你每回合开始恢复<b>10HP</b>，施法时间可从动作变为<b>附赠动作</b>'] },
-        { id: 'vengeance', zh: '复仇之誓', en: 'Oath of Vengeance', portrait: '复仇.png', desc: '惩戒邪恶不择手段的黑暗骑士。引导神力对单一敌人获得无限优势，以借机攻击阻止逃跑并追击。', highlights: ['<b>Lv3 仇敌誓言</b> — 消耗引导神力，1分钟内对30尺内一可见生物攻击检定<b>优势</b>，目标HP降至0可切换目标（无需动作）', '<b>Lv3 复仇之誓法术</b> — 始终准备灾祸术、猎人印记。Lv5+定身类人、迷踪步', '<b>Lv7 坚韧复仇</b> — 借机攻击命中后目标<b>速度降至0</b>至回合结束，且立即移动<b>至多半速</b>（不引发借机攻击）', '<b>Lv15 复仇之魂</b> — 仇敌誓言目标发动攻击后（无论是否命中），若在触及内可以<b>反应</b>进行一次近战攻击', '<b>Lv20 复仇天使</b> — 附赠动作激活（10分钟），获得<b>60尺飞行速度</b>（可悬浮），灵光范围内敌人回合开始时感知豁免否则<b>恐慌</b>1分钟'] },
-        { id: 'glory', zh: '荣耀之誓', en: 'Oath of Glory', portrait: '荣耀.png', desc: '追求英雄伟业的传奇缔造者。至圣斩后给盟友临时HP，以荣耀光环加速盟友，20级化身现世传说。', highlights: ['<b>Lv3 鼓舞斩</b> — 施展至圣斩后消耗引导神力，使30尺内生物共获得<b>2d8+圣武士等级</b>临时HP（自由分配）', '<b>Lv3 绝伦健将</b> — 附赠动作消耗引导神力（1小时），力量（运动）和敏捷（特技）检定<b>优势</b>，跳跃距离<b>+10尺</b>', '<b>Lv3 荣耀之誓法术</b> — 始终准备光导箭、英雄气概。Lv5+强化属性、魔化武器', '<b>Lv7 迅捷灵光</b> — 自身速度+10尺，首次进入或在灵光内开始回合的盟友速度<b>+10尺</b>至其下回合结束', '<b>Lv15 辉煌防御</b> — 你或10尺内生物被命中时以反应+<b>魅力调整值AC</b>，若失手且攻击者在触及内可回击一次', '<b>Lv20 现世传说</b> — 附赠动作激活（10分钟），魅力检定<b>优势</b>、豁免失败可反应<b>重掷</b>、每回合一次武器攻击失手<b>改为命中</b>'] },
+        { id: 'devotion', zh: '奉献之誓', en: 'Oath of Devotion', portrait: 'devotion.png', desc: '最经典的圣骑士——诚实、勇气、怜悯、荣誉。引导神力以神圣武器发光，使用魅力调整值进行攻击和伤害掷骰。', highlights: ['<b>Lv3 圣洁武器</b> — 消耗引导神力，一把近战武器10分钟内攻击检定<b>+魅力调整值</b>，伤害可选择变为光耀，提供20尺明亮+20尺微光光照', '<b>Lv3 奉献之誓法术</b> — 始终准备防护善恶、虔诚护盾。Lv5+援助术、诚实之域', '<b>Lv7 奉献灵光</b> — 你与灵光内的盟友<b>免疫魅惑</b>，进入灵光的已魅惑者暂时无效', '<b>Lv15 卫护斩</b> — 施展至圣斩后至下回合开始，灵光内盟友获得<b>半身掩护</b>（AC和敏捷豁免+2）', '<b>Lv20 至圣光轮</b> — 附赠动作激活（10分钟），灵光内敌人回合开始时受到<b>魅调+熟练加值</b>光耀伤害，灵光视为阳光'] },
+        { id: 'ancients', zh: '古贤之誓', en: 'Oath of the Ancients', portrait: 'ancients.png', desc: '守护自然之光与美善的骑士。引导神力召唤灵体藤蔓束缚敌人，获得对暗蚀、心灵和光耀伤害的抗性光环。', highlights: ['<b>Lv3 自然之怒</b> — 消耗引导神力，15尺内任意数量生物<b>力量豁免</b>否则束缚1分钟，目标每回合结束时重复豁免', '<b>Lv3 古贤之誓法术</b> — 始终准备捕获打击、动物交谈。Lv5+迷踪步、月华之光', '<b>Lv7 守御灵光</b> — 你与灵光内的盟友获得对<b>暗蚀、心灵和光耀</b>伤害的抗性', '<b>Lv15 不灭哨卫</b> — HP降至0时可选择降至<b>1</b>并恢复<b>圣武士等级×3</b>HP（长休恢复），且<b>不会因魔法衰老</b>', '<b>Lv20 上古斗士</b> — 附赠动作激活（1分钟），灵光内敌人对抗你法术/引导神力豁免具<b>劣势</b>，你每回合开始恢复<b>10HP</b>，施法时间可从动作变为<b>附赠动作</b>'] },
+        { id: 'vengeance', zh: '复仇之誓', en: 'Oath of Vengeance', portrait: 'vengeance.png', desc: '惩戒邪恶不择手段的黑暗骑士。引导神力对单一敌人获得无限优势，以借机攻击阻止逃跑并追击。', highlights: ['<b>Lv3 仇敌誓言</b> — 消耗引导神力，1分钟内对30尺内一可见生物攻击检定<b>优势</b>，目标HP降至0可切换目标（无需动作）', '<b>Lv3 复仇之誓法术</b> — 始终准备灾祸术、猎人印记。Lv5+定身类人、迷踪步', '<b>Lv7 坚韧复仇</b> — 借机攻击命中后目标<b>速度降至0</b>至回合结束，且立即移动<b>至多半速</b>（不引发借机攻击）', '<b>Lv15 复仇之魂</b> — 仇敌誓言目标发动攻击后（无论是否命中），若在触及内可以<b>反应</b>进行一次近战攻击', '<b>Lv20 复仇天使</b> — 附赠动作激活（10分钟），获得<b>60尺飞行速度</b>（可悬浮），灵光范围内敌人回合开始时感知豁免否则<b>恐慌</b>1分钟'] },
+        { id: 'glory', zh: '荣耀之誓', en: 'Oath of Glory', portrait: 'glory.png', desc: '追求英雄伟业的传奇缔造者。至圣斩后给盟友临时HP，以荣耀光环加速盟友，20级化身现世传说。', highlights: ['<b>Lv3 鼓舞斩</b> — 施展至圣斩后消耗引导神力，使30尺内生物共获得<b>2d8+圣武士等级</b>临时HP（自由分配）', '<b>Lv3 绝伦健将</b> — 附赠动作消耗引导神力（1小时），力量（运动）和敏捷（特技）检定<b>优势</b>，跳跃距离<b>+10尺</b>', '<b>Lv3 荣耀之誓法术</b> — 始终准备光导箭、英雄气概。Lv5+强化属性、魔化武器', '<b>Lv7 迅捷灵光</b> — 自身速度+10尺，首次进入或在灵光内开始回合的盟友速度<b>+10尺</b>至其下回合结束', '<b>Lv15 辉煌防御</b> — 你或10尺内生物被命中时以反应+<b>魅力调整值AC</b>，若失手且攻击者在触及内可回击一次', '<b>Lv20 现世传说</b> — 附赠动作激活（10分钟），魅力检定<b>优势</b>、豁免失败可反应<b>重掷</b>、每回合一次武器攻击失手<b>改为命中</b>'] },
       ]
     }
   },
@@ -7974,10 +8698,10 @@ const classData = {
       label: '游侠范型', enLabel: 'Ranger Archetype',
       level: 'Lv3',
       options: [
-        { id: 'hunter', zh: '猎人', en: 'Hunter', portrait: '猎人.png', desc: '狩猎各种猎物的多面手。猎人印记可获悉猎物免疫/抗性/易伤，选择狩猎风格获得额外攻击或伤害。', highlights: ['<b>Lv3 猎人学识</b> — 被猎人印记标记的生物，你将获悉其所有<b>免疫、抗性和易伤</b>', '<b>Lv3 猎杀技艺</b> — 二选一（短休/长休可换）：<b>巨像屠夫</b>（对不满血敌人额外<b>1d8</b>伤害/回合一次）或<b>灭族者</b>（每回合一次攻击时可多打目标5尺内另一生物）', '<b>Lv7 防守战术</b> — 二选一（短休/长休可换）：<b>冲出重围</b>（借机攻击对你有劣势）或<b>多重防御</b>（命中你的生物本回合后续攻击具劣势）', '<b>Lv11 高阶猎杀技艺</b> — 每回合一次对印记目标造成伤害时，将印记额外伤害<b>同时施加给</b>目标30尺内另一生物', '<b>Lv15 高阶防守战术</b> — 受到伤害时以反应获得对该伤害类型的<b>抗性</b>至当前回合结束'] },
-        { id: 'beast-master', zh: '驯兽师', en: 'Beast Master', portrait: '驯兽师.png', desc: '与一只原初野兽缔结羁绊——大地、海洋或天空之兽。附赠动作命令野兽打击，后期可共享法术效果。', highlights: ['<b>Lv3 原初行侣</b> — 召唤<b>大地/海洋/天空野兽</b>（三选一），野兽在你的回合行动，可用附赠动作命令或牺牲一次攻击命令<b>野兽打击</b>', '<b>Lv3 野兽属性</b> — AC=13+PB、HP=5+游侠等级×5。死亡后可用法术位复活（1分钟后以满HP复活）', '<b>Lv7 特殊训练</b> — 野兽攻击视为<b>魔法攻击</b>，附赠动作可命令野兽执行<b>疾走/撤离/闪避/协助</b>', '<b>Lv11 兽性狂暴</b> — 命令野兽打击时野兽可发动<b>两次攻击</b>', '<b>Lv15 共享法术</b> — 对自身施展法术时<b>原初行侣也同样受益</b>'] },
-        { id: 'gloom-stalker', zh: '幽域追猎者', en: 'Gloom Stalker', portrait: '幽域追猎者.png', desc: '地下国度的伏击大师，首回合附加2d6心灵伤害与加速，黑暗中靠黑暗视觉者对你具有隐形。', highlights: ['<b>Lv3 恐惧伏击</b> — 战斗首回合<b>速度+10尺</b>。命中附加<b>2d6心灵伤害</b>（每回合一次，次数=感知调整值/长休）。先攻掷骰<b>+感知调整值</b>', '<b>Lv3 阴影视野</b> — 获得<b>60尺黑暗视觉</b>。完全身处黑暗中时对依靠黑暗视觉观察你的生物具有<b>隐形状态</b>', '<b>Lv7 钢铁意志</b> — 获得<b>感知豁免熟练</b>（已有则选智力或魅力），对抗恐惧的豁免优势', '<b>Lv11 追猎如风</b> — 恐惧打击升至<b>2d8</b>。每次恐惧打击附加：<b>瞬杀</b>（攻击5尺内另一目标）或<b>群慌</b>（10尺内生物感知豁免否则恐慌）', '<b>Lv15 如影随行</b> — 被攻击时以反应<b>迫使劣势</b>，无论命中与否都<b>传送</b>至30尺内可见空闲空间'] },
-        { id: 'fey-wanderer', zh: '妖精漫游者', en: 'Fey Wanderer', portrait: '妖精漫游.png', desc: '沾染精类魔法的游侠，攻击附加心灵伤害，魅力检定加上感知调整值，11级免费召唤妖精。', highlights: ['<b>Lv3 哀惧灵袭</b> — 武器命中附加<b>1d4心灵伤害</b>（每回合每目标一次），Lv11升至<b>1d6</b>', '<b>Lv3 妖冶娴都</b> — 魅力检定获得<b>+感知调整值</b>加值，额外获得欺瞒/表演/游说之一的熟练', '<b>Lv3 妖精漫游者法术</b> — 始终准备魅惑类人。Lv5+迷踪步。Lv9+妖精召唤术', '<b>Lv7 妖思魅缕</b> — 对抗魅惑/恐慌豁免具<b>优势</b>。你或120尺内生物通过此类豁免时，以反应迫使另一生物感知豁免否则<b>魅惑或恐慌</b>1分钟', '<b>Lv11 精宸所与</b> — 免费施展妖精召唤术一次/长休，可改为<b>无需专注</b>（持续1分钟）', '<b>Lv15 雾行漫游</b> — 免费施展迷踪步（次数=感知调整值/长休），可携带5尺内<b>一个自愿生物</b>一同传送'] },
+        { id: 'hunter', zh: '猎人', en: 'Hunter', portrait: 'hunter.png', desc: '狩猎各种猎物的多面手。猎人印记可获悉猎物免疫/抗性/易伤，选择狩猎风格获得额外攻击或伤害。', highlights: ['<b>Lv3 猎人学识</b> — 被猎人印记标记的生物，你将获悉其所有<b>免疫、抗性和易伤</b>', '<b>Lv3 猎杀技艺</b> — 二选一（短休/长休可换）：<b>巨像屠夫</b>（对不满血敌人额外<b>1d8</b>伤害/回合一次）或<b>灭族者</b>（每回合一次攻击时可多打目标5尺内另一生物）', '<b>Lv7 防守战术</b> — 二选一（短休/长休可换）：<b>冲出重围</b>（借机攻击对你有劣势）或<b>多重防御</b>（命中你的生物本回合后续攻击具劣势）', '<b>Lv11 高阶猎杀技艺</b> — 每回合一次对印记目标造成伤害时，将印记额外伤害<b>同时施加给</b>目标30尺内另一生物', '<b>Lv15 高阶防守战术</b> — 受到伤害时以反应获得对该伤害类型的<b>抗性</b>至当前回合结束'] },
+        { id: 'beast-master', zh: '驯兽师', en: 'Beast Master', portrait: 'beast-master.png', desc: '与一只原初野兽缔结羁绊——大地、海洋或天空之兽。附赠动作命令野兽打击，后期可共享法术效果。', highlights: ['<b>Lv3 原初行侣</b> — 召唤<b>大地/海洋/天空野兽</b>（三选一），野兽在你的回合行动，可用附赠动作命令或牺牲一次攻击命令<b>野兽打击</b>', '<b>Lv3 野兽属性</b> — AC=13+PB、HP=5+游侠等级×5。死亡后可用法术位复活（1分钟后以满HP复活）', '<b>Lv7 特殊训练</b> — 野兽攻击视为<b>魔法攻击</b>，附赠动作可命令野兽执行<b>疾走/撤离/闪避/协助</b>', '<b>Lv11 兽性狂暴</b> — 命令野兽打击时野兽可发动<b>两次攻击</b>', '<b>Lv15 共享法术</b> — 对自身施展法术时<b>原初行侣也同样受益</b>'] },
+        { id: 'gloom-stalker', zh: '幽域追猎者', en: 'Gloom Stalker', portrait: 'gloom-stalker.png', desc: '地下国度的伏击大师，首回合附加2d6心灵伤害与加速，黑暗中靠黑暗视觉者对你具有隐形。', highlights: ['<b>Lv3 恐惧伏击</b> — 战斗首回合<b>速度+10尺</b>。命中附加<b>2d6心灵伤害</b>（每回合一次，次数=感知调整值/长休）。先攻掷骰<b>+感知调整值</b>', '<b>Lv3 阴影视野</b> — 获得<b>60尺黑暗视觉</b>。完全身处黑暗中时对依靠黑暗视觉观察你的生物具有<b>隐形状态</b>', '<b>Lv7 钢铁意志</b> — 获得<b>感知豁免熟练</b>（已有则选智力或魅力），对抗恐惧的豁免优势', '<b>Lv11 追猎如风</b> — 恐惧打击升至<b>2d8</b>。每次恐惧打击附加：<b>瞬杀</b>（攻击5尺内另一目标）或<b>群慌</b>（10尺内生物感知豁免否则恐慌）', '<b>Lv15 如影随行</b> — 被攻击时以反应<b>迫使劣势</b>，无论命中与否都<b>传送</b>至30尺内可见空闲空间'] },
+        { id: 'fey-wanderer', zh: '妖精漫游者', en: 'Fey Wanderer', portrait: 'fey-wanderer.png', desc: '沾染精类魔法的游侠，攻击附加心灵伤害，魅力检定加上感知调整值，11级免费召唤妖精。', highlights: ['<b>Lv3 哀惧灵袭</b> — 武器命中附加<b>1d4心灵伤害</b>（每回合每目标一次），Lv11升至<b>1d6</b>', '<b>Lv3 妖冶娴都</b> — 魅力检定获得<b>+感知调整值</b>加值，额外获得欺瞒/表演/游说之一的熟练', '<b>Lv3 妖精漫游者法术</b> — 始终准备魅惑类人。Lv5+迷踪步。Lv9+妖精召唤术', '<b>Lv7 妖思魅缕</b> — 对抗魅惑/恐慌豁免具<b>优势</b>。你或120尺内生物通过此类豁免时，以反应迫使另一生物感知豁免否则<b>魅惑或恐慌</b>1分钟', '<b>Lv11 精宸所与</b> — 免费施展妖精召唤术一次/长休，可改为<b>无需专注</b>（持续1分钟）', '<b>Lv15 雾行漫游</b> — 免费施展迷踪步（次数=感知调整值/长休），可携带5尺内<b>一个自愿生物</b>一同传送'] },
       ]
     }
   },
@@ -8003,10 +8727,10 @@ const classData = {
       label: '游荡者范型', enLabel: 'Roguish Archetype',
       level: 'Lv3',
       options: [
-        { id: 'assassin', zh: '刺客', en: 'Assassin', portrait: '刺客.png', desc: '渗透与暗杀的大师，精通毒药和伪装。首轮对未行动敌人优势且偷袭附加额外等级伤害，Lv17致命袭杀双倍伤害。', highlights: ['<b>Lv3 暗杀</b> — 先攻掷骰<b>优势</b>。战斗首轮对未行动生物攻击<b>优势</b>，且偷袭成功附加<b>游荡者等级</b>额外伤害', '<b>Lv3 刺客工具</b> — 获得<b>易容工具和毒药工具</b>熟练', '<b>Lv9 专业渗透</b> — 花费1小时钻研后可<b>模仿他人言语和笔迹</b>。使用稳定瞄准时<b>速度不降至0</b>', '<b>Lv13 淬毒武器</b> — 诡诈打击的淬毒选项豁免失败时额外造成<b>2d6毒素伤害</b>，无视毒素抗性', '<b>Lv17 致命袭杀</b> — 首轮命中并偷袭目标时，体质豁免（DC 8+PB+敏调）失败则伤害<b>翻倍</b>'] },
-        { id: 'thief', zh: '盗贼', en: 'Thief', portrait: '盗贼.png', desc: '经典的冒险窃贼，获得攀爬速度与敏捷跳跃。快手以附赠动作使用物件，13级可同调4件魔法物品。', highlights: ['<b>Lv3 快手</b> — 附赠动作可执行<b>巧手检定</b>（开锁/解除陷阱/扒窃）或<b>使用物件</b>（包括需要动作的魔法物品）', '<b>Lv3 梁上君子</b> — 获得等于速度的<b>攀爬速度</b>。跳跃距离使用<b>敏捷</b>代替力量决定', '<b>Lv9 极效潜行</b> — 获得诡诈打击选项：<b>无声袭击</b>（消耗1d6偷袭骰），躲藏后的攻击不会暴露你的位置（若回合结束时处于3/4或全身掩护）', '<b>Lv13 使用魔法装置</b> — 可同调<b>4件</b>魔法物品。使用充能物品时投d6出<b>6</b>不消耗充能。可使用任何法术卷轴（高环需智力（奥秘）检定 DC=10+环阶）', '<b>Lv17 窃盗本能</b> — 战斗首轮可行动<b>两个回合</b>：先以正常先攻执行第一回合，再以先攻-10执行第二回合'] },
-        { id: 'arcane-trickster', zh: '诡术师', en: 'Arcane Trickster', portrait: '诡术.png', desc: '以法师之手行窃的魔法盗贼。习得惑控与幻术系法术，以隐形施法迫使目标豁免劣势，魔能暗伏。', highlights: ['<b>Lv3 施法</b> — 智力施法，起始习得<b>3道法师戏法</b>（含法师之手）与<b>3道一环法术</b>，拥有2个一环法术位', '<b>Lv3 法师之手诈术</b> — 法师之手改为<b>附赠动作</b>施展且<b>隐形</b>，可用附赠动作控制并以幽灵手进行巧手检定', '<b>Lv9 诡术伏击</b> — 处于<b>隐形</b>状态时对目标施法，其对抗该法术的豁免检定具有<b>劣势</b>', '<b>Lv13 万能诡术</b> — 以附赠动作使用法师之手时，可<b>消耗1环以上法术位</b>让幽灵手在下一分钟内干扰敌人，使你的攻击对其具优势', '<b>Lv17 法术窃贼</b> — 目标豁免你法术失败时，可用反应<b>窃取该法术</b>，8小时内可免费施放一次（长休恢复）'] },
-        { id: 'soulknife', zh: '魂刃', en: 'Soulknife', portrait: '魂刃.png', desc: '以心灵之力凝聚灵能刀刃。投掷魂刃进行远程偷袭，以灵力骰增强技能检定与传送。', highlights: ['<b>Lv3 灵能力量</b> — 获得<b>灵能骰</b>（Lv3: 4d6 → Lv17: 12d12），用于驱动灵振诀窍（技能失败+骰值）、心灵低语（心念感应）', '<b>Lv3 念刃</b> — 攻击动作时在空闲手中塑造灵能刀刃：<b>1d6心灵伤害</b>、灵巧、投掷（60/120尺）。同回合附赠动作召唤第二把念刃（<b>1d4</b>）再攻击一次', '<b>Lv9 灵魂之刃</b> — <b>寻的斩击</b>：念刃失手时消耗灵能骰+命中。<b>心灵传送</b>：附赠动作投灵能骰，传送至多<b>骰值×10尺</b>', '<b>Lv13 灵能面纱</b> — 以附赠动作消耗灵能骰使自身与携带物品<b>隐形</b>1小时（或至攻击/施法），期间可正常攻击并保持隐形', '<b>Lv17 撕裂心智</b> — 念刃命中时消耗灵能骰迫使目标智力豁免，失败则<b>震慑</b>1分钟（每回合重复豁免），同一目标免疫24小时'] },
+        { id: 'assassin', zh: '刺客', en: 'Assassin', portrait: 'assassin.png', desc: '渗透与暗杀的大师，精通毒药和伪装。首轮对未行动敌人优势且偷袭附加额外等级伤害，Lv17致命袭杀双倍伤害。', highlights: ['<b>Lv3 暗杀</b> — 先攻掷骰<b>优势</b>。战斗首轮对未行动生物攻击<b>优势</b>，且偷袭成功附加<b>游荡者等级</b>额外伤害', '<b>Lv3 刺客工具</b> — 获得<b>易容工具和毒药工具</b>熟练', '<b>Lv9 专业渗透</b> — 花费1小时钻研后可<b>模仿他人言语和笔迹</b>。使用稳定瞄准时<b>速度不降至0</b>', '<b>Lv13 淬毒武器</b> — 诡诈打击的淬毒选项豁免失败时额外造成<b>2d6毒素伤害</b>，无视毒素抗性', '<b>Lv17 致命袭杀</b> — 首轮命中并偷袭目标时，体质豁免（DC 8+PB+敏调）失败则伤害<b>翻倍</b>'] },
+        { id: 'thief', zh: '盗贼', en: 'Thief', portrait: 'thief.png', desc: '经典的冒险窃贼，获得攀爬速度与敏捷跳跃。快手以附赠动作使用物件，13级可同调4件魔法物品。', highlights: ['<b>Lv3 快手</b> — 附赠动作可执行<b>巧手检定</b>（开锁/解除陷阱/扒窃）或<b>使用物件</b>（包括需要动作的魔法物品）', '<b>Lv3 梁上君子</b> — 获得等于速度的<b>攀爬速度</b>。跳跃距离使用<b>敏捷</b>代替力量决定', '<b>Lv9 极效潜行</b> — 获得诡诈打击选项：<b>无声袭击</b>（消耗1d6偷袭骰），躲藏后的攻击不会暴露你的位置（若回合结束时处于3/4或全身掩护）', '<b>Lv13 使用魔法装置</b> — 可同调<b>4件</b>魔法物品。使用充能物品时投d6出<b>6</b>不消耗充能。可使用任何法术卷轴（高环需智力（奥秘）检定 DC=10+环阶）', '<b>Lv17 窃盗本能</b> — 战斗首轮可行动<b>两个回合</b>：先以正常先攻执行第一回合，再以先攻-10执行第二回合'] },
+        { id: 'arcane-trickster', zh: '诡术师', en: 'Arcane Trickster', portrait: 'arcane-trickster.png', desc: '以法师之手行窃的魔法盗贼。习得惑控与幻术系法术，以隐形施法迫使目标豁免劣势，魔能暗伏。', highlights: ['<b>Lv3 施法</b> — 智力施法，起始习得<b>3道法师戏法</b>（含法师之手）与<b>3道一环法术</b>，拥有2个一环法术位', '<b>Lv3 法师之手诈术</b> — 法师之手改为<b>附赠动作</b>施展且<b>隐形</b>，可用附赠动作控制并以幽灵手进行巧手检定', '<b>Lv9 诡术伏击</b> — 处于<b>隐形</b>状态时对目标施法，其对抗该法术的豁免检定具有<b>劣势</b>', '<b>Lv13 万能诡术</b> — 以附赠动作使用法师之手时，可<b>消耗1环以上法术位</b>让幽灵手在下一分钟内干扰敌人，使你的攻击对其具优势', '<b>Lv17 法术窃贼</b> — 目标豁免你法术失败时，可用反应<b>窃取该法术</b>，8小时内可免费施放一次（长休恢复）'] },
+        { id: 'soulknife', zh: '魂刃', en: 'Soulknife', portrait: 'soulknife.png', desc: '以心灵之力凝聚灵能刀刃。投掷魂刃进行远程偷袭，以灵力骰增强技能检定与传送。', highlights: ['<b>Lv3 灵能力量</b> — 获得<b>灵能骰</b>（Lv3: 4d6 → Lv17: 12d12），用于驱动灵振诀窍（技能失败+骰值）、心灵低语（心念感应）', '<b>Lv3 念刃</b> — 攻击动作时在空闲手中塑造灵能刀刃：<b>1d6心灵伤害</b>、灵巧、投掷（60/120尺）。同回合附赠动作召唤第二把念刃（<b>1d4</b>）再攻击一次', '<b>Lv9 灵魂之刃</b> — <b>寻的斩击</b>：念刃失手时消耗灵能骰+命中。<b>心灵传送</b>：附赠动作投灵能骰，传送至多<b>骰值×10尺</b>', '<b>Lv13 灵能面纱</b> — 以附赠动作消耗灵能骰使自身与携带物品<b>隐形</b>1小时（或至攻击/施法），期间可正常攻击并保持隐形', '<b>Lv17 撕裂心智</b> — 念刃命中时消耗灵能骰迫使目标智力豁免，失败则<b>震慑</b>1分钟（每回合重复豁免），同一目标免疫24小时'] },
       ]
     }
   },
@@ -8031,10 +8755,10 @@ const classData = {
       label: '术法起源', enLabel: 'Sorcerous Origin',
       level: 'Lv3',
       options: [
-        { id: 'draconic', zh: '龙族术法', en: 'Draconic Sorcery', portrait: '龙血.png', desc: '你的魔力来自龙族祖先。AC=10+敏+魅、HP上限+3且每级+1。选择龙族颜色获得对应伤害抗性与翼。', highlights: ['<b>Lv3 龙族体魄</b> — HP上限<b>+3</b>此后每术士等级+1。无甲AC=<b>10+敏调+魅调</b>，皮肤覆有龙鳞', '<b>Lv3 龙族法术</b> — 始终准备繁彩球、命令术。Lv5+龙息术、变身术。Lv9+恐惧术、飞行术。Lv17+龙类召唤术', '<b>Lv6 元素亲和</b> — 选择一种龙族伤害类型获得<b>抗性</b>，施展该类型法术时可附加<b>魅力调整值</b>至一次伤害掷骰', '<b>Lv14 龙翼</b> — 附赠动作展开龙翼获得<b>60尺飞行速度</b>持续1小时（长休恢复或消耗3术法点重置）', '<b>Lv18 龙族伙伴</b> — 无需材料成分免费施展一次龙类召唤术（长休恢复），可改为<b>无需专注</b>（持续1分钟）'] },
-        { id: 'wild', zh: '狂野术法', en: 'Wild Magic', portrait: '混沌.png', desc: '混沌之力在你体内沸腾。每次施法掷D20出20触发混沌狂潮，以混乱之潮获得优势，扭曲幸运改写命运。', highlights: ['<b>Lv3 狂野魔法浪涌</b> — 消耗法术位施法后掷D20，出<b>20</b>则触发狂野魔法浪涌表骰随机魔法效应', '<b>Lv3 混乱之潮</b> — 使自身一次D20检定获得<b>优势</b>（在掷骰前决定）。长休恢复，或消耗法术位施法时自动恢复并触发浪涌', '<b>Lv6 扭曲幸运</b> — 以反应消耗<b>1术法点</b>，对可见生物的D20检定结果附加<b>1d4加值或减值</b>', '<b>Lv14 受控混沌</b> — 骰狂野魔法浪涌表时<b>骰两次自选其一</b>生效', '<b>Lv18 驯服浪涌</b> — 消耗法术位施法后可从浪涌表中<b>直接选择</b>除最后一行外的任意效应（长休恢复）'] },
-        { id: 'clockwork', zh: '时械术法', en: 'Clockwork Sorcery', portrait: '机械.png', desc: '与机械境位面的秩序之力链接。以反应消除优劣势，用术法点创造减伤护盾，序列意识无视劣势并取10。', highlights: ['<b>Lv3 时械法术</b> — 始终准备防护善恶、警报术。Lv5+次等复原术、援助术。Lv9+解除魔法、防护能量', '<b>Lv3 归复平衡</b> — 以反应使60尺内可见生物即将带优势或劣势的检定<b>不受优劣势影响</b>，次数=魅力调整值（长休恢复）', '<b>Lv6 律令之壁</b> — 消耗<b>1~5术法点</b>创造d8骰池护盾，为30尺内生物减伤（消耗任意数量d8），持续至长休或再次使用', '<b>Lv14 序列意识</b> — 附赠动作进入状态（1分钟）：针对你的攻击<b>无法获得优势</b>，D20检定掷出<b>≤9视为10</b>', '<b>Lv18 时械矩阵</b> — 30尺立方内召唤秩序精魂：恢复至多<b>100HP</b>（自由分配）、修复物体、解除6环以下法术'] },
-        { id: 'aberrant', zh: '畸变术法', en: 'Aberrant Sorcery', portrait: '怪异.png', desc: '触须与灵能的掌握者。心灵感应沟通、术法点免材施法、心灵伤害抗性、以血肉启示获得飞行/游泳/识破隐形。', highlights: ['<b>Lv3 灵能法术</b> — 始终准备心灵之楔、哈达之臂、不谐低语。Lv5+侦测思想。Lv9+哈达之欲。Lv17+心灵遥控', '<b>Lv3 传心谈话</b> — 附赠动作与30尺内可见生物建立<b>心灵感应链接</b>（持续术士等级分钟），距离为魅力调整值英里', '<b>Lv6 灵能术法</b> — 可用<b>术法点代替法术位</b>施展灵能法术列表中的法术，且<b>无需言语和姿势成分</b>', '<b>Lv6 心灵防御</b> — 获得<b>心灵伤害抗性</b>，对抗魅惑和恐慌的豁免具有<b>优势</b>', '<b>Lv14 血肉启示</b> — 附赠动作消耗术法点变形10分钟：可组合选择<b>游泳速度/飞行速度/识破隐形/蠕行移动</b>', '<b>Lv18 扭曲内爆</b> — 以动作消耗5术法点在120尺内创造<b>20尺半径</b>扭曲力场，拉入生物并造成心灵伤害+束缚'] },
+        { id: 'draconic', zh: '龙族术法', en: 'Draconic Sorcery', portrait: 'draconic.png', desc: '你的魔力来自龙族祖先。AC=10+敏+魅、HP上限+3且每级+1。选择龙族颜色获得对应伤害抗性与翼。', highlights: ['<b>Lv3 龙族体魄</b> — HP上限<b>+3</b>此后每术士等级+1。无甲AC=<b>10+敏调+魅调</b>，皮肤覆有龙鳞', '<b>Lv3 龙族法术</b> — 始终准备繁彩球、命令术。Lv5+龙息术、变身术。Lv9+恐惧术、飞行术。Lv17+龙类召唤术', '<b>Lv6 元素亲和</b> — 选择一种龙族伤害类型获得<b>抗性</b>，施展该类型法术时可附加<b>魅力调整值</b>至一次伤害掷骰', '<b>Lv14 龙翼</b> — 附赠动作展开龙翼获得<b>60尺飞行速度</b>持续1小时（长休恢复或消耗3术法点重置）', '<b>Lv18 龙族伙伴</b> — 无需材料成分免费施展一次龙类召唤术（长休恢复），可改为<b>无需专注</b>（持续1分钟）'] },
+        { id: 'wild', zh: '狂野术法', en: 'Wild Magic', portrait: 'wild-magic.png', desc: '混沌之力在你体内沸腾。每次施法掷D20出20触发混沌狂潮，以混乱之潮获得优势，扭曲幸运改写命运。', highlights: ['<b>Lv3 狂野魔法浪涌</b> — 消耗法术位施法后掷D20，出<b>20</b>则触发狂野魔法浪涌表骰随机魔法效应', '<b>Lv3 混乱之潮</b> — 使自身一次D20检定获得<b>优势</b>（在掷骰前决定）。长休恢复，或消耗法术位施法时自动恢复并触发浪涌', '<b>Lv6 扭曲幸运</b> — 以反应消耗<b>1术法点</b>，对可见生物的D20检定结果附加<b>1d4加值或减值</b>', '<b>Lv14 受控混沌</b> — 骰狂野魔法浪涌表时<b>骰两次自选其一</b>生效', '<b>Lv18 驯服浪涌</b> — 消耗法术位施法后可从浪涌表中<b>直接选择</b>除最后一行外的任意效应（长休恢复）'] },
+        { id: 'clockwork', zh: '时械术法', en: 'Clockwork Sorcery', portrait: 'clockwork.png', desc: '与机械境位面的秩序之力链接。以反应消除优劣势，用术法点创造减伤护盾，序列意识无视劣势并取10。', highlights: ['<b>Lv3 时械法术</b> — 始终准备防护善恶、警报术。Lv5+次等复原术、援助术。Lv9+解除魔法、防护能量', '<b>Lv3 归复平衡</b> — 以反应使60尺内可见生物即将带优势或劣势的检定<b>不受优劣势影响</b>，次数=魅力调整值（长休恢复）', '<b>Lv6 律令之壁</b> — 消耗<b>1~5术法点</b>创造d8骰池护盾，为30尺内生物减伤（消耗任意数量d8），持续至长休或再次使用', '<b>Lv14 序列意识</b> — 附赠动作进入状态（1分钟）：针对你的攻击<b>无法获得优势</b>，D20检定掷出<b>≤9视为10</b>', '<b>Lv18 时械矩阵</b> — 30尺立方内召唤秩序精魂：恢复至多<b>100HP</b>（自由分配）、修复物体、解除6环以下法术'] },
+        { id: 'aberrant', zh: '畸变术法', en: 'Aberrant Sorcery', portrait: 'aberrant.png', desc: '触须与灵能的掌握者。心灵感应沟通、术法点免材施法、心灵伤害抗性、以血肉启示获得飞行/游泳/识破隐形。', highlights: ['<b>Lv3 灵能法术</b> — 始终准备心灵之楔、哈达之臂、不谐低语。Lv5+侦测思想。Lv9+哈达之欲。Lv17+心灵遥控', '<b>Lv3 传心谈话</b> — 附赠动作与30尺内可见生物建立<b>心灵感应链接</b>（持续术士等级分钟），距离为魅力调整值英里', '<b>Lv6 灵能术法</b> — 可用<b>术法点代替法术位</b>施展灵能法术列表中的法术，且<b>无需言语和姿势成分</b>', '<b>Lv6 心灵防御</b> — 获得<b>心灵伤害抗性</b>，对抗魅惑和恐慌的豁免具有<b>优势</b>', '<b>Lv14 血肉启示</b> — 附赠动作消耗术法点变形10分钟：可组合选择<b>游泳速度/飞行速度/识破隐形/蠕行移动</b>', '<b>Lv18 扭曲内爆</b> — 以动作消耗5术法点在120尺内创造<b>20尺半径</b>扭曲力场，拉入生物并造成心灵伤害+束缚'] },
       ]
     }
   },
@@ -8060,10 +8784,10 @@ const classData = {
       label: '异界庇护主', enLabel: 'Otherworldly Patron',
       level: 'Lv3',
       options: [
-        { id: 'fiend', zh: '邪魔宗主', en: 'The Fiend', portrait: '邪魔宗主.png', desc: '与九狱或深渊的邪魔签订契约。击杀敌人获得临时HP，以黑暗运气+d10改写命运，14级直坠噩梦8d10心灵伤害。', highlights: ['<b>Lv3 邪魔法术</b> — 始终准备燃烧之手、命令术。Lv5+灼热射线、暗示术。Lv9+火球术、臭云术', '<b>Lv3 黑暗赐福</b> — 将敌人HP降至0时（或10尺内敌人被队友降至0），获得<b>魅力调整值+魔契师等级</b>临时HP', '<b>Lv6 黑暗强运</b> — 属性检定或豁免检定时可添加<b>1d10</b>（检定后、结果前），次数=魅力调整值（长休恢复）', '<b>Lv10 邪魔体魄</b> — 每次短休或长休后选择一种非力场伤害类型获得<b>抗性</b>，下次重选前持续有效', '<b>Lv14 直坠噩梦</b> — 攻击命中后目标魅力豁免失败则被放逐至下层位面，受到<b>8d10心灵伤害</b>并<b>失能</b>至你下回合结束（长休恢复或消耗法术位重置）'] },
-        { id: 'archfey', zh: '至高妖精宗主', en: 'The Archfey', portrait: '至高妖精宗主.png', desc: '与一位古老精类领主缔结契约。免费迷踪步附带回血或嘲讽，受伤后反应传送，免疫魅惑并反弹伤害。', highlights: ['<b>Lv3 妖精步伐</b> — 免费施展迷踪步（次数=魅力调整值/长休），传送后可选择：<b>复苏步伐</b>（自身或10尺内生物+<b>1d10临时HP</b>）或<b>嘲弄步伐</b>（原位置5尺内敌人对他人攻击劣势）', '<b>Lv3 至高妖精法术</b> — 始终准备妖火、睡眠术。Lv5+安定心神、迷踪步、魅影之力', '<b>Lv6 雾遁</b> — 受到伤害时可以<b>反应</b>施展迷踪步。额外步伐选项：<b>无踪步伐</b>（传送后隐形至下回合/攻击/施法）、<b>惊惧步伐</b>（传送前或后5尺内敌人<b>2d10心灵伤害</b>）', '<b>Lv10 斗转星移</b> — <b>免疫魅惑</b>。被攻击命中后以反应<b>伤害减半</b>（向下取整），攻击者感知豁免失败则受等量心灵伤害（长休恢复或消耗法术位重置）', '<b>Lv14 醉心魔法</b> — 以动作消耗法术位施展幻术或惑控法术后，<b>免费施展迷踪步</b>作为该动作的一部分'] },
-        { id: 'celestial', zh: '天界宗主', en: 'The Celestial', portrait: '天界.png', desc: '与天界存在契约——独角兽、天使或善良神灵。d6骰池治愈之光、光耀/火焰伤害+魅力调整值、14级光耀复仇。', highlights: ['<b>Lv3 治愈之光</b> — 获得<b>1+魔契师等级</b>枚d6骰池（长休恢复），附赠动作消耗骰子治疗60尺内生物，每次最多消耗=魅力调整值枚', '<b>Lv3 天界法术</b> — 始终准备光亮术、圣火术、疗伤术、光导箭。Lv5+援助术、次等复原术', '<b>Lv6 光耀之魂</b> — 获得<b>光耀伤害抗性</b>。每回合一次，法术造成光耀或火焰伤害时附加<b>魅力调整值</b>', '<b>Lv10 天界韧性</b> — 秘法回流/短休/长休后获得<b>魔契师等级+魅调</b>临时HP，可选择至多5个可见生物共享<b>半等级+魅调</b>临时HP', '<b>Lv14 灼光复仇</b> — 自身或60尺内盟友将进行死亡豁免时，恢复<b>半HP</b>并可选起身，30尺内敌人受<b>2d8+魅调</b>光耀伤害并被<b>目盲</b>至当前回合结束（长休恢复）'] },
-        { id: 'great-old-one', zh: '旧日支配者宗主', en: 'The Great Old One', portrait: '旧日支配者宗主.png', desc: '连接远古而不可名状的存在。心灵连结任意生物、法术伤害改心灵、脆弱诅咒附加豁免劣势、无心专注异怪召唤。', highlights: ['<b>Lv3 唤醒心灵</b> — 附赠动作与30尺内可见生物建立<b>心灵感应</b>（持续等级分钟，范围=魅力调整值英里）', '<b>Lv3 心灵法术</b> — 魔契师法术可改为<b>心灵伤害</b>。施展惑控/幻术学派魔契师法时可<b>去除言语和姿势成分</b>', '<b>Lv3 旧日支配者法术</b> — 始终准备不谐低语、塔莎狂笑术。Lv5+魅影之力、侦测思想', '<b>Lv6 锐眼斗士</b> — 与生物建立心灵连结时可迫其感知豁免，失败则连结期间<b>其攻击劣势、你攻击优势</b>（短休恢复或消耗法术位重置）', '<b>Lv10 骇异恶咒</b> — 始终准备<b>脆弱诅咒</b>，且诅咒对象的所选属性<b>豁免检定也具有劣势</b>。思维不可被读取，获得<b>心灵抗性</b>且伤害反弹', '<b>Lv14 创造奴仆</b> — 施展异怪召唤术可改为<b>无需专注</b>（持续1分钟），异怪额外获得<b>等级+魅调</b>临时HP'] },
+        { id: 'fiend', zh: '邪魔宗主', en: 'The Fiend', portrait: 'fiend.png', desc: '与九狱或深渊的邪魔签订契约。击杀敌人获得临时HP，以黑暗运气+d10改写命运，14级直坠噩梦8d10心灵伤害。', highlights: ['<b>Lv3 邪魔法术</b> — 始终准备燃烧之手、命令术。Lv5+灼热射线、暗示术。Lv9+火球术、臭云术', '<b>Lv3 黑暗赐福</b> — 将敌人HP降至0时（或10尺内敌人被队友降至0），获得<b>魅力调整值+魔契师等级</b>临时HP', '<b>Lv6 黑暗强运</b> — 属性检定或豁免检定时可添加<b>1d10</b>（检定后、结果前），次数=魅力调整值（长休恢复）', '<b>Lv10 邪魔体魄</b> — 每次短休或长休后选择一种非力场伤害类型获得<b>抗性</b>，下次重选前持续有效', '<b>Lv14 直坠噩梦</b> — 攻击命中后目标魅力豁免失败则被放逐至下层位面，受到<b>8d10心灵伤害</b>并<b>失能</b>至你下回合结束（长休恢复或消耗法术位重置）'] },
+        { id: 'archfey', zh: '至高妖精宗主', en: 'The Archfey', portrait: 'archfey.png', desc: '与一位古老精类领主缔结契约。免费迷踪步附带回血或嘲讽，受伤后反应传送，免疫魅惑并反弹伤害。', highlights: ['<b>Lv3 妖精步伐</b> — 免费施展迷踪步（次数=魅力调整值/长休），传送后可选择：<b>复苏步伐</b>（自身或10尺内生物+<b>1d10临时HP</b>）或<b>嘲弄步伐</b>（原位置5尺内敌人对他人攻击劣势）', '<b>Lv3 至高妖精法术</b> — 始终准备妖火、睡眠术。Lv5+安定心神、迷踪步、魅影之力', '<b>Lv6 雾遁</b> — 受到伤害时可以<b>反应</b>施展迷踪步。额外步伐选项：<b>无踪步伐</b>（传送后隐形至下回合/攻击/施法）、<b>惊惧步伐</b>（传送前或后5尺内敌人<b>2d10心灵伤害</b>）', '<b>Lv10 斗转星移</b> — <b>免疫魅惑</b>。被攻击命中后以反应<b>伤害减半</b>（向下取整），攻击者感知豁免失败则受等量心灵伤害（长休恢复或消耗法术位重置）', '<b>Lv14 醉心魔法</b> — 以动作消耗法术位施展幻术或惑控法术后，<b>免费施展迷踪步</b>作为该动作的一部分'] },
+        { id: 'celestial', zh: '天界宗主', en: 'The Celestial', portrait: 'celestial.png', desc: '与天界存在契约——独角兽、天使或善良神灵。d6骰池治愈之光、光耀/火焰伤害+魅力调整值、14级光耀复仇。', highlights: ['<b>Lv3 治愈之光</b> — 获得<b>1+魔契师等级</b>枚d6骰池（长休恢复），附赠动作消耗骰子治疗60尺内生物，每次最多消耗=魅力调整值枚', '<b>Lv3 天界法术</b> — 始终准备光亮术、圣火术、疗伤术、光导箭。Lv5+援助术、次等复原术', '<b>Lv6 光耀之魂</b> — 获得<b>光耀伤害抗性</b>。每回合一次，法术造成光耀或火焰伤害时附加<b>魅力调整值</b>', '<b>Lv10 天界韧性</b> — 秘法回流/短休/长休后获得<b>魔契师等级+魅调</b>临时HP，可选择至多5个可见生物共享<b>半等级+魅调</b>临时HP', '<b>Lv14 灼光复仇</b> — 自身或60尺内盟友将进行死亡豁免时，恢复<b>半HP</b>并可选起身，30尺内敌人受<b>2d8+魅调</b>光耀伤害并被<b>目盲</b>至当前回合结束（长休恢复）'] },
+        { id: 'great-old-one', zh: '旧日支配者宗主', en: 'The Great Old One', portrait: 'great-old-one.png', desc: '连接远古而不可名状的存在。心灵连结任意生物、法术伤害改心灵、脆弱诅咒附加豁免劣势、无心专注异怪召唤。', highlights: ['<b>Lv3 唤醒心灵</b> — 附赠动作与30尺内可见生物建立<b>心灵感应</b>（持续等级分钟，范围=魅力调整值英里）', '<b>Lv3 心灵法术</b> — 魔契师法术可改为<b>心灵伤害</b>。施展惑控/幻术学派魔契师法时可<b>去除言语和姿势成分</b>', '<b>Lv3 旧日支配者法术</b> — 始终准备不谐低语、塔莎狂笑术。Lv5+魅影之力、侦测思想', '<b>Lv6 锐眼斗士</b> — 与生物建立心灵连结时可迫其感知豁免，失败则连结期间<b>其攻击劣势、你攻击优势</b>（短休恢复或消耗法术位重置）', '<b>Lv10 骇异恶咒</b> — 始终准备<b>脆弱诅咒</b>，且诅咒对象的所选属性<b>豁免检定也具有劣势</b>。思维不可被读取，获得<b>心灵抗性</b>且伤害反弹', '<b>Lv14 创造奴仆</b> — 施展异怪召唤术可改为<b>无需专注</b>（持续1分钟），异怪额外获得<b>等级+魅调</b>临时HP'] },
       ]
     }
   }
@@ -8265,82 +8989,121 @@ const fightingStyleData = {
 
 // ========== 物品数据（hover 提示用） ==========
 const itemData = {
-  '巨斧': { en: 'Greataxe', type: '武器', damage: '1d12 挥砍', properties: '重型、双手', desc: '宽如圆盾的斧刃架在粗壮长柄之上，只有最强壮的战士才能挥动它劈开龙鳞。' },
-  '投斧': { en: 'Handaxe', type: '武器', damage: '1d6 挥砍', properties: '轻型、投掷（射程 20/60 尺）', desc: '小巧轻盈的单手斧，重心经过精心调整，掷出后能在空中旋转着劈入目标。' },
-  '匕首': { en: 'Dagger', type: '武器', damage: '1d4 穿刺', properties: '轻型、灵巧、投掷（射程 20/60 尺）', desc: '一柄不起眼却无所不在的短刃——切绳索、削木头、防身保命，冒险者从不离身。' },
-  '硬头锤': { en: 'Mace', type: '武器', damage: '1d6 钝击', properties: '—', desc: '金属铸就的带棱锤头，沉重的顶端专为粉碎骨骼与甲胄而生，圣武士与牧师的最爱。' },
-  '长棍': { en: 'Quarterstaff', type: '法器/武器', damage: '1d6/1d8 钝击', properties: '多用', desc: '一根经过打磨的硬木长杆，看似朴素，在武僧手中却能化作疾风骤雨般的兵器。' },
-  '奥术法器': { en: 'Arcane Focus', type: '法器', desc: '掌心传来微凉的脉动，水晶或秘银在指尖低语——它是施法者意志的延伸，将无形的魔力编织成可见的奇迹。' },
-  '圣徽': { en: 'Holy Symbol', type: '法器', desc: '金属温润如晨曦，无论刻着旭日、银月还是圣锤，贴在胸口时你会感到一种被注视的安宁。' },
-  '法术书': { en: 'Spellbook', type: '冒险装备', desc: '羊皮纸泛着陈年茶色，页缘镀金的符文在翻动时闪过微光，墨迹深处封存着历代法师的执念与狂想。' },
-  '链甲衫': { en: 'Chain Shirt', type: '护甲', ac: '13 + 敏捷（最大+2）', properties: '中型', desc: '千百枚锻铁环扣编织如鳞，穿在身上像披了一层会呼吸的金属织物，薄而不轻，凉意透过衬衣直抵皮肤。' },
-  '盾牌': { en: 'Shield', type: '护甲', ac: '+2 AC', properties: '需要一只手', desc: '横亘于胸前的一堵小墙，臂弯感受着它扎实的重量，每一次撞击都在告诉你——它还撑得住。' },
-  '探索套组': { en: "Explorer's Pack", type: '套组', desc: '背上这捆行囊意味着你把家扛在了肩上——帆布包里塞满了火镰的焦味、干粮的麦香和绳索的粗砺，走起来叮当作响，那是荒野的节拍。' },
-  '学者套组': { en: "Scholar's Pack", type: '套组', desc: '墨香混着陈年纸张的气息从背包缝隙渗出，每走一步都能听见钢笔轻叩墨水瓶的脆响，像知识在等待被记下的声音。' },
-  '祭司套组': { en: "Priest's Pack", type: '套组', desc: '焚香的余韵从背包深处幽幽散出，圣衣叠放齐整如待祷的经卷，提着它时你会不自觉地放轻脚步，仿佛连行囊本身都浸透了肃穆。' },
-  '长袍': { en: 'Robe', type: '服装', desc: '粗纺羊毛或麻布裁成的素色衣袍，宽大得足以裹住寒风，兜帽垂下时世界只剩一线微光与自己的呼吸。' },
+  '巨斧': { en: 'Greataxe', type: '武器', price: 30, damage: '1d12 挥砍', properties: '重型、双手', desc: '宽如圆盾的斧刃架在粗壮长柄之上，只有最强壮的战士才能挥动它劈开龙鳞。' },
+  '投斧': { en: 'Handaxe', type: '武器', price: 5, damage: '1d6 挥砍', properties: '轻型、投掷（射程 20/60 尺）', desc: '小巧轻盈的单手斧，重心经过精心调整，掷出后能在空中旋转着劈入目标。' },
+  '匕首': { en: 'Dagger', type: '武器', price: 2, damage: '1d4 穿刺', properties: '轻型、灵巧、投掷（射程 20/60 尺）', desc: '一柄不起眼却无所不在的短刃——切绳索、削木头、防身保命，冒险者从不离身。' },
+  '硬头锤': { en: 'Mace', type: '武器', price: 5, damage: '1d6 钝击', properties: '—', desc: '金属铸就的带棱锤头，沉重的顶端专为粉碎骨骼与甲胄而生，圣武士与牧师的最爱。' },
+  '长棍': { en: 'Quarterstaff', type: '法器/武器', price: 0.2, damage: '1d6/1d8 钝击', properties: '多用', desc: '一根经过打磨的硬木长杆，看似朴素，在武僧手中却能化作疾风骤雨般的兵器。' },
+  '奥术法器': { en: 'Arcane Focus', type: '法器', price: 10, desc: '掌心传来微凉的脉动，水晶或秘银在指尖低语——它是施法者意志的延伸，将无形的魔力编织成可见的奇迹。' },
+  '圣徽': { en: 'Holy Symbol', type: '法器', price: 5, desc: '金属温润如晨曦，无论刻着旭日、银月还是圣锤，贴在胸口时你会感到一种被注视的安宁。' },
+  '法术书': { en: 'Spellbook', type: '冒险装备', price: 50, desc: '羊皮纸泛着陈年茶色，页缘镀金的符文在翻动时闪过微光，墨迹深处封存着历代法师的执念与狂想。' },
+  '链甲衫': { en: 'Chain Shirt', type: '护甲', price: 50, ac: '13 + 敏捷（最大+2）', properties: '中型', desc: '千百枚锻铁环扣编织如鳞，穿在身上像披了一层会呼吸的金属织物，薄而不轻，凉意透过衬衣直抵皮肤。' },
+  '盾牌': { en: 'Shield', type: '护甲', price: 10, ac: '+2 AC', properties: '需要一只手', desc: '横亘于胸前的一堵小墙，臂弯感受着它扎实的重量，每一次撞击都在告诉你——它还撑得住。' },
+  '探索套组': { en: "Explorer's Pack", type: '套组', price: 10, desc: '背上这捆行囊意味着你把家扛在了肩上——帆布包里塞满了火镰的焦味、干粮的麦香和绳索的粗砺，走起来叮当作响，那是荒野的节拍。' },
+  '学者套组': { en: "Scholar's Pack", type: '套组', price: 40, desc: '墨香混着陈年纸张的气息从背包缝隙渗出，每走一步都能听见钢笔轻叩墨水瓶的脆响，像知识在等待被记下的声音。' },
+  '祭司套组': { en: "Priest's Pack", type: '套组', price: 19, desc: '焚香的余韵从背包深处幽幽散出，圣衣叠放齐整如待祷的经卷，提着它时你会不自觉地放轻脚步，仿佛连行囊本身都浸透了肃穆。' },
+  '长袍': { en: 'Robe', type: '服装', price: 1, desc: '粗纺羊毛或麻布裁成的素色衣袍，宽大得足以裹住寒风，兜帽垂下时世界只剩一线微光与自己的呼吸。' },
   'GP': { en: 'Gold Piece', type: '货币', desc: '钱袋里哗啦作响的圆片，每一枚都压印着远方城邦的徽记与新近磨出的锃亮擦痕——那是它刚从某人手里辗转到你掌心的证明。' },
-  '细剑': { en: 'Rapier', type: '武器', damage: '1d8 穿刺', properties: '灵巧', desc: '修长优雅的刺击剑，剑身纤细如针，贵族剑客以此在决斗中精准刺穿对手的防御空隙。' },
-  '短剑': { en: 'Shortsword', type: '武器', damage: '1d6 穿刺', properties: '轻型、灵巧', desc: '紧凑实用的军用短剑，在狭窄地城里比长剑更灵活，每一寸刃口都经过实战检验。' },
-  '短弓': { en: 'Shortbow', type: '武器', damage: '1d6 穿刺', properties: '弹药（射程 80/320 尺）、双手', desc: '猎人在森林中惯用的小型弓，轻便灵活，能在密林间快速张弓放箭。' },
-  '长剑': { en: 'Longsword', type: '武器', damage: '1d8/1d10 挥砍', properties: '多用', desc: '攻守兼备的制式长剑——佣兵与骑士最信赖的伙伴，握在手中便多了一分活过明天的底气。' },
-  '巨剑': { en: 'Greatsword', type: '武器', damage: '2d6 挥砍', properties: '重型、双手', desc: '将近一人高的巨型剑刃，双手握持方可驾驭，每一次挥砍都裹挟着毁灭性的力量。' },
-  '矛': { en: 'Spear', type: '武器', damage: '1d6/1d8 穿刺', properties: '投掷（射程 20/60 尺）、多用', desc: '人类最古老的兵器之一，一根坚韧长杆配以锋利矛尖，简单、可靠、致命。' },
-  '标枪': { en: 'Javelin', type: '武器', damage: '1d6 穿刺', properties: '投掷（射程 30/120 尺）', desc: '为投掷而生的轻质短矛，军团士兵常在冲锋前将其掷向敌阵，打乱对手的阵脚。' },
-  '飞镖': { en: 'Dart', type: '武器', damage: '1d4 穿刺', properties: '轻型、灵巧、投掷（射程 20/60 尺）', desc: '三棱梭尖磨得泛白，杆身细如竹筷，掂在指尖几乎无重，但脱手时破空的轻啸足以让野兔竖起耳朵。' },
-  '短弯刀': { en: 'Scimitar', type: '武器', damage: '1d6 挥砍', properties: '轻型、灵巧', desc: '刃身如新月弯出一道优雅的弧，单面开锋薄可剃须，握把处的皮革被汗水浸得油亮——挥砍时手腕轻转，它会替你完成剩下的切割。' },
-  '皮甲': { en: 'Leather Armor', type: '护甲', ac: '11 + 敏捷', properties: '轻型', desc: '多层硬化的牛皮压合而成，表面布满细密的锤击纹路，肩肘处磨得锃亮如旧鞍，穿久了它会记住你每一道骨骼的轮廓。' },
-  '链甲': { en: 'Chain Mail', type: '护甲', ac: '16', properties: '重型、需力量 13', desc: '从脖颈覆至膝弯的钢铁瀑布，每一枚环扣都咬着相邻四个同伴，走路时哗哗闷响，像是披着一条沉重而可靠的小河。' },
-  '鳞甲': { en: 'Scale Mail', type: '护甲', ac: '14 + 敏捷（最大+2）', properties: '中型、潜行劣势', desc: '铁片如鱼鳞般层层叠压，涂过桐油的皮衬底让它在活动时吱嘎轻响，阳光打在鳞面上会碎成散落的铜钱光斑。' },
-  '盗贼工具': { en: "Thieves' Tools", type: '工具', desc: '皮卷展开一列细长的金属精灵——弯钩、探针、锉刀在烛光下反射出狡黠的银辉，触碰它们时指尖会不由自主地变得轻柔而精准。' },
-  '娱乐者套组': { en: "Entertainer's Pack", type: '套组', desc: '两只戏服叠在包底，一股樟脑与旧剧场灰尘的味道，烛芯烧焦的气息里藏着无数次熄灯后的满堂喝彩与无人鼓掌的冷场。' },
-  '鲁特琴': { en: 'Lute', type: '乐器', desc: '梨形琴身被岁月盘出琥珀色的包浆，琴弦紧绷在肘弯处，轻轻一拨便漾开木质腔体里沉睡的共鸣——那是每一间旅馆大堂都在期待的声音。' },
-  '木盾': { en: 'Wooden Shield', type: '护甲', ac: '+2 AC', properties: '需要一只手', desc: '多层椴木压合后覆以生牛皮，边缘被削砍的伤痕比油漆更早渗进纤维，举盾时能闻到干燥的木香混着旧汗的味道。' },
-  '草药工具': { en: 'Herbalism Kit', type: '工具', desc: '捣药臼里残留着晒干的薄荷与金盏花瓣粉末，小瓶塞紧的玻璃罐在行囊里互相碰出清亮的叮叮声——展开这套工具的瞬间，空气里就弥漫起草药的苦香。' },
-  '书法工具': { en: "Calligrapher's Supplies", type: '工具', desc: '黄铜笔架上搁着三支粗细各异的狼毫笔，松烟墨锭在端砚上磨出油亮的光泽，一叠素白宣纸散发着淡淡的竹浆清香。' },
-  '羊皮纸': { en: 'Parchment', type: '消耗品', desc: '几张经过精细鞣制的羔羊皮纸，质地柔韧而微黄，表面用浮石打磨得光滑如缎，边缘留着不规则的天然轮廓。' },
-  '旅行服装': { en: "Traveler's Clothes", type: '服装', desc: '厚实的羊毛束腰外衣外罩着一件沾满风尘的油布斗篷，肘部和膝盖处打着结实但已磨损的皮补丁，每一道褶皱都藏着一百里的故事。' },
-  '小包': { en: 'Pouch', type: '容器', desc: '巴掌大的鞣皮小袋用生皮绳系在腰间，袋口被无数次开合磨得光滑发亮，鼓鼓囊囊地勾勒出里头各式小零碎的轮廓。' },
-  '工匠工具': { en: "Artisan's Tools", type: '工具', desc: '一个帆布工具卷囊，展开后露出一排排插袋中的锤、锉、钳与刻刀，每一件铁器都裹着薄薄的防锈油膜，木柄被手掌磨出了琥珀色的包浆。' },
-  '铁匠工具': { en: "Smith's Tools", type: '工具', desc: '沉重的铁砧与淬火槽，锤痕累累的铁钳在炉火光中泛着暗红。风箱鼓动间火星飞溅，生铁在千锤百炼下化作利刃与甲胄。' },
-  '酿酒工具': { en: "Brewer's Supplies", type: '工具', desc: '铜制蒸馏釜与发酵桶，麦芽的甜香混着啤酒花的微苦。一滴醇酿落入杯中时，荡开的涟漪里藏着祖传的配方。' },
-  '石工工具': { en: "Mason's Tools", type: '工具', desc: '沉甸甸的石工锤与合金凿子，木柄被岩石粉尘磨得光滑如缎。一凿一锤间，顽石也能化作拱门与神像。' },
-  '炼金工具': { en: "Alchemist's Supplies", type: '工具', desc: '玻璃烧瓶与黄铜蒸馏器在烛光下闪烁，一排小瓷罐里封存着水银、硫磺与晒干的曼陀罗花瓣。摇匀试管时，液面会浮起一缕发光的烟雾。' },
-  '木匠工具': { en: "Carpenter's Tools", type: '工具', desc: '一柄磨得锃亮的刨子，几把锯齿齐整的手锯，墨斗里的墨线收放间弹出笔直的印记。刨花蜷在地板上，松木的清香弥漫整个工坊。' },
-  '厨具': { en: "Cook's Utensils", type: '工具', desc: '一口厚底平锅配一把锋利的厨刀，香料罐里装着孜然、肉桂与晒干的红辣椒。指尖捻一撮盐撒入沸腾的汤锅，世间最简单的魔法莫过于此。' },
-  '珠宝工具': { en: "Jeweler's Tools", type: '工具', desc: '一架黄铜放大目镜，金刚石刃的刻刀细如发丝。金箔在镊尖轻颤，碎钻在绒布上散射出彩虹般的火彩。' },
-  '皮革工具': { en: "Leatherworker's Tools", type: '工具', desc: '一排半月形的裁皮刀与菱斩，蜂蜡线与牛骨锥横在一侧。鞣制过的牛皮散发着淡淡的橡木烟熏气味。' },
-  '织工工具': { en: "Weaver's Tools", type: '工具', desc: '一架小巧的桌上织机，梭子在线列间穿飞如燕。各色丝线绕成筒管，织出的布匹比晨雾还轻。' },
-  '木雕工具': { en: "Woodcarver's Tools", type: '工具', desc: '一套大小各异的刻刀与圆凿，刃口锋利到能削出透明的刨花。木纹在刀尖下舒展开来，仿佛一直在等待这个被发现的时刻。' },
-  '文书伪造工具': { en: 'Forgery Kit', type: '工具', desc: '一本不起眼的皮革夹内藏多层暗格——数枚不同笔迹的铜印、几小瓶配方各异的褪色墨水和一叠来自各家商会的空白信笺样本。' },
-  '戏服': { en: 'Costume', type: '服装', desc: '一套缀满彩色补丁和叮当小铃的戏装，袖口与领口饰以褪色的金线流苏，布料上还残留着无数次登台演出留下的彩粉痕迹。' },
-  '高档服装': { en: 'Fine Clothes', type: '服装', desc: '一袭用桑蚕丝与银线交织的长袍，立领嵌着细碎的月光石，袖摆及地如流水，折叠时发出富贵人家衣箱中特有的檀木熏香。' },
-  '镜子': { en: 'Mirror', type: '冒险装备', desc: '一面巴掌大的银背手镜，镜面澄澈如水却微微泛着古旧的铜绿，黄杨木镜框上雕着一圈早已模糊不清的藤蔓纹。' },
-  '香水': { en: 'Perfume', type: '消耗品', desc: '一枚拇指大小的水晶细颈瓶，用蜂蜡封口，瓶中琥珀色的花精油在光影中流转，拔开瓶塞的瞬间能闻到午夜盛开的昙花混着龙涎香的幽凉。' },
-  '镰刀': { en: 'Sickle', type: '武器', damage: '1d4 挥砍', properties: '轻型', desc: '一柄饱经风雨的农用镰刀，弯月般的铁刃上布满细密的磨痕与麦秆留下的绿色锈迹，山毛榉木柄被世代农夫的手握出了发亮的凹槽。' },
-  '医疗包': { en: "Healer's Kit", type: '工具', desc: '一卷用鹿皮绳扎紧的帆布医囊，打开后依次排列着漂白棉纱、金盏花软膏罐、接骨木夹板和一小瓶蒸馏烈酒，每一件都散发着药草与酒精混合的清苦气味。' },
-  '铁锅': { en: 'Iron Pot', type: '冒险装备', desc: '一口三足铸铁圆锅，锅底积着经年累月的炭黑与油脂凝成的乌亮包浆，锅沿上还挂着昨夜炖菜干涸的汤渍。' },
-  '铲子': { en: 'Shovel', type: '冒险装备', desc: '一把短柄宽刃铁铲，刃口因无数次凿入冻土和碎石而微微卷曲起毛刺，白蜡木柄被汗渍浸成了深褐色。' },
-  '轻弩': { en: 'Light Crossbow', type: '武器', damage: '1d8 穿刺', properties: '弹药（射程 80/320 尺）、双手、装填', desc: '一把小巧的曲柄弩，核桃木托上嵌着锻铁扳机组件，拉紧的牛筋弩弦散发出一股干燥的兽腥味，黄铜瞄具在微光中隐隐发亮。' },
-  '弩矢': { en: 'Crossbow Bolt', type: '弹药', desc: '一支短而粗壮的弩矢，硬木矢身笔直，三片灰鹅翎尾翼用细麻线紧缚，淬过火的钢矢尖闪着幽蓝的微光。' },
-  '赌具': { en: 'Gaming Set', type: '工具', desc: '一副边角磨圆的牛皮纸牌，牌面上彩绘的国王与骑士已模糊不清，又或是三枚骨雕骰子在丝绒袋中轻轻碰撞发出清脆的声响。' },
-  '附盖提灯': { en: 'Hooded Lantern', type: '冒险装备', desc: '一盏黄铜框架的牛角片提灯，可收放的遮光罩下，烛火摇曳时灯壁上映出琥珀色的纹路，合上风门便可瞬间遁入黑暗。' },
-  '镣铐': { en: 'Manacles', type: '冒险装备', desc: '一副锈迹斑斑的锻铁手铐，铁环内侧被无数绝望手腕的挣扎磨出了光滑的浅槽，连接链节碰击时发出沉闷而决绝的叮当声。' },
-  '箭袋': { en: 'Quiver', type: '容器', desc: '一筒硬皮箭囊，外壁用烙铁烫着猎人祈福符文，囊口缀着一圈防雨的獾皮边，里面的羊毛衬垫让每一支箭在奔跑中依然稳如磐石。' },
-  '制图工具': { en: "Cartographer's Tools", type: '工具', desc: '一个牛皮圆筒匣，内装三支修尖的鹅翎笔、一饼靛蓝墨膏、一柄黄铜圆规和一卷待绘的空白犊皮纸，筒身散发着石墨与陈年羊皮纸混合的干燥香气。' },
-  '铺盖': { en: 'Bedroll', type: '冒险装备', desc: '一卷用旧却仔细打理的睡铺，外层是防水油帆布，里层是厚实的山羊毛毯，卷紧时只比行军锅略粗，展开后却足以在荒原的寒夜里隔开冻土的刺骨冷意。' },
-  '帐篷': { en: 'Tent', type: '冒险装备', desc: '一捆厚重的亚麻帆布帐篷，折叠后由两条交叉的榉木撑杆和几枚铁地钉捆扎结实，帆布上打着几处仔细缝补的补丁，散发着一股篝火余烬和晨露浸润过的气息。' },
-  '油灯': { en: 'Oil Lamp', type: '冒险装备', desc: '一盏素朴的赤陶油灯，粗糙的陶壁上留着制陶匠匆忙的指痕，灯嘴处积着厚厚一圈灯焰熏出的炭黑，捻子浸在一汪金黄色的灯油里。' },
-  '燃油': { en: 'Oil Flask', type: '消耗品', desc: '一只粗陶扁瓶，用软木塞封得严严实实，摇晃时瓶中粘稠的鲸脂油发出低沉的晃动声，瓶身蒙着一层永远渗不尽的油润光泽。' },
-  '领航工具': { en: "Navigator's Tools", type: '工具', desc: '一架黄铜星盘，刻度盘上的数字与星座符号被摩挲得微微模糊；横在一侧的是罗盘与一筒海图，罗盘的琉璃盖下，磁针在玫瑰风向图上永远不安地微微颤动。' },
-  '撬棍': { en: 'Crowbar', type: '冒险装备', desc: '一根沉甸甸的锻铁撬棍，弯头叉口在无数次撬钉起石的暴力使用中略微变形，直柄上锤击留下的凹痕密如麻点，握在手中透着冰凉的铁腥气。' },
-  '绳索': { en: 'Rope', type: '冒险装备', desc: '一盘粗壮的大麻绳，三股纤维绞紧如蛇身，散发着焦油与海盐混合的防腐气味，绳头用细弦牢牢缠紧，绵软却扛得起一个整装冒险者的重量。' },
-  '表演服装': { en: 'Costume Clothes', type: '服装', desc: '一套缀满亮片的艺人演出服，袖子和胸口绣着夸张的剧场纹章，领口插着两根褪色的雉鸡翎，内衬汗渍斑驳却仍散发着一股化妆油彩的甜腻气息。' },
-  '书籍': { en: 'Book', type: '冒险装备', desc: '一本厚重的四开本典籍，深棕色的犊皮封面上压印着金箔已经剥落过半的神秘几何符文，书脊覆着加固的黄铜锁扣，翻开时纸页间溢出上百年的灰尘与墨香。' },
+  '细剑': { en: 'Rapier', type: '武器', price: 25, damage: '1d8 穿刺', properties: '灵巧', desc: '修长优雅的刺击剑，剑身纤细如针，贵族剑客以此在决斗中精准刺穿对手的防御空隙。' },
+  '短剑': { en: 'Shortsword', type: '武器', price: 10, damage: '1d6 穿刺', properties: '轻型、灵巧', desc: '紧凑实用的军用短剑，在狭窄地城里比长剑更灵活，每一寸刃口都经过实战检验。' },
+  '短弓': { en: 'Shortbow', type: '武器', price: 25, damage: '1d6 穿刺', properties: '弹药（射程 80/320 尺）、双手', desc: '猎人在森林中惯用的小型弓，轻便灵活，能在密林间快速张弓放箭。' },
+  '长剑': { en: 'Longsword', type: '武器', price: 15, damage: '1d8/1d10 挥砍', properties: '多用', desc: '攻守兼备的制式长剑——佣兵与骑士最信赖的伙伴，握在手中便多了一分活过明天的底气。' },
+  '巨剑': { en: 'Greatsword', type: '武器', price: 50, damage: '2d6 挥砍', properties: '重型、双手', desc: '将近一人高的巨型剑刃，双手握持方可驾驭，每一次挥砍都裹挟着毁灭性的力量。' },
+  '矛': { en: 'Spear', type: '武器', price: 1, damage: '1d6/1d8 穿刺', properties: '投掷（射程 20/60 尺）、多用', desc: '人类最古老的兵器之一，一根坚韧长杆配以锋利矛尖，简单、可靠、致命。' },
+  '标枪': { en: 'Javelin', type: '武器', price: 0.5, damage: '1d6 穿刺', properties: '投掷（射程 30/120 尺）', desc: '为投掷而生的轻质短矛，军团士兵常在冲锋前将其掷向敌阵，打乱对手的阵脚。' },
+  '飞镖': { en: 'Dart', type: '武器', price: 0.05, damage: '1d4 穿刺', properties: '轻型、灵巧、投掷（射程 20/60 尺）', desc: '三棱梭尖磨得泛白，杆身细如竹筷，掂在指尖几乎无重，但脱手时破空的轻啸足以让野兔竖起耳朵。' },
+  '短弯刀': { en: 'Scimitar', type: '武器', price: 25, damage: '1d6 挥砍', properties: '轻型、灵巧', desc: '刃身如新月弯出一道优雅的弧，单面开锋薄可剃须，握把处的皮革被汗水浸得油亮——挥砍时手腕轻转，它会替你完成剩下的切割。' },
+  '皮甲': { en: 'Leather Armor', type: '护甲', price: 10, ac: '11 + 敏捷', properties: '轻型', desc: '多层硬化的牛皮压合而成，表面布满细密的锤击纹路，肩肘处磨得锃亮如旧鞍，穿久了它会记住你每一道骨骼的轮廓。' },
+  '链甲': { en: 'Chain Mail', type: '护甲', price: 75, ac: '16', properties: '重型、需力量 13', desc: '从脖颈覆至膝弯的钢铁瀑布，每一枚环扣都咬着相邻四个同伴，走路时哗哗闷响，像是披着一条沉重而可靠的小河。' },
+  '鳞甲': { en: 'Scale Mail', type: '护甲', price: 50, ac: '14 + 敏捷（最大+2）', properties: '中型、潜行劣势', desc: '铁片如鱼鳞般层层叠压，涂过桐油的皮衬底让它在活动时吱嘎轻响，阳光打在鳞面上会碎成散落的铜钱光斑。' },
+  '盗贼工具': { en: "Thieves' Tools", type: '工具', price: 25, desc: '皮卷展开一列细长的金属精灵——弯钩、探针、锉刀在烛光下反射出狡黠的银辉，触碰它们时指尖会不由自主地变得轻柔而精准。' },
+  '娱乐者套组': { en: "Entertainer's Pack", type: '套组', price: 40, desc: '两只戏服叠在包底，一股樟脑与旧剧场灰尘的味道，烛芯烧焦的气息里藏着无数次熄灯后的满堂喝彩与无人鼓掌的冷场。' },
+  '鲁特琴': { en: 'Lute', type: '乐器', price: 35, desc: '梨形琴身被岁月盘出琥珀色的包浆，琴弦紧绷在肘弯处，轻轻一拨便漾开木质腔体里沉睡的共鸣——那是每一间旅馆大堂都在期待的声音。' },
+  '木盾': { en: 'Wooden Shield', type: '护甲', price: 10, ac: '+2 AC', properties: '需要一只手', desc: '多层椴木压合后覆以生牛皮，边缘被削砍的伤痕比油漆更早渗进纤维，举盾时能闻到干燥的木香混着旧汗的味道。' },
+  '草药工具': { en: 'Herbalism Kit', type: '工具', price: 5, desc: '捣药臼里残留着晒干的薄荷与金盏花瓣粉末，小瓶塞紧的玻璃罐在行囊里互相碰出清亮的叮叮声——展开这套工具的瞬间，空气里就弥漫起草药的苦香。' },
+  '书法工具': { en: "Calligrapher's Supplies", type: '工具', price: 15, desc: '黄铜笔架上搁着三支粗细各异的狼毫笔，松烟墨锭在端砚上磨出油亮的光泽，一叠素白宣纸散发着淡淡的竹浆清香。' },
+  '羊皮纸': { en: 'Parchment', type: '消耗品', price: 0.1, desc: '几张经过精细鞣制的羔羊皮纸，质地柔韧而微黄，表面用浮石打磨得光滑如缎，边缘留着不规则的天然轮廓。' },
+  '旅行服装': { en: "Traveler's Clothes", type: '服装', price: 2, desc: '厚实的羊毛束腰外衣外罩着一件沾满风尘的油布斗篷，肘部和膝盖处打着结实但已磨损的皮补丁，每一道褶皱都藏着一百里的故事。' },
+  '小包': { en: 'Pouch', type: '容器', price: 0.5, desc: '巴掌大的鞣皮小袋用生皮绳系在腰间，袋口被无数次开合磨得光滑发亮，鼓鼓囊囊地勾勒出里头各式小零碎的轮廓。' },
+  '工匠工具': { en: "Artisan's Tools", type: '工具', price: 15, desc: '一个帆布工具卷囊，展开后露出一排排插袋中的锤、锉、钳与刻刀，每一件铁器都裹着薄薄的防锈油膜，木柄被手掌磨出了琥珀色的包浆。' },
+  '铁匠工具': { en: "Smith's Tools", type: '工具', price: 15, desc: '沉重的铁砧与淬火槽，锤痕累累的铁钳在炉火光中泛着暗红。风箱鼓动间火星飞溅，生铁在千锤百炼下化作利刃与甲胄。' },
+  '酿酒工具': { en: "Brewer's Supplies", type: '工具', price: 15, desc: '铜制蒸馏釜与发酵桶，麦芽的甜香混着啤酒花的微苦。一滴醇酿落入杯中时，荡开的涟漪里藏着祖传的配方。' },
+  '石工工具': { en: "Mason's Tools", type: '工具', price: 15, desc: '沉甸甸的石工锤与合金凿子，木柄被岩石粉尘磨得光滑如缎。一凿一锤间，顽石也能化作拱门与神像。' },
+  '炼金工具': { en: "Alchemist's Supplies", type: '工具', price: 15, desc: '玻璃烧瓶与黄铜蒸馏器在烛光下闪烁，一排小瓷罐里封存着水银、硫磺与晒干的曼陀罗花瓣。摇匀试管时，液面会浮起一缕发光的烟雾。' },
+  '木匠工具': { en: "Carpenter's Tools", type: '工具', price: 15, desc: '一柄磨得锃亮的刨子，几把锯齿齐整的手锯，墨斗里的墨线收放间弹出笔直的印记。刨花蜷在地板上，松木的清香弥漫整个工坊。' },
+  '厨具': { en: "Cook's Utensils", type: '工具', price: 15, desc: '一口厚底平锅配一把锋利的厨刀，香料罐里装着孜然、肉桂与晒干的红辣椒。指尖捻一撮盐撒入沸腾的汤锅，世间最简单的魔法莫过于此。' },
+  '珠宝工具': { en: "Jeweler's Tools", type: '工具', price: 15, desc: '一架黄铜放大目镜，金刚石刃的刻刀细如发丝。金箔在镊尖轻颤，碎钻在绒布上散射出彩虹般的火彩。' },
+  '皮革工具': { en: "Leatherworker's Tools", type: '工具', price: 15, desc: '一排半月形的裁皮刀与菱斩，蜂蜡线与牛骨锥横在一侧。鞣制过的牛皮散发着淡淡的橡木烟熏气味。' },
+  '织工工具': { en: "Weaver's Tools", type: '工具', price: 15, desc: '一架小巧的桌上织机，梭子在线列间穿飞如燕。各色丝线绕成筒管，织出的布匹比晨雾还轻。' },
+  '木雕工具': { en: "Woodcarver's Tools", type: '工具', price: 15, desc: '一套大小各异的刻刀与圆凿，刃口锋利到能削出透明的刨花。木纹在刀尖下舒展开来，仿佛一直在等待这个被发现的时刻。' },
+  '文书伪造工具': { en: 'Forgery Kit', type: '工具', price: 15, desc: '一本不起眼的皮革夹内藏多层暗格——数枚不同笔迹的铜印、几小瓶配方各异的褪色墨水和一叠来自各家商会的空白信笺样本。' },
+  '戏服': { en: 'Costume', type: '服装', price: 5, desc: '一套缀满彩色补丁和叮当小铃的戏装，袖口与领口饰以褪色的金线流苏，布料上还残留着无数次登台演出留下的彩粉痕迹。' },
+  '高档服装': { en: 'Fine Clothes', type: '服装', price: 15, desc: '一袭用桑蚕丝与银线交织的长袍，立领嵌着细碎的月光石，袖摆及地如流水，折叠时发出富贵人家衣箱中特有的檀木熏香。' },
+  '镜子': { en: 'Mirror', type: '冒险装备', price: 5, desc: '一面巴掌大的银背手镜，镜面澄澈如水却微微泛着古旧的铜绿，黄杨木镜框上雕着一圈早已模糊不清的藤蔓纹。' },
+  '香水': { en: 'Perfume', type: '消耗品', price: 5, desc: '一枚拇指大小的水晶细颈瓶，用蜂蜡封口，瓶中琥珀色的花精油在光影中流转，拔开瓶塞的瞬间能闻到午夜盛开的昙花混着龙涎香的幽凉。' },
+  '镰刀': { en: 'Sickle', type: '武器', price: 1, damage: '1d4 挥砍', properties: '轻型', desc: '一柄饱经风雨的农用镰刀，弯月般的铁刃上布满细密的磨痕与麦秆留下的绿色锈迹，山毛榉木柄被世代农夫的手握出了发亮的凹槽。' },
+  '医疗包': { en: "Healer's Kit", type: '工具', price: 5, desc: '一卷用鹿皮绳扎紧的帆布医囊，打开后依次排列着漂白棉纱、金盏花软膏罐、接骨木夹板和一小瓶蒸馏烈酒，每一件都散发着药草与酒精混合的清苦气味。' },
+  '铁锅': { en: 'Iron Pot', type: '冒险装备', price: 2, desc: '一口三足铸铁圆锅，锅底积着经年累月的炭黑与油脂凝成的乌亮包浆，锅沿上还挂着昨夜炖菜干涸的汤渍。' },
+  '铲子': { en: 'Shovel', type: '冒险装备', price: 2, desc: '一把短柄宽刃铁铲，刃口因无数次凿入冻土和碎石而微微卷曲起毛刺，白蜡木柄被汗渍浸成了深褐色。' },
+  '轻弩': { en: 'Light Crossbow', type: '武器', price: 25, damage: '1d8 穿刺', properties: '弹药（射程 80/320 尺）、双手、装填', desc: '一把小巧的曲柄弩，核桃木托上嵌着锻铁扳机组件，拉紧的牛筋弩弦散发出一股干燥的兽腥味，黄铜瞄具在微光中隐隐发亮。' },
+  '弩矢': { en: 'Crossbow Bolt', type: '弹药', price: 1, desc: '一支短而粗壮的弩矢，硬木矢身笔直，三片灰鹅翎尾翼用细麻线紧缚，淬过火的钢矢尖闪着幽蓝的微光。' },
+  '赌具': { en: 'Gaming Set', type: '工具', price: 5, desc: '一副边角磨圆的牛皮纸牌，牌面上彩绘的国王与骑士已模糊不清，又或是三枚骨雕骰子在丝绒袋中轻轻碰撞发出清脆的声响。' },
+  '附盖提灯': { en: 'Hooded Lantern', type: '冒险装备', price: 5, desc: '一盏黄铜框架的牛角片提灯，可收放的遮光罩下，烛火摇曳时灯壁上映出琥珀色的纹路，合上风门便可瞬间遁入黑暗。' },
+  '镣铐': { en: 'Manacles', type: '冒险装备', price: 2, desc: '一副锈迹斑斑的锻铁手铐，铁环内侧被无数绝望手腕的挣扎磨出了光滑的浅槽，连接链节碰击时发出沉闷而决绝的叮当声。' },
+  '箭袋': { en: 'Quiver', type: '容器', price: 1, desc: '一筒硬皮箭囊，外壁用烙铁烫着猎人祈福符文，囊口缀着一圈防雨的獾皮边，里面的羊毛衬垫让每一支箭在奔跑中依然稳如磐石。' },
+  '制图工具': { en: "Cartographer's Tools", type: '工具', price: 15, desc: '一个牛皮圆筒匣，内装三支修尖的鹅翎笔、一饼靛蓝墨膏、一柄黄铜圆规和一卷待绘的空白犊皮纸，筒身散发着石墨与陈年羊皮纸混合的干燥香气。' },
+  '铺盖': { en: 'Bedroll', type: '冒险装备', price: 1, desc: '一卷用旧却仔细打理的睡铺，外层是防水油帆布，里层是厚实的山羊毛毯，卷紧时只比行军锅略粗，展开后却足以在荒原的寒夜里隔开冻土的刺骨冷意。' },
+  '帐篷': { en: 'Tent', type: '冒险装备', price: 2, desc: '一捆厚重的亚麻帆布帐篷，折叠后由两条交叉的榉木撑杆和几枚铁地钉捆扎结实，帆布上打着几处仔细缝补的补丁，散发着一股篝火余烬和晨露浸润过的气息。' },
+  '油灯': { en: 'Oil Lamp', type: '冒险装备', price: 0.5, desc: '一盏素朴的赤陶油灯，粗糙的陶壁上留着制陶匠匆忙的指痕，灯嘴处积着厚厚一圈灯焰熏出的炭黑，捻子浸在一汪金黄色的灯油里。' },
+  '燃油': { en: 'Oil Flask', type: '消耗品', price: 0.1, desc: '一只粗陶扁瓶，用软木塞封得严严实实，摇晃时瓶中粘稠的鲸脂油发出低沉的晃动声，瓶身蒙着一层永远渗不尽的油润光泽。' },
+  '领航工具': { en: "Navigator's Tools", type: '工具', price: 25, desc: '一架黄铜星盘，刻度盘上的数字与星座符号被摩挲得微微模糊；横在一侧的是罗盘与一筒海图，罗盘的琉璃盖下，磁针在玫瑰风向图上永远不安地微微颤动。' },
+  '撬棍': { en: 'Crowbar', type: '冒险装备', price: 2, desc: '一根沉甸甸的锻铁撬棍，弯头叉口在无数次撬钉起石的暴力使用中略微变形，直柄上锤击留下的凹痕密如麻点，握在手中透着冰凉的铁腥气。' },
+  '绳索': { en: 'Rope', type: '冒险装备', price: 1, desc: '一盘粗壮的大麻绳，三股纤维绞紧如蛇身，散发着焦油与海盐混合的防腐气味，绳头用细弦牢牢缠紧，绵软却扛得起一个整装冒险者的重量。' },
+  '表演服装': { en: 'Costume Clothes', type: '服装', price: 5, desc: '一套缀满亮片的艺人演出服，袖子和胸口绣着夸张的剧场纹章，领口插着两根褪色的雉鸡翎，内衬汗渍斑驳却仍散发着一股化妆油彩的甜腻气息。' },
+  '书籍': { en: 'Book', type: '冒险装备', price: 25, desc: '一本厚重的四开本典籍，深棕色的犊皮封面上压印着金箔已经剥落过半的神秘几何符文，书脊覆着加固的黄铜锁扣，翻开时纸页间溢出上百年的灰尘与墨香。' },
 
-  '20支箭': { en: '20 Arrows', type: '弹药', desc: '一捆笔直的白桦箭杆，尾羽用胶粘得整齐。箭镞在磨石上来回蹭出的锋刃闪着寒光，弓弦一松它们就知道自己要去哪。' },
-  '德鲁伊法器': { en: 'Druidic Focus', type: '法器', desc: '一段被雷电劈过的槲寄生老枝，或是溪底磨圆的琥珀——握紧它时，掌心会感到大地深处细微的脉动。' },
-  '魔力水晶': { en: 'Arcane Focus', type: '法器', desc: '一块拳头大的紫晶簇，内部封着永恒的微光。施法时水晶共振出人耳听不到的低沉嗡鸣。' },
+  '20支箭': { en: '20 Arrows', type: '弹药', price: 1, desc: '一捆笔直的白桦箭杆，尾羽用胶粘得整齐。箭镞在磨石上来回蹭出的锋刃闪着寒光，弓弦一松它们就知道自己要去哪。' },
+  '德鲁伊法器': { en: 'Druidic Focus', type: '法器', price: 5, desc: '一段被雷电劈过的槲寄生老枝，或是溪底磨圆的琥珀——握紧它时，掌心会感到大地深处细微的脉动。' },
+  '魔力水晶': { en: 'Arcane Focus', type: '法器', price: 10, desc: '一块拳头大的紫晶簇，内部封着永恒的微光。施法时水晶共振出人耳听不到的低沉嗡鸣。' },
+
+  /* ===== 武器精通武器 ===== */
+  '鞭': { en: 'Whip', type: '武器', price: 2, damage: '1d4 挥砍', properties: '灵巧、触及', desc: '编成辫状的硬化皮条在腕间轻转，甩出时如毒蛇吐信——一寸长一寸险，远距离搅乱对手的防御才是它的真正威力。' },
+  '晨星': { en: 'Morningstar', type: '武器', price: 15, damage: '1d8 穿刺', desc: '带刺的铁球连着硬木长柄，每一次挥下都像陨星坠地——没有刃口却比刀剑更凶险，尖刺会把冲击力集中在指甲盖大的点上，板甲也挡不住。' },
+  '吹箭': { en: 'Blowgun', type: '武器', price: 10, damage: '1 穿刺', properties: '弹药（射程 25/100 尺）、装填', desc: '一截细长的空心竹管，表面用植物汁液染出暗色纹路。吹箭本身无声无息，但致命的秘密藏在箭尖涂抹的毒药里。' },
+  '刺剑': { en: 'Rapier', type: '武器', price: 25, damage: '1d8 穿刺', properties: '灵巧', desc: '细长的剑身如银针出鞘，护手处镂刻着涡卷纹饰。它不靠蛮力劈砍，而是用精准的突刺在对手防线上开出致命的窟窿。' },
+  '钉头锤': { en: 'Morningstar', type: '武器', price: 15, damage: '1d8 穿刺', desc: '圆铁球上密布钝刺，柄身裹覆黑皮——每一击都是一记重锤，尖刺会将冲击力集中到一点，轻易洞穿甲胄的薄弱处。' },
+  '短棒': { en: 'Club', type: '武器', price: 0.1, damage: '1d4 钝击', properties: '轻型', desc: '一截硬木削成，握柄处缠着防滑的麻绳。它看上去朴实无华，但砸在后脑勺上足以让最嚣张的醉汉安静下来。' },
+  '复合短弓': { en: 'Shortbow (Composite)', type: '武器', price: 50, damage: '1d6 穿刺', properties: '弹药（射程 80/320 尺）、双手', desc: '骨片与角筋制成的反曲弓臂蓄着惊人的张力，拉满时弓弦发出低沉的嗡鸣——比普通短弓射得更远更狠。' },
+  '复合长弓': { en: 'Longbow (Composite)', type: '武器', price: 100, damage: '1d8 穿刺', properties: '弹药（射程 150/600 尺）、重型、双手', desc: '比人还高的反曲战弓，弓臂由角质、兽筋与硬木层压而成，拉力大到只有经过长期训练的弓手才能拉满——箭矢飞出时快如鹰隼。' },
+  '滑膛枪': { en: 'Musket', type: '武器', price: 500, damage: '1d12 穿刺', properties: '弹药（射程 40/120 尺）、装填、双手', desc: '沉重的铁管架在木托上，枪机击发时火光与硝烟同时喷出，轰鸣声在战场上回荡——慢但致命，一枪足以击碎士气。' },
+  '巨棒': { en: 'Greatclub', type: '武器', price: 0.2, damage: '1d8 钝击', properties: '双手', desc: '一整根粗壮树干削制而成，粗端还残留着挖去节疤的凹痕。双手抡圆了砸下，力道足以把一扇橡木城门轰出裂纹。' },
+  '巨锤': { en: 'Maul', type: '武器', price: 10, damage: '2d6 钝击', properties: '重型、双手', desc: '一块铁砧般的锤头横在六尺长的钢柄末端，只有最强壮的臂膀才能将它举过头顶——落地时连地面都要震颤。' },
+  '巨镰': { en: 'Greatscythe', type: '武器', price: 10, damage: '1d10 挥砍', properties: '重型、双手、触及', desc: '收割庄稼的长镰被改造成了战场武器，弧形的刃锋横扫面积极大——它不讲究精准穿刺，而是要用宽度收割整排的生命。' },
+  '连枷': { en: 'Flail', type: '武器', price: 10, damage: '1d8 钝击', desc: '铁链连接的刺球在木柄末端甩出呼呼风声，盾牌挡得住剑挡不住它——链子会让锤头绕过格挡，砸在持盾者的手腕上。' },
+  '轻锤': { en: 'Light Hammer', type: '武器', price: 2, damage: '1d4 钝击', properties: '轻型、投掷（射程 20/60 尺）', desc: '袖珍的铁锤配以短柄，攥在手心刚好露出锤头。一甩腕便能将它旋转着掷出，二十尺内指哪打哪。' },
+  '三叉戟': { en: 'Trident', type: '武器', price: 5, damage: '1d6/1d8 穿刺', properties: '投掷（射程 20/60 尺）、多用', desc: '三根淬过海水的倒钩长齿从青铜柄中伸出，渔猎海神的利器——投出的瞬间会发出撕裂空气的尖啸。' },
+  '手斧': { en: 'Handaxe', type: '武器', price: 5, damage: '1d6 挥砍', properties: '轻型、投掷（射程 20/60 尺）', desc: '巴掌大的斧刃嵌在抛光的木柄中，轻到可以藏在皮甲里。劈柴开路顺手拈来，扔出去时它像一只旋转的铁鸟。' },
+  '手弩': { en: 'Hand Crossbow', type: '武器', price: 75, damage: '1d6 穿刺', properties: '弹药（射程 30/120 尺）、轻型、装填', desc: '一掌即可握持的袖珍弩机，弓臂不过前臂长短。扣下扳机时几不可闻的轻响后，箭矢已经钉在十步外的门板上。' },
+  '手枪': { en: 'Pistol', type: '武器', price: 250, damage: '1d10 穿刺', properties: '弹药（射程 30/90 尺）、装填', desc: '短管枪身箍着黄铜箍环，握把被磨得光滑发亮。近距离开火时枪焰会灼焦对手的衣襟——一响定乾坤。' },
+  '投石索': { en: 'Sling', type: '武器', price: 0.1, damage: '1d4 钝击', properties: '弹药（射程 30/120 尺）', desc: '两股麻绳中间缀着皮兜，抡过头顶旋转数圈后松开一端——石子带着离心力飞出，牧羊人大卫就用这招放倒了巨人。' },
+  '弯刀': { en: 'Cutlass', type: '武器', price: 25, damage: '1d6 挥砍', properties: '轻型、灵巧', desc: '宽背薄刃，刀身弧度比短弯刀更浅，海船上最常见的水手佩刀——近身劈砍时刀锋会带出一道短促的白光。' },
+  '战锤': { en: 'Warhammer', type: '武器', price: 15, damage: '1d8/1d10 钝击', properties: '多用', desc: '钝重锤头配以缠皮长柄，单手可持、双手加力。骑在马上挥下时，锤头带着战马冲锋的动量——铠甲在它面前形同虚设。' },
+  '战斧': { en: 'Battleaxe', type: '武器', price: 10, damage: '1d8/1d10 挥砍', properties: '多用', desc: '半圆斧刃像鹰翼般展开，磨得足以刮下胡须。单手挥砍灵活迅捷，双手握持则劈斩力道翻倍。' },
+  '战镐': { en: 'War Pick', type: '武器', price: 5, damage: '1d8 穿刺', desc: '鹤嘴锄般的尖镐配上战锤配重——矿井中的破岩工具搬上战场，凿穿厚甲比戳破薄纸难不了多少。' },
+  '长弓': { en: 'Longbow', type: '武器', price: 50, damage: '1d8 穿刺', properties: '弹药（射程 150/600 尺）、重型、双手', desc: '紫杉木制成的长弓比人还高，弓弦由亚麻丝反复绞编而成。拉开时肩背肌肉犹如展翅，放弦的脆响在森林另一头都能听见。' },
+  '长戟': { en: 'Halberd', type: '武器', price: 20, damage: '1d10 挥砍', properties: '重型、双手、触及', desc: '长柄顶端集斧刃、矛尖与倒钩于一体——劈、刺、钩、拉，一柄长戟就是整套兵器架。侧挥时可横扫一排敌人，戳刺时十尺外的对手亦无法幸免。' },
+  '长矛': { en: 'Pike', type: '武器', price: 5, damage: '1d10 穿刺', properties: '重型、双手、触及', desc: '十五尺长的钢杆配上矛尖，全军列阵时它从盾墙缝隙中刺出如荆棘之林。单个步兵最怕看见的就是一排长矛迎面压来。' },
+  '长枪': { en: 'Lance', type: '武器', price: 10, damage: '1d12 穿刺', properties: '重型、触及、特殊', desc: '骑兵专用的冲锋长枪——枪尖在阳光下一点寒芒，骑乘冲刺时枪身借马力前送，一击穿透巨龙鳞甲。步行时双手方能稳住。' },
+  '重弩': { en: 'Heavy Crossbow', type: '武器', price: 50, damage: '1d10 穿刺', properties: '弹药（射程 100/400 尺）、重型、装填、双手', desc: '钢弓臂绷在铸铁弩架上，拉力大到要用绞盘才能上弦。弩矢射出时带着撕裂空气的闷响，一箭可透两寸厚的橡木板。' },
+  '重型弩': { en: 'Heavy Crossbow', type: '武器', price: 50, damage: '1d10 穿刺', properties: '弹药（射程 100/400 尺）、重型、装填、双手', desc: '城防级别的巨型钢臂弩，配以带刻度的瞄具——每一发弩矢都要用双手绞盘上弦，但射程和穿透力足以让它在攻城战中成为步兵的噩梦。' },
+  /* ===== 乐器 ===== */
+  '风笛': { en: 'Bagpipes', type: '乐器', price: 30, desc: '羊皮气囊鼓得圆滚滚的，几根音管从袋口伸出，吹嘴衔在唇间用力一鼓——空气穿过簧片时发出苍凉而绵长的嗡鸣，像是整片高地的风都被收进了这袋子里。' },
+  '鼓': { en: 'Drum', type: '乐器', price: 6, desc: '硬木箍成的圆桶蒙上一面绷紧的羊皮，手掌拍上去能感到鼓皮在掌心下颤三颤。行军时挂在腰间用两根短棍敲击，整齐的鼓点能让一千双脚掌同时踏地。' },
+  '扬琴': { en: 'Dulcimer', type: '乐器', price: 25, desc: '梯形共鸣箱上架着十多根铜弦，用小槌轻敲时会荡出叮咚如泉水的声音。手指在弦间游走，一颗颗音符仿佛碎银落在丝绒上。' },
+  '长笛': { en: 'Flute', type: '乐器', price: 2, desc: '一根银亮的金属长管开了六个圆孔，横在唇边轻轻呵气——气流在管腔内回旋成清澈的高音，音符跃出时像林间雀鸟窜上枝头。' },
+  '里拉琴': { en: 'Lyre', type: '乐器', price: 30, desc: '龟壳形的共鸣箱上撑着两根弯角，七根羊肠弦横跨其间。指尖轻拨，弦音如月光洒在水面，连众神都会在奥林匹斯山上侧耳倾听。' },
+  '号角': { en: 'Horn', type: '乐器', price: 3, desc: '黄铜卷成的螺旋管末端张开成喇叭口，从吹嘴灌入的气流在管壁内反复折射——吹出的一声长鸣穿透战场与雾霭，听到的人无不为之侧目。' },
+  '排箫': { en: 'Pan Flute', type: '乐器', price: 12, desc: '七八根长短不一的芦苇管用蜂蜡粘成一排，唇缘在管口横移时每根管子吐出高低不同的音——最长的管子在低音区呜咽，最短的则清亮如云雀破晓。' },
 };
 
 // 全局：按完整物品名匹配（不依赖子串搜索），用 ID 定位 hover
@@ -8411,6 +9174,7 @@ const skillData = {
   '生存': { en: 'Survival', ability: '感知', desc: '用于追踪生物、寻找食物水源、预测天气与避免自然危险。' },
 };
 function showSkillInfo(skillName, anchorEl) {
+  cancelHidePopup();
   var s = skillData[skillName];
   if (!s) { hideSkillPopup(); return; }
   var html = '<div class="trait-popup">';
@@ -8437,6 +9201,7 @@ function wireSkillHovers(container) {
   });
 }
 function showItemPopup(itemName, anchorEl) {
+  cancelHidePopup();
   var item = itemData[itemName];
   if (!item) { hideSkillPopup(); return; }
   var html = '<div class="trait-popup">';
@@ -8454,6 +9219,7 @@ function showItemPopup(itemName, anchorEl) {
   positionTooltip(anchorEl);
 }
 function showSpellPopup(spellId, anchorEl) {
+  cancelHidePopup();
   var sp = spellData[spellId];
   if (!sp) { hideSkillPopup(); return; }
   var html = '<div class="trait-popup">';
@@ -8505,6 +9271,7 @@ function getFeatId(featZhName) {
 }
 
 function showFeatPopup(featId, anchorEl) {
+  cancelHidePopup();
   var feat = featData[featId];
   if (!feat) { hideSkillPopup(); return; }
   var html = '<div class="trait-popup">';
@@ -8522,6 +9289,7 @@ function showFeatPopup(featId, anchorEl) {
 const globalTooltip = document.getElementById('globalTooltip');
 
 function showSkillPopup(trait, anchorEl) {
+  cancelHidePopup();
   const type = trait.type || (trait.action ? 'active' : 'passive');
   const typeLabels = { passive: '被动特性', active: '主动能力', spell: '法术', feat: '专长' };
 
@@ -8633,8 +9401,14 @@ function positionTooltip(anchorEl) {
   globalTooltip.classList.add('show');
 }
 
+var hidePopupTimer = null;
 function hideSkillPopup() {
-  globalTooltip.classList.remove('show');
+  hidePopupTimer = setTimeout(function() {
+    globalTooltip.classList.remove('show');
+  }, 120);
+}
+function cancelHidePopup() {
+  if (hidePopupTimer) { clearTimeout(hidePopupTimer); hidePopupTimer = null; }
 }
 
 const detailOverlay = document.getElementById('raceDetailOverlay');
@@ -8848,6 +9622,28 @@ function openRaceDetail(raceId) {
         playSfx(sfx.click);
         renderTraits();
       });
+      // Hover: 龙种颜色详情
+      pill.addEventListener('mouseenter', function() {
+        cancelHidePopup();
+        var colorId = pill.dataset.color;
+        var branch = getSelectedBranch();
+        if (!branch || !data.branches) return;
+        var branchData = Array.isArray(data.branches) ? data.branches.find(function(b) { return b.id === branch || (b.options && b.options.some(function(o) { return o.id === branch; })); }) : data.branches;
+        if (!branchData || !branchData.options) return;
+        var branchOpt = branchData.options.find(function(o) { return o.id === branch; });
+        if (!branchOpt || !branchOpt.colors) return;
+        var color = branchOpt.colors.find(function(c) { return c.id === colorId; });
+        if (!color || !color.flavor) return;
+        var tip = document.getElementById('globalTooltip');
+        var imgSrc = color.img ? 'img/branches/' + color.img + '.png' : '';
+        var imgHtml = '<div class="branch-popup-img-wrap">' +
+          (imgSrc ? '<img src="' + imgSrc + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" style="width:100%;border-radius:4px;display:block;">' : '') +
+          '<div class="branch-popup-img-placeholder">[ ' + color.label + ' 画像 ]</div>' +
+          '</div>';
+        tip.innerHTML = '<div class="trait-popup" style="max-width:420px;"><div class="trait-popup-header"><div class="popup-name">' + color.label + '<span class="popup-type-tag tag-passive">' + color.damage + '</span></div></div><div class="trait-popup-divider"></div>' + imgHtml + '<div class="trait-popup-body" style="max-width:400px;line-height:1.9;">' + color.flavor + '</div></div>';
+        positionTooltip(pill);
+      });
+      pill.addEventListener('mouseleave', hideSkillPopup);
     });
   }
 
@@ -8948,8 +9744,8 @@ function openRaceDetail(raceId) {
   var isDisplayOnly = branchesArr.length > 0 && branchesArr.every(function(br) { return br.displayOnly; });
   branchesArr.forEach(function(br) {
     var isDO = br.displayOnly;
-    html += '<div class="race-detail-branches' + (isDO ? ' display-only' : '') + '" data-branch-id="' + br.id + '">';
     html += '<div class="race-detail-branches-label">' + br.label + (isDO ? '（后选）' : '') + '</div>';
+    html += '<div class="race-detail-branches' + (isDO ? ' display-only' : '') + '" data-branch-id="' + br.id + '">';
     if (isDO) {
       html += '<div class="display-only-grid">';
       br.options.forEach(function(opt) {
@@ -8974,15 +9770,18 @@ function openRaceDetail(raceId) {
     }
     // 龙种颜色选择区（仅有 colors 的种族使用）
     if (!isDO) html += '<div class="race-color-pills"></div>';
+    html += '</div>';
   });
 
   // 特性列表（占位，由 renderTraits 填充）
   html += '<div class="race-detail-section"></div>';
 
-  // 确认按钮
-  html += '<button class="race-detail-confirm" id="raceDetailConfirm">确认选择</button>';
-
   detailContent.innerHTML = html;
+
+  // 底部按钮（永远可见，不随内容滚动）
+  var footer = document.getElementById('raceDetailFooter');
+  footer.innerHTML = '<button class="race-detail-back" id="raceDetailBack">← 返回</button>' +
+    '<button class="race-detail-confirm" id="raceDetailConfirm">确认选择</button>';
 
   // 填充龙种颜色 + 特性
   if (branchesArr.some(function(br) { return !br.displayOnly; })) renderColorPills();
@@ -8998,6 +9797,28 @@ function openRaceDetail(raceId) {
       renderColorPills();
       renderTraits();
     });
+    // Hover: 分支详细介绍
+    pill.addEventListener('mouseenter', function() {
+      cancelHidePopup();
+      var branchId = pill.dataset.branch;
+      var branchesArr = Array.isArray(data.branches) ? data.branches : (data.branches ? [data.branches] : []);
+      var opt = null;
+      branchesArr.forEach(function(br) {
+        if (!br.options) return;
+        var found = br.options.find(function(o) { return o.id === branchId; });
+        if (found) opt = found;
+      });
+      if (!opt || !opt.flavor) return;
+      var tip = document.getElementById('globalTooltip');
+      var imgSrc = opt.img ? 'img/branches/' + opt.img + '.png' : '';
+      var imgHtml = '<div class="branch-popup-img-wrap">' +
+        (imgSrc ? '<img src="' + imgSrc + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" style="width:100%;border-radius:4px;display:block;">' : '') +
+        '<div class="branch-popup-img-placeholder" style="' + (imgSrc ? '' : '') + '">[ ' + opt.label + ' 画像 ]</div>' +
+        '</div>';
+      tip.innerHTML = '<div class="trait-popup" style="max-width:420px;"><div class="trait-popup-header"><div class="popup-name">' + opt.label + '<span class="popup-type-tag tag-passive">分支</span></div></div><div class="trait-popup-divider"></div>' + imgHtml + '<div class="trait-popup-body" style="max-width:400px;line-height:1.9;">' + opt.flavor + '</div></div>';
+      positionTooltip(pill.parentElement);
+    });
+    pill.addEventListener('mouseleave', hideSkillPopup);
   });
 
   // displayOnly block hover：技能→skillData，工具→itemData，专长→featData
@@ -9018,6 +9839,15 @@ function openRaceDetail(raceId) {
     }
     block.addEventListener('mouseleave', hideSkillPopup);
   });
+
+  // 绑定返回按钮
+  var backBtn = document.getElementById('raceDetailBack');
+  if (backBtn) {
+    backBtn.addEventListener('click', function() {
+      playSfx(sfx.back);
+      closeRaceDetail();
+    });
+  }
 
   // 绑定确认按钮
   const confirmBtn = document.getElementById('raceDetailConfirm');
@@ -9079,11 +9909,232 @@ function hideSideArrows() {
   document.getElementById('detailSideNext').classList.remove('visible');
 }
 
-// ===== 商店（占位） =====
+// ===== 货币系统 =====
+function getCurrencyBreakdown(gp) {
+  var totalCP = Math.round(gp * 100);
+  var gp2 = Math.floor(totalCP / 100); totalCP -= gp2 * 100;
+  var sp = Math.floor(totalCP / 10); totalCP -= sp * 10;
+  var cp = totalCP;
+  return { gp: gp2, sp: sp, cp: cp };
+}
+
+function formatPrice(gp) {
+  if (gp === 0) return '0 CP';
+  var b = getCurrencyBreakdown(gp);
+  var parts = [];
+  if (b.gp > 0) parts.push(b.gp + ' GP');
+  if (b.sp > 0) parts.push(b.sp + ' SP');
+  if (b.cp > 0) parts.push(b.cp + ' CP');
+  return parts.join(' ');
+}
+
+function renderCurrencyCounter(gp) {
+  var b = getCurrencyBreakdown(gp);
+  var coins = [];
+  if (b.gp > 0) coins.push('<span class="curr-coin curr-gp">' + b.gp + '<i>GP</i></span>');
+  if (b.sp > 0) coins.push('<span class="curr-coin curr-sp">' + b.sp + '<i>SP</i></span>');
+  if (b.cp > 0) coins.push('<span class="curr-coin curr-cp">' + b.cp + '<i>CP</i></span>');
+  if (coins.length === 0) coins.push('<span class="curr-coin curr-cp">0<i>CP</i></span>');
+  return '<span class="curr-counter">' + coins.join('') + '</span>';
+}
+
+// ===== 商店数据层 =====
+var SHOP_CATEGORIES = {
+  '全部': null,
+  '武器': ['武器', '法器/武器'],
+  '护甲': ['护甲'],
+  '工具 & 乐器': ['工具', '乐器'],
+  '冒险装备': ['套组', '服装', '容器', '消耗品', '冒险装备', '弹药', '法器']
+};
+
+function buildShopCatalog() {
+  var catalog = [];
+  Object.keys(itemData).forEach(function(key) {
+    var item = itemData[key];
+    if (item.price !== undefined && item.type !== '货币') {
+      catalog.push({
+        key: key,
+        zh: key,
+        en: item.en,
+        type: item.type,
+        price: item.price,
+        desc: item.desc || '',
+        damage: item.damage || '',
+        ac: item.ac || '',
+        properties: item.properties || ''
+      });
+    }
+  });
+  return catalog;
+}
+
+// ===== 商店 Overlay =====
+var shopState = { cat: '全部', sort: '默认', cart: {}, catalog: null, gp: 0 };
+
 function openShop() {
-  // TODO: 将在后续实现完整的商店 overlay
-  var gp = wizardState.steps[6].remainingGP || 0;
-  alert('商店功能即将就绪！\n当前金币：' + gp + ' GP\n\n您将可以使用金币购买武器、护甲、工具和冒险装备。');
+  var s6 = wizardState.steps[6];
+  shopState.gp = s6.remainingGP || 0;
+  shopState.cart = {};
+  shopState.cat = '全部';
+  shopState.sort = '默认';
+  shopState.catalog = buildShopCatalog();
+
+  var overlay = document.getElementById('shopOverlay');
+  overlay.classList.add('visible');
+  renderShopGrid();
+  renderShopCart();
+}
+
+function closeShop() {
+  document.getElementById('shopOverlay').classList.remove('visible');
+}
+
+function renderShopGrid() {
+  var grid = document.getElementById('shopGrid');
+  var catalog = shopState.catalog;
+  var cat = shopState.cat;
+  var sort = shopState.sort;
+  var gp = shopState.gp;
+  var cart = shopState.cart;
+
+  // Filter
+  var filtered = catalog;
+  if (cat !== '全部') {
+    var types = SHOP_CATEGORIES[cat];
+    filtered = catalog.filter(function(item) { return types.indexOf(item.type) !== -1; });
+  }
+
+  // Sort
+  if (sort === '价格↑') filtered.sort(function(a, b) { return a.price - b.price; });
+  else if (sort === '价格↓') filtered.sort(function(a, b) { return b.price - a.price; });
+  else if (sort === '名称 A-Z') filtered.sort(function(a, b) { return a.zh.localeCompare(b.zh, 'zh'); });
+
+  var html = '';
+  filtered.forEach(function(item) {
+    var inCart = cart[item.key] || 0;
+    var canAfford = item.price <= gp;
+    var lookup = itemLookup(item.key);
+    var it = lookup ? lookup.it : null;
+    var rarity = (it && it.rarity) ? it.rarity : '普通';
+    var typeStr = (it && it.type) ? it.type : '';
+    var rarityLabel = rarity !== '普通' ? '<span class="eq-rarity-label rar-' + rarity + '">' + rarity + '</span>' : '';
+    html += '<div class="step6-equip-block has-data rar-' + rarity + ' shop-item" data-item="' + item.key + '" data-rarity="' + rarity + '">';
+    html += '<span class="eq-block-zh">' + item.zh + '</span>';
+    html += '<span class="eq-block-qty">' + formatPrice(item.price) + '</span>';
+    html += '<span class="eq-block-type">' + typeStr + '</span>';
+    html += rarityLabel;
+    html += '<span class="shop-qty-row">';
+    html += '<button class="shop-qty-btn shop-qty-minus' + (inCart > 0 ? '' : ' disabled') + '" data-item="' + item.key + '">-</button>';
+    html += '<span class="shop-qty-num">' + (inCart > 0 ? inCart : '+') + '</span>';
+    html += '<button class="shop-qty-btn shop-qty-plus' + (canAfford ? '' : ' disabled') + '" data-item="' + item.key + '">+</button>';
+    html += '</span>';
+    html += '</div>';
+  });
+
+  grid.innerHTML = html;
+
+  // Wire +/- buttons
+  grid.querySelectorAll('.shop-qty-plus').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation();
+      var key = this.dataset.item;
+      var item = shopState.catalog.find(function(c) { return c.key === key; });
+      if (!item || item.price > shopState.gp) return;
+      shopState.cart[key] = (shopState.cart[key] || 0) + 1;
+      shopState.gp -= item.price;
+      renderShopGrid();
+      renderShopCart();
+    });
+  });
+  grid.querySelectorAll('.shop-qty-minus').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation();
+      var key = this.dataset.item;
+      if (!shopState.cart[key]) return;
+      var item = shopState.catalog.find(function(c) { return c.key === key; });
+      shopState.cart[key]--;
+      if (shopState.cart[key] <= 0) delete shopState.cart[key];
+      shopState.gp += item ? item.price : 0;
+      renderShopGrid();
+      renderShopCart();
+    });
+  });
+
+  // Wire hover popups
+  grid.querySelectorAll('.shop-item').forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      showItemPopup(card.dataset.item, card);
+    });
+    card.addEventListener('mouseleave', hideSkillPopup);
+    card.addEventListener('mouseenter', cancelHidePopup);
+  });
+}
+
+function renderShopCart() {
+  var cartEl = document.getElementById('shopCartItems');
+  var totalEl = document.getElementById('shopCartTotal');
+  var buyBtn = document.getElementById('shopCartBuyBtn');
+  var gpDisplay = document.getElementById('shopGpDisplay');
+  var catalog = shopState.catalog;
+  var cart = shopState.cart;
+  var gp = shopState.gp;
+
+  gpDisplay.innerHTML = renderCurrencyCounter(gp);
+
+  var totalGP = 0;
+  var html = '';
+  Object.keys(cart).forEach(function(key) {
+    var item = catalog.find(function(c) { return c.key === key; });
+    if (!item) return;
+    var qty = cart[key];
+    var subtotal = item.price * qty;
+    totalGP += subtotal;
+    html += '<div class="shop-cart-item">';
+    html += '<span class="shop-cart-item-name">' + key + '<i> x' + qty + '</i></span>';
+    html += '<span class="shop-cart-item-price">' + formatPrice(subtotal) + '</span>';
+    html += '</div>';
+  });
+
+  if (html === '') {
+    html = '<div class="shop-cart-empty">购物车为空</div>';
+    buyBtn.classList.add('disabled');
+  } else {
+    buyBtn.classList.remove('disabled');
+  }
+
+  cartEl.innerHTML = html;
+  totalEl.innerHTML = '合计 <b>' + formatPrice(totalGP) + '</b>';
+}
+
+function shopBuy() {
+  var cart = shopState.cart;
+  if (Object.keys(cart).length === 0) return;
+  var s6 = wizardState.steps[6];
+  s6.remainingGP = shopState.gp;
+
+  Object.keys(cart).forEach(function(key) {
+    var qty = cart[key];
+    for (var i = 0; i < qty; i++) {
+      s6.purchasedItems.push({ name: key, qty: 1 });
+    }
+  });
+
+  closeShop();
+  renderStep6();
+}
+
+// Shop tab switching
+function switchShopTab(tab) {
+  shopState.cat = tab;
+  document.querySelectorAll('.shop-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelector('.shop-tab[data-tab="' + tab + '"]').classList.add('active');
+  renderShopGrid();
+}
+
+// Shop sort switching
+function switchShopSort(sort) {
+  shopState.sort = sort;
+  document.querySelectorAll('.shop-sort-pill').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('.shop-sort-pill[data-sort="' + sort + '"]').classList.add('active');
+  renderShopGrid();
 }
 
 document.getElementById('detailSidePrev').addEventListener('mouseenter', function() { playSfx(sfx.hover); });
@@ -9183,40 +10234,39 @@ function buildGalleryItems() {
 
   // class 图
   var classFiles = [
-    '野蛮人.png','狂战士.png','兽心.png','树心.png','zealot.png',
-    'bard.png','逸闻.png','勇气.png','迷惑.png','舞蹈.png',
-    '牧师.png','光明.png','战争.png','生命.png','诡术领域.png',
-    '德鲁伊.png','大地.png','月亮.png','星辰.png','海洋.png',
-    '战士.png','勇士.png','战斗大师.png','奥法骑士.png','灵能武士.png',
-    '武僧.png','散打.png','暗影.png','四象.png','命流.png',
-    '圣武士.png','奉献.png','古贤.png','复仇.png','荣耀.png',
-    'ranger.png','猎人.png','驯兽师.png','幽域追猎者.png','妖精漫游.png',
-    '游荡.png','刺客.png','盗贼.png','诡术.png','魂刃.png',
-    '术士.png','龙血.png','混沌.png','机械.png','怪异.png',
-    'warlock.png','邪魔宗主.png','至高妖精宗主.png','天界.png','旧日支配者宗主.png',
-    '法师.png','防护师.png','幻术师.png','塑能师.png','预言师.png',
-    '圣武士可选.png',
-    '可选2.png','可选3.png','可选4.png','可选5.png','可选6.png','可选8.png','可选9.png',
-    'ChatGPT Image 2026年5月21日 20_13_45 (1).png',
-    'ChatGPT Image 2026年5月21日 20_13_46 (2).png',
-    'ChatGPT Image 2026年5月21日 20_13_46 (3).png',
-    'ChatGPT Image 2026年5月21日 20_13_49 (4).png',
-    'ChatGPT Image 2026年5月21日 20_13_49 (5).png',
-    'ChatGPT Image 2026年5月21日 20_13_51 (6).png',
-    'ChatGPT Image 2026年5月21日 20_13_51 (7).png',
-    'ChatGPT Image 2026年5月21日 20_13_53 (8).png',
-    'ChatGPT Image 2026年5月21日 20_13_54 (9).png',
-    'ChatGPT Image 2026年5月21日 20_13_55 (10).png',
-    'ChatGPT Image 2026年5月21日 20_27_31 (1).png',
-    'ChatGPT Image 2026年5月21日 20_27_31 (2).png',
-    'ChatGPT Image 2026年5月21日 20_27_32 (3).png',
-    'ChatGPT Image 2026年5月21日 20_27_32 (4).png',
-    'ChatGPT Image 2026年5月21日 20_27_32 (5).png',
-    'ChatGPT Image 2026年5月21日 20_27_33 (6).png',
-    'ChatGPT Image 2026年5月21日 20_27_33 (7).png',
-    'ChatGPT Image 2026年5月21日 20_27_34 (8).png',
-    'ChatGPT Image 2026年5月21日 20_27_34 (9).png',
-    'ChatGPT Image 2026年5月21日 20_27_35 (10).png'
+    'barbarian.png','berserker.png','wild-heart.png','world-tree.png','zealot.png',
+    'bard.png','lore.png','valor.png','glamour.png','dance.png',
+    'cleric.png','light-domain.png','war-domain.png','life-domain.png','trickery-domain.png',
+    'druid.png','land.png','moon.png','stars.png','sea.png',
+    'fighter.png','champion.png','battle-master.png','eldritch-knight.png','psi-warrior.png',
+    'monk.png','open-hand.png','shadow.png','four-elements.png','mercy.png',
+    'paladin.png','devotion.png','ancients.png','vengeance.png','glory.png',
+    'ranger.png','hunter.png','beast-master.png','gloom-stalker.png','fey-wanderer.png',
+    'rogue.png','assassin.png','thief.png','arcane-trickster.png','soulknife.png',
+    'sorcerer.png','draconic.png','wild-magic.png','clockwork.png','aberrant.png',
+    'warlock.png','fiend.png','archfey.png','celestial.png','great-old-one.png',
+    'wizard.png','abjurer.png','illusionist.png','evoker.png','diviner.png',
+    '1.png','2.png','3.png','4.png','5.png','6.png','7.png',
+    'ChatGPT Image 2026年5月22日 17_06_45 (1).png',
+    'ChatGPT Image 2026年5月22日 17_06_46 (2).png',
+    'ChatGPT Image 2026年5月22日 17_06_46 (3).png',
+    'ChatGPT Image 2026年5月22日 17_06_47 (4).png',
+    'ChatGPT Image 2026年5月22日 17_06_49 (5).png',
+    'ChatGPT Image 2026年5月22日 17_06_50 (6).png',
+    'ChatGPT Image 2026年5月22日 17_06_50 (7).png',
+    'ChatGPT Image 2026年5月22日 17_06_51 (8).png',
+    'ChatGPT Image 2026年5月22日 17_06_51 (9).png',
+    'ChatGPT Image 2026年5月22日 17_06_52 (10).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (1).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (2).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (3).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (4).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (5).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (6).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (7).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (8).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (9).png',
+    'ChatGPT Image 2026年5月22日 17_07_12 (10).png'
   ];
   classFiles.forEach(function(fn) { items.push({dir:'class',src:fn}); });
 
@@ -9278,8 +10328,15 @@ function closeLightbox() {
 
 document.getElementById('galleryClose').addEventListener('click', closeGallery);
 document.getElementById('portraitGalleryClose').addEventListener('click', closePortraitGallery);
+document.getElementById('portraitGalleryConfirm').addEventListener('click', function() {
+  playSfx(sfx.click);
+  closePortraitGallery();
+});
 document.getElementById('portraitGalleryOverlay').addEventListener('click', function(e) {
   if (e.target === this) closePortraitGallery();
+});
+document.getElementById('shopOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeShop();
 });
 document.getElementById('galleryLightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('galleryLightbox').addEventListener('click', function(e) {
@@ -9314,6 +10371,290 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+
+/* ===== UI 特效系统 ===== */
+var FX_ENABLED = true;
+
+(function() {
+  if (!FX_ENABLED) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.innerWidth < 768;
+
+  var particleCanvas = document.getElementById('fxParticles');
+  var particleCtx = null;
+  var mouseCanvas = document.getElementById('fxMouseLayer');
+  var mouseCtx = null;
+  var ambientParticles = [];
+  var mouseTrail = [];
+  var activeBursts = [];
+  var particleRAF = null;
+  var mouseRAF = null;
+  var AMBIENT_COUNT = 55;
+  var TRAIL_MAX = 30;
+
+  /* ---- 鼠标位置追踪 ---- */
+  var mouseX = -100, mouseY = -100;
+  var prevMouseX = -100, prevMouseY = -100;
+  var mouseOnScreen = false;
+  var mouseSpeed = 0;
+  var idleTimer = null;
+
+  document.addEventListener('mousemove', function(e) {
+    prevMouseX = mouseX; prevMouseY = mouseY;
+    mouseX = e.clientX; mouseY = e.clientY;
+    mouseOnScreen = true;
+    mouseSpeed = Math.hypot(mouseX - prevMouseX, mouseY - prevMouseY);
+    if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+    /* 100ms 不动就算静止 */
+    idleTimer = setTimeout(function() { mouseSpeed = 0; }, 100);
+  });
+  document.addEventListener('mouseleave', function() { mouseOnScreen = false; mouseSpeed = 0; });
+  document.addEventListener('mouseenter', function() { mouseOnScreen = true; });
+
+  /* ---- 点击爆发 ---- */
+  var activeRings = [];
+  document.addEventListener('click', function(e) {
+    if (prefersReducedMotion) return;
+    if (e.target.closest('.shop-overlay, .gallery-overlay, .race-detail-overlay, .trait-popup, #globalTooltip')) return;
+    var bx = e.clientX, by = e.clientY;
+    /* 粒子爆发 */
+    for (var i = 0; i < 30; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var speed = Math.random() * 5 + 2;
+      activeBursts.push({
+        x: bx, y: by,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * 2.5 + 0.6,
+        life: 1,
+        decay: Math.random() * 0.022 + 0.015,
+        hue: Math.random() * 20 + 35
+      });
+    }
+    /* 光晕波纹 */
+    activeRings.push({ x: bx, y: by, radius: 0, life: 1 });
+  });
+
+  /* ---- 环境粒子（底层 Canvas）---- */
+  function initAmbientParticles() {
+    if (!particleCanvas || prefersReducedMotion || isMobile) return;
+    particleCtx = particleCanvas.getContext('2d');
+
+    function resizeAmbient() {
+      particleCanvas.width = window.innerWidth;
+      particleCanvas.height = window.innerHeight;
+    }
+    resizeAmbient();
+    window.addEventListener('resize', resizeAmbient);
+
+    function spawnAmbient(fromBottom) {
+      return {
+        x: Math.random() * particleCanvas.width * 0.33,
+        y: fromBottom ? particleCanvas.height + Math.random() * 40 : Math.random() * particleCanvas.height,
+        size: Math.random() * 2.4 + 0.8,
+        speedY: -(Math.random() * 0.45 + 0.12),
+        speedX: (Math.random() - 0.35) * 0.25,
+        opacity: Math.random() * 0.5 + 0.12,
+        life: Math.random() * 0.7 + 0.3,
+        decay: Math.random() * 0.0025 + 0.001,
+        hue: Math.random() * 25 + 32
+      };
+    }
+
+    for (var i = 0; i < AMBIENT_COUNT; i++) {
+      ambientParticles.push(spawnAmbient(false));
+    }
+
+    function animateAmbient() {
+      if (!particleCtx) return;
+      particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+
+      for (var k = 0; k < ambientParticles.length; k++) {
+        var p = ambientParticles[k];
+        p.y += p.speedY; p.x += p.speedX;
+        p.life -= p.decay;
+
+        var glowSize = p.size < 1.6 ? 0 : p.size * 1.4;
+        var alpha = p.opacity * Math.max(0, p.life);
+
+        if (glowSize > 0 && alpha > 0.12) {
+          particleCtx.beginPath();
+          particleCtx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+          particleCtx.fillStyle = 'hsla(' + p.hue + ', 55%, 78%, ' + (alpha * 0.2) + ')';
+          particleCtx.fill();
+        }
+
+        particleCtx.beginPath();
+        particleCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        particleCtx.fillStyle = 'hsla(' + p.hue + ', 45%, 72%, ' + alpha + ')';
+        particleCtx.fill();
+
+        if (p.life <= 0 || p.y < -25 || p.x < -30 || p.x > particleCanvas.width + 30) {
+          p.x = Math.random() * particleCanvas.width * 0.33;
+          p.y = Math.random() * particleCanvas.height * 1.15;
+          p.life = 1;
+          p.size = Math.random() * 2.4 + 0.8;
+          p.speedY = -(Math.random() * 0.45 + 0.12);
+          p.speedX = (Math.random() - 0.35) * 0.25;
+          p.decay = Math.random() * 0.0025 + 0.001;
+          p.opacity = Math.random() * 0.5 + 0.12;
+          p.hue = Math.random() * 25 + 32;
+        }
+      }
+
+      particleRAF = requestAnimationFrame(animateAmbient);
+    }
+
+    animateAmbient();
+  }
+
+  /* ---- 鼠标特效层（顶层 Canvas：拖尾 + 点击爆发）---- */
+  function initMouseLayer() {
+    if (!mouseCanvas || prefersReducedMotion) return;
+    mouseCtx = mouseCanvas.getContext('2d');
+
+    function resizeMouse() {
+      mouseCanvas.width = window.innerWidth;
+      mouseCanvas.height = window.innerHeight;
+    }
+    resizeMouse();
+    window.addEventListener('resize', resizeMouse);
+
+    var lastTrailSpawn = 0;
+
+    function spawnTrailParticle() {
+      if (!mouseOnScreen || mouseSpeed < 2) return;
+      var now = performance.now();
+      var interval = Math.max(10, 40 - mouseSpeed * 2);
+      if (now - lastTrailSpawn < interval) return;
+      lastTrailSpawn = now;
+
+      var dx = mouseX - prevMouseX;
+      var dy = mouseY - prevMouseY;
+      var spread = Math.min(mouseSpeed * 0.12, 6);
+
+      mouseTrail.push({
+        x: mouseX + (Math.random() - 0.5) * spread * 2,
+        y: mouseY + (Math.random() - 0.5) * spread * 2,
+        size: Math.random() * 3 + 0.6,
+        vx: -dx * 0.025 + (Math.random() - 0.5) * 0.5,
+        vy: -dy * 0.025 + (Math.random() - 0.5) * 0.5 - 0.15,
+        life: 1,
+        decay: Math.random() * 0.02 + 0.012,
+        hue: Math.random() * 18 + 40
+      });
+
+      while (mouseTrail.length > TRAIL_MAX) { mouseTrail.shift(); }
+    }
+
+    function animateMouse() {
+      if (!mouseCtx) return;
+      mouseCtx.clearRect(0, 0, mouseCanvas.width, mouseCanvas.height);
+
+      spawnTrailParticle();
+
+      /* 鼠标拖尾 */
+      var isIdle = mouseSpeed < 0.5;
+      for (var i = mouseTrail.length - 1; i >= 0; i--) {
+        var t = mouseTrail[i];
+        t.x += t.vx; t.y += t.vy;
+        t.life -= isIdle ? t.decay * 5 : t.decay;
+
+        if (t.life <= 0) { mouseTrail.splice(i, 1); continue; }
+
+        var ta = t.life * 0.8;
+        var r = t.size * t.life;
+
+        /* 辉光 */
+        mouseCtx.beginPath();
+        mouseCtx.arc(t.x, t.y, r * 2, 0, Math.PI * 2);
+        mouseCtx.fillStyle = 'hsla(' + t.hue + ', 60%, 88%, ' + (ta * 0.12) + ')';
+        mouseCtx.fill();
+
+        /* 核心 */
+        mouseCtx.beginPath();
+        mouseCtx.arc(t.x, t.y, r, 0, Math.PI * 2);
+        mouseCtx.fillStyle = 'hsla(' + t.hue + ', 55%, 82%, ' + ta + ')';
+        mouseCtx.fill();
+      }
+
+      /* 点击爆发粒子 */
+      for (var j = activeBursts.length - 1; j >= 0; j--) {
+        var b = activeBursts[j];
+        b.x += b.vx; b.y += b.vy;
+        b.vy += 0.04;
+        b.life -= b.decay;
+
+        if (b.life <= 0) { activeBursts.splice(j, 1); continue; }
+
+        var ba = b.life * 0.9;
+        var br = b.size * b.life;
+
+        mouseCtx.beginPath();
+        mouseCtx.arc(b.x, b.y, br * 1.8, 0, Math.PI * 2);
+        mouseCtx.fillStyle = 'hsla(' + b.hue + ', 55%, 85%, ' + (ba * 0.15) + ')';
+        mouseCtx.fill();
+
+        mouseCtx.beginPath();
+        mouseCtx.arc(b.x, b.y, br, 0, Math.PI * 2);
+        mouseCtx.fillStyle = 'hsla(' + b.hue + ', 50%, 80%, ' + ba + ')';
+        mouseCtx.fill();
+      }
+
+      /* 点击光晕波纹 */
+      for (var r = activeRings.length - 1; r >= 0; r--) {
+        var ring = activeRings[r];
+        ring.radius += 3.5;
+        ring.life -= 0.025;
+
+        if (ring.life <= 0) { activeRings.splice(r, 1); continue; }
+
+        var ra = ring.life * 0.5;
+        mouseCtx.beginPath();
+        mouseCtx.arc(ring.x, ring.y, ring.radius, 0, Math.PI * 2);
+        mouseCtx.strokeStyle = 'hsla(42, 70%, 75%, ' + ra + ')';
+        mouseCtx.lineWidth = 2.5 * ring.life;
+        mouseCtx.stroke();
+
+        /* 内圈第二环 */
+        if (ring.life > 0.4) {
+          mouseCtx.beginPath();
+          mouseCtx.arc(ring.x, ring.y, ring.radius * 0.55, 0, Math.PI * 2);
+          mouseCtx.strokeStyle = 'hsla(42, 80%, 88%, ' + (ra * 0.7) + ')';
+          mouseCtx.lineWidth = 1.5 * ring.life;
+          mouseCtx.stroke();
+        }
+      }
+
+      mouseRAF = requestAnimationFrame(animateMouse);
+    }
+
+    animateMouse();
+  }
+
+  initAmbientParticles();
+  initMouseLayer();
+
+  /* ---- prefers-reduced-motion ---- */
+  var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  motionQuery.addEventListener('change', function(e) {
+    if (e.matches) {
+      if (particleCanvas) { particleCanvas.style.display = 'none'; }
+      if (particleRAF) { cancelAnimationFrame(particleRAF); particleRAF = null; }
+      if (mouseCanvas) { mouseCanvas.style.display = 'none'; }
+      if (mouseRAF) { cancelAnimationFrame(mouseRAF); mouseRAF = null; }
+      prefersReducedMotion = true;
+    }
+  });
+
+  /* ---- 移动端切换 ---- */
+  window.addEventListener('resize', function() {
+    var nowMobile = window.innerWidth < 768;
+    if (nowMobile !== isMobile) { isMobile = nowMobile; }
+  });
+})();
+
 </script>
 </body>
 </html>
